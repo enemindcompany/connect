@@ -19,7 +19,13 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--B);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(244,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+/* ── PROMO BANNER (links back to Enemind) ── */
+.promo-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 16px;font-size:13px;font-weight:500;flex-wrap:wrap;text-align:center;}
+.promo-bar strong{color:#fff}
+.promo-bar a.promo-cta{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;font-family:var(--B);font-weight:700;font-size:12px;padding:6px 14px;border-radius:100px;text-decoration:none;letter-spacing:.02em;transition:.15s;white-space:nowrap;}
+.promo-bar a.promo-cta:hover{opacity:.85;transform:translateY(-1px)}
+
+nav{position:fixed;top:38px;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(244,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .logo{font-family:var(--D);font-weight:800;font-size:20px;color:var(--ink);text-decoration:none;letter-spacing:-.5px}
 .logo em{color:var(--accent);font-style:normal}
 .nav-links{display:flex;gap:0;list-style:none}
@@ -29,7 +35,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;ali
 .nav-hire:hover{opacity:.85}
 
 /* HERO */
-.hero-wrap{min-height:100vh;display:flex;align-items:center;padding:80px 6% 60px;gap:60px;max-width:1200px;margin:0 auto;}
+.hero-wrap{min-height:100vh;display:flex;align-items:center;padding:140px 6% 60px;gap:60px;max-width:1200px;margin:0 auto;}
 .hero-photo{flex-shrink:0;width:340px;height:420px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--border);background:linear-gradient(145deg,#dde6ff 0%,#c8d9ff 100%);}
 .hero-photo-badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:100px;padding:7px 18px;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;letter-spacing:.02em;}
 .hero-text{flex:1;min-width:0}
@@ -134,6 +140,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;ali
 /* Project screenshot mockup */
 .proj-thumb{border-radius:8px;overflow:hidden;margin-bottom:4px;border:1px solid var(--border);}
 
+/* ── CREATE YOURS TODAY — full-width CTA band ── */
+.cta-create{background:linear-gradient(135deg,var(--ink) 0%,#1a1a2e 100%);color:#fff;text-align:center;padding:80px 6%;}
+.cta-create .sec-label{color:rgba(255,255,255,.5)}
+.cta-create .sec-label::after{background:rgba(255,255,255,.15)}
+.cta-create h2{font-family:var(--D);font-size:clamp(28px,4.5vw,46px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;}
+.cta-create h2 .accent-text{color:#7C9CFF}
+.cta-create p{font-size:15px;color:rgba(255,255,255,.65);font-weight:300;max-width:480px;margin:0 auto 32px;line-height:1.7;}
+.cta-create-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-family:var(--D);font-size:17px;font-weight:700;padding:18px 38px;border-radius:10px;text-decoration:none;letter-spacing:-.2px;transition:.18s;box-shadow:0 8px 30px rgba(26,63,204,.35);}
+.cta-create-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,63,204,.5);background:#2c4fe0;}
+.cta-create-note{margin-top:18px;font-size:12px;color:rgba(255,255,255,.4);}
+.cta-create-perks{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:40px;}
+.cta-perk{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7);font-weight:500;}
+.cta-perk .ico{font-size:16px}
+
 /* CONTACT */
 .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
 .contact-head{font-family:var(--D);font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:16px}
@@ -155,23 +175,35 @@ footer{border-top:1px solid var(--border);padding:28px 6%;display:flex;justify-c
 footer a{color:var(--accent);text-decoration:none}
 
 @media(max-width:900px){
-  .hero-wrap{flex-direction:column;padding-top:100px;align-items:center;text-align:center}
+  .hero-wrap{flex-direction:column;padding-top:160px;align-items:center;text-align:center}
   .hero-photo{width:240px;height:300px}
   .hero-sub{margin-left:auto;margin-right:auto}
   .hero-btns{justify-content:center}
   .hero-stats{justify-content:center}
   .about-layout,.contact-layout,.skills-layout{grid-template-columns:1fr;gap:36px}
   .proj-grid{grid-template-columns:1fr 1fr}
+  nav{top:0}
+  .promo-bar{position:static}
+  .hero-wrap{padding-top:40px}
 }
 @media(max-width:600px){
   .proj-grid{grid-template-columns:1fr}
   .int-grid{grid-template-columns:1fr 1fr}
   nav .nav-links{display:none}
   .hero-eyebrow{justify-content:center}
+  .cta-create-perks{gap:16px}
 }
 </style>
 </head>
 <body>
+
+<!-- ══ PROMO BAR — links back to Enemind / Google Form ══ -->
+<div class="promo-bar">
+  <span>✨ This portfolio was built with <strong>Enemind</strong> — want one like it?</span>
+  <a class="promo-cta" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">
+    Create Yours Today →
+  </a>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -183,7 +215,7 @@ footer a{color:var(--accent);text-decoration:none}
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a class="nav-hire" href="#contact">Hire me</a>
+  <a class="nav-hire" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">Create yours →</a>
 </nav>
 
 <!-- HERO -->
@@ -491,6 +523,25 @@ footer a{color:var(--accent);text-decoration:none}
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- ════ CREATE YOURS TODAY — big CTA band ════ -->
+<div class="cta-create">
+  <div class="section-inner" style="padding:0;">
+    <div class="sec-label" style="justify-content:center;">Like what you see?</div>
+    <h2>Get a portfolio site <span class="accent-text">just like this one.</span></h2>
+    <p>This entire site was designed and built by Enemind. Tell us about yourself using the quick form below and we'll build a personalised portfolio site for you — just like this.</p>
+    <a class="cta-create-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">
+      🚀 Create Yours Today
+    </a>
+    <div class="cta-create-perks">
+      <div class="cta-perk"><span class="ico">⚡</span> Fast turnaround</div>
+      <div class="cta-perk"><span class="ico">🎨</span> Fully personalised design</div>
+      <div class="cta-perk"><span class="ico">📱</span> Mobile responsive</div>
+      <div class="cta-perk"><span class="ico">🐙</span> GitHub Pages ready</div>
+    </div>
+    <div class="cta-create-note">Opens our intake form on Google Forms · takes about 3 minutes</div>
   </div>
 </div>
 
