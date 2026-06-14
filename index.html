@@ -275,7 +275,7 @@
     <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
     <li><a onclick="showPage('courses')" id="nav-courses">Courses</a></li>
     <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
-    <li><a onclick="showPage('portfolio')" id="nav-portfolio">GitHub Portfolio</a></li>
+    <li><a href="portfolio.html" target="_blank" rel="noopener" id="nav-portfolio">GitHub Portfolio</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
   <button class="nav-cta" onclick="showPage('contact')">Get in touch</button>
@@ -287,7 +287,7 @@
   <a onclick="showPage('home');closeMobile()">Home</a>
   <a onclick="showPage('courses');closeMobile()">Courses</a>
   <a onclick="showPage('shop');closeMobile()">Shop</a>
-  <a onclick="showPage('portfolio');closeMobile()">GitHub Portfolio</a>
+  <a href="portfolio.html" target="_blank" rel="noopener">GitHub Portfolio</a>
   <a onclick="showPage('contact');closeMobile()">Contact</a>
 </nav>
 
@@ -323,7 +323,7 @@
         <p>From basics to advanced formulas, pivot tables, and dashboards. Learn at your own pace with real-world exercises.</p>
         <span class="card-tag tag-teal">Course</span>
       </div>
-      <div class="card" onclick="showPage('portfolio')">
+      <div class="card" onclick="window.open('portfolio.html','_blank')">
         <div class="card-icon ic-blue">🐙</div>
         <h3>GitHub portfolio making</h3>
         <p>We help you build a polished GitHub profile that showcases your engineering projects and impresses employers.</p>
@@ -515,13 +515,16 @@
   </div>
 </div>
 
-<!-- ═══ PORTFOLIO PAGE ═══ -->
+<!-- ═══ PORTFOLIO PAGE (internal — kept for completeness, also reachable via /portfolio.html) ═══ -->
 <div class="page" id="page-portfolio">
   <div class="portfolio-hero">
     <div class="eyebrow" style="color:rgba(255,255,255,0.6);">GitHub Portfolio</div>
     <h1>Your portfolio is your CV — let's make it count</h1>
     <p>We help engineering students build GitHub profiles that impress internship coordinators and employers in Kenya and beyond.</p>
-    <button class="btn btn-white" style="margin-top:28px;" onclick="showPage('contact')">Start your portfolio →</button>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;">
+      <a class="btn btn-white" href="portfolio.html" target="_blank" rel="noopener">View example portfolio →</a>
+      <a class="btn btn-teal" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">Create yours today →</a>
+    </div>
   </div>
   <section class="section">
     <div class="section-header centered">
@@ -537,15 +540,18 @@
     </div>
     <div class="section-header"><div class="eyebrow">Example portfolios</div><h2 class="section-title">What a great portfolio looks like</h2></div>
     <div class="portfolio-showcase">
-      <div class="portfolio-item"><div class="portfolio-thumb">⚡</div><div class="portfolio-info"><h4>Smart home automation system</h4><p>Arduino + sensors controlling home appliances via a web dashboard. Final year project by a JKUAT student.</p><div class="portfolio-tags"><span class="ptag">Arduino</span><span class="ptag">IoT</span><span class="ptag">Web</span></div></div></div>
-      <div class="portfolio-item"><div class="portfolio-thumb">📊</div><div class="portfolio-info"><h4>Nairobi air quality tracker</h4><p>Python + Google Sheets dashboard pulling real sensor data and visualizing pollution trends.</p><div class="portfolio-tags"><span class="ptag">Python</span><span class="ptag">Sheets API</span><span class="ptag">Data viz</span></div></div></div>
-      <div class="portfolio-item"><div class="portfolio-thumb">🤖</div><div class="portfolio-info"><h4>Line-following robot</h4><p>Autonomous robot using IR sensors and motor control. Fully documented with circuit schematics on GitHub.</p><div class="portfolio-tags"><span class="ptag">Robotics</span><span class="ptag">C++</span><span class="ptag">GitHub Pages</span></div></div></div>
+      <div class="portfolio-item" onclick="window.open('portfolio.html','_blank')" style="cursor:pointer;"><div class="portfolio-thumb">⚡</div><div class="portfolio-info"><h4>Smart home automation system</h4><p>Arduino + sensors controlling home appliances via a web dashboard. Final year project by a JKUAT student.</p><div class="portfolio-tags"><span class="ptag">Arduino</span><span class="ptag">IoT</span><span class="ptag">Web</span></div></div></div>
+      <div class="portfolio-item" onclick="window.open('portfolio.html','_blank')" style="cursor:pointer;"><div class="portfolio-thumb">📊</div><div class="portfolio-info"><h4>Nairobi air quality tracker</h4><p>Python + Google Sheets dashboard pulling real sensor data and visualizing pollution trends.</p><div class="portfolio-tags"><span class="ptag">Python</span><span class="ptag">Sheets API</span><span class="ptag">Data viz</span></div></div></div>
+      <div class="portfolio-item" onclick="window.open('portfolio.html','_blank')" style="cursor:pointer;"><div class="portfolio-thumb">🤖</div><div class="portfolio-info"><h4>Line-following robot</h4><p>Autonomous robot using IR sensors and motor control. Fully documented with circuit schematics on GitHub.</p><div class="portfolio-tags"><span class="ptag">Robotics</span><span class="ptag">C++</span><span class="ptag">GitHub Pages</span></div></div></div>
     </div>
   </section>
   <div class="cta-band">
     <h2>Ready to build your portfolio?</h2>
-    <p>Reach out and we'll get started within 24 hours.</p>
-    <button class="btn btn-white" onclick="showPage('contact')">Contact us →</button>
+    <p>Reach out and we'll get started within 24 hours, or jump straight into our intake form.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-white" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">Create yours today →</a>
+      <button class="btn btn-outline" style="border-color:#fff;color:#fff;" onclick="showPage('contact')">Contact us →</button>
+    </div>
   </div>
 </div>
 
@@ -683,7 +689,7 @@
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a onclick="showPage('portfolio')">GitHub portfolio</a>
+      <a href="portfolio.html" target="_blank" rel="noopener">GitHub portfolio</a>
       <a onclick="showPage('shop')">Components shop</a>
       <a onclick="showPage('shop')">Books shop</a>
     </div>
