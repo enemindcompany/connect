@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidney Wafula — Electrical & Electronics Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0A0A;--ink2:#3D3D3D;--ink3:#888;
+  --bg:#F4F3EE;--card:#FFFFFF;--card2:#F9F8F4;
+  --accent:#1A3FCC;--accent-light:#EBF0FF;
+  --green:#00B87A;--green-light:#E6FAF5;
+  --border:#E0DED6;
+  --D:'Syne',sans-serif;--B:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--B);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(244,243,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.logo{font-family:var(--D);font-weight:800;font-size:20px;color:var(--ink);text-decoration:none;letter-spacing:-.5px}
+.logo em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;padding:8px 16px;border-radius:6px;transition:.15s;letter-spacing:.01em;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-light)}
+.nav-hire{background:var(--accent);color:#fff;font-family:var(--B);font-size:13px;font-weight:600;padding:9px 20px;border-radius:6px;text-decoration:none;letter-spacing:.01em;transition:.15s;}
+.nav-hire:hover{opacity:.85}
+
+/* HERO */
+.hero-wrap{min-height:100vh;display:flex;align-items:center;padding:80px 6% 60px;gap:60px;max-width:1200px;margin:0 auto;}
+.hero-photo{flex-shrink:0;width:340px;height:420px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--border);background:linear-gradient(145deg,#dde6ff 0%,#c8d9ff 100%);}
+.hero-photo-badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:100px;padding:7px 18px;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;letter-spacing:.02em;}
+.hero-text{flex:1;min-width:0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px;}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--accent);flex-shrink:0}
+.hero-text h1{font-family:var(--D);font-size:clamp(44px,6vw,80px);font-weight:800;line-height:.95;letter-spacing:-2.5px;margin-bottom:28px;}
+.hero-text h1 .ln{display:block}
+.hero-text h1 .outlined{-webkit-text-stroke:2.5px var(--accent);color:transparent;}
+.hero-sub{font-size:17px;font-weight:300;color:var(--ink2);max-width:460px;line-height:1.75;margin-bottom:36px;}
+.hero-sub strong{font-weight:500;color:var(--ink)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.btn-p{background:var(--accent);color:#fff;font-family:var(--B);font-size:14px;font-weight:600;padding:13px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer;transition:.15s;}
+.btn-p:hover{opacity:.85}
+.btn-g{background:none;color:var(--ink);font-family:var(--B);font-size:14px;font-weight:500;padding:12px 24px;border-radius:6px;text-decoration:none;border:1.5px solid var(--border);cursor:pointer;transition:.15s;}
+.btn-g:hover{border-color:var(--ink2)}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap}
+.hstat{border-left:3px solid var(--accent);padding-left:14px}
+.hstat-num{font-family:var(--D);font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--ink)}
+.hstat-lbl{font-size:12px;color:var(--ink3);margin-top:1px}
+
+/* SECTIONS */
+.section-outer{border-top:1px solid var(--border);padding:80px 0}
+.section-inner{max-width:1200px;margin:0 auto;padding:0 6%}
+.sec-label{font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:44px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-title{font-family:var(--D);font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:40px;}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.about-body p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:300}
+.about-body p strong{font-weight:500;color:var(--ink)}
+.about-traits{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.trait{background:var(--accent-light);color:var(--accent);font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;letter-spacing:.03em;}
+.facts-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.facts-panel-header{background:var(--accent);color:#fff;padding:16px 20px;font-family:var(--D);font-size:15px;font-weight:700;letter-spacing:-.2px;}
+.fact-row{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;border-bottom:1px solid var(--border);font-size:13.5px;}
+.fact-row:last-child{border-bottom:none}
+.fact-lbl{color:var(--ink3);font-weight:400}
+.fact-val{color:var(--ink);font-weight:500;text-align:right;max-width:55%}
+
+/* EDUCATION */
+.edu-timeline{position:relative;padding-left:28px}
+.edu-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border);border-radius:2px;}
+.edu-entry{position:relative;padding-bottom:40px}
+.edu-entry:last-child{padding-bottom:0}
+.edu-dot{position:absolute;left:-28px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--card);border:2.5px solid var(--border);transition:.2s;}
+.edu-entry.current .edu-dot{border-color:var(--accent);background:var(--accent)}
+.edu-entry.highlight .edu-dot{border-color:var(--green);background:var(--green)}
+.edu-year{font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;transition:.18s;}
+.edu-entry.current .edu-card{border-color:var(--accent)}
+.edu-entry.highlight .edu-card{border-color:var(--green)}
+.edu-school{font-family:var(--D);font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
+.edu-detail{font-size:13px;color:var(--ink3);font-weight:300;margin-bottom:10px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;letter-spacing:.03em;}
+.badge-blue{background:var(--accent-light);color:var(--accent)}
+.badge-green{background:var(--green-light);color:#00865F}
+.badge-gray{background:#F0F0EC;color:#666}
+
+/* SKILLS */
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.skill-cards{display:flex;flex-direction:column;gap:14px}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;display:flex;align-items:flex-start;gap:16px;transition:.18s;}
+.skill-card:hover{border-color:var(--accent);transform:translateX(4px)}
+.skill-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.skill-body .sk-name{font-family:var(--D);font-size:16px;font-weight:700;letter-spacing:-.2px;margin-bottom:4px}
+.skill-body .sk-desc{font-size:13px;color:var(--ink3);line-height:1.6;font-weight:300}
+.interests-side{padding-top:8px}
+.int-title{font-size:13px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.int-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.int-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+.int-card .ico{font-size:26px;margin-bottom:6px}
+.int-card .lbl{font-size:12px;font-weight:500;color:var(--ink2)}
+
+/* PROJECTS — updated with real samples */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;display:flex;flex-direction:column;gap:10px;transition:.2s;position:relative;overflow:hidden;}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:.2s;}
+.proj-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.proj-card:hover::before{transform:scaleX(1)}
+.proj-num{font-size:11px;color:var(--ink3);font-weight:600;letter-spacing:.1em}
+.proj-title{font-family:var(--D);font-size:18px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.proj-desc{font-size:13px;color:var(--ink2);line-height:1.65;font-weight:300;flex:1}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.ptag{font-size:11px;background:var(--bg);color:var(--ink3);padding:3px 10px;border-radius:3px;font-weight:500}
+/* Special card colours */
+.proj-card.green-card{border-color:var(--green)}
+.proj-card.green-card::before{background:var(--green)}
+.proj-card.green-card:hover{border-color:var(--green)}
+.proj-card.blue-card{border-color:var(--accent)}
+.proj-card.blue-card::before{background:var(--accent)}
+.proj-cta{background:var(--accent);border-color:var(--accent);color:#fff;cursor:pointer;}
+.proj-cta:hover{background:#1230AA;transform:translateY(-4px)}
+.proj-cta::before{display:none}
+.proj-cta .proj-num{color:rgba(255,255,255,.5)}
+.proj-cta .proj-title{color:#fff}
+.proj-cta .proj-desc{color:rgba(255,255,255,.75)}
+/* Live badge */
+.live-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-light);color:#00865F;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-bottom:4px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#00865F;animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+/* Project screenshot mockup */
+.proj-thumb{border-radius:8px;overflow:hidden;margin-bottom:4px;border:1px solid var(--border);}
+
+/* CONTACT */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.contact-head{font-family:var(--D);font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:16px}
+.contact-sub{font-size:15px;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:28px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-family:var(--B);font-size:14px;font-weight:600;padding:13px 24px;border-radius:8px;text-decoration:none;transition:.15s;margin-bottom:28px;}
+.wa-btn:hover{opacity:.88}
+.contact-links{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.c-row{display:flex;align-items:center;gap:14px;padding:16px 20px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--border);transition:.15s;}
+.c-row:last-child{border-bottom:none}
+.c-row:hover{background:var(--accent-light);color:var(--accent)}
+.c-row:hover .c-arr{transform:translateX(4px);color:var(--accent)}
+.c-ico{width:36px;height:36px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.c-info{flex:1}
+.c-lbl{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:2px}
+.c-val{font-size:13px;font-weight:500}
+.c-arr{font-size:16px;color:var(--ink3);transition:.2s}
+
+footer{border-top:1px solid var(--border);padding:28px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--ink3);}
+footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:900px){
+  .hero-wrap{flex-direction:column;padding-top:100px;align-items:center;text-align:center}
+  .hero-photo{width:240px;height:300px}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .hero-stats{justify-content:center}
+  .about-layout,.contact-layout,.skills-layout{grid-template-columns:1fr;gap:36px}
+  .proj-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr}
+  .int-grid{grid-template-columns:1fr 1fr}
+  nav .nav-links{display:none}
+  .hero-eyebrow{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">SW<em>.</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-hire" href="#contact">Hire me</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-photo">
+    <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" width="340" height="420">
+      <rect width="340" height="420" fill="#C8D9FF"/>
+      <pattern id="grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#B8CCFF" stroke-width=".5"/>
+      </pattern>
+      <rect width="340" height="420" fill="url(#grid)"/>
+      <ellipse cx="170" cy="390" rx="110" ry="70" fill="#1A3FCC"/>
+      <rect x="90" y="330" width="160" height="90" rx="0" fill="#1A3FCC"/>
+      <polygon points="155,330 170,355 185,330" fill="#fff"/>
+      <rect x="152" y="290" width="36" height="48" rx="8" fill="#F5C09A"/>
+      <ellipse cx="170" cy="255" rx="68" ry="75" fill="#F5C09A"/>
+      <ellipse cx="170" cy="195" rx="68" ry="42" fill="#1A1209"/>
+      <ellipse cx="170" cy="210" rx="72" ry="28" fill="#1A1209"/>
+      <ellipse cx="102" cy="258" rx="10" ry="14" fill="#F5C09A"/>
+      <ellipse cx="238" cy="258" rx="10" ry="14" fill="#F5C09A"/>
+      <ellipse cx="102" cy="258" rx="6" ry="9" fill="#e8a880"/>
+      <ellipse cx="238" cy="258" rx="6" ry="9" fill="#e8a880"/>
+      <path d="M138,232 Q150,226 162,231" stroke="#1A1209" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M178,231 Q190,226 202,232" stroke="#1A1209" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="150" cy="248" rx="11" ry="10" fill="#fff"/>
+      <ellipse cx="150" cy="249" rx="6.5" ry="6.5" fill="#3D2B1F"/>
+      <ellipse cx="150" cy="249" rx="3.5" ry="3.5" fill="#0D0800"/>
+      <ellipse cx="147.5" cy="246.5" rx="2" ry="2" fill="#fff"/>
+      <ellipse cx="190" cy="248" rx="11" ry="10" fill="#fff"/>
+      <ellipse cx="190" cy="249" rx="6.5" ry="6.5" fill="#3D2B1F"/>
+      <ellipse cx="190" cy="249" rx="3.5" ry="3.5" fill="#0D0800"/>
+      <ellipse cx="187.5" cy="246.5" rx="2" ry="2" fill="#fff"/>
+      <path d="M168,262 Q165,275 158,280 Q170,285 182,280 Q175,275 172,262" fill="#e8a880"/>
+      <path d="M152,295 Q170,310 188,295" stroke="#C47A50" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M155,295 Q162,300 170,298 Q178,300 185,295" fill="#D4856A" opacity=".7"/>
+      <ellipse cx="170" cy="318" rx="34" ry="8" fill="#e8a880" opacity=".4"/>
+      <ellipse cx="72" cy="360" rx="22" ry="40" fill="#1A3FCC" transform="rotate(-10,72,360)"/>
+      <ellipse cx="268" cy="360" rx="22" ry="40" fill="#1A3FCC" transform="rotate(10,268,360)"/>
+      <ellipse cx="62" cy="395" rx="16" ry="18" fill="#F5C09A"/>
+      <ellipse cx="278" cy="395" rx="16" ry="18" fill="#F5C09A"/>
+      <g opacity=".18" stroke="#1A3FCC" stroke-width="1.5" fill="none">
+        <path d="M20,60 L60,60 L60,100"/><circle cx="60" cy="100" r="4" fill="#1A3FCC"/>
+        <path d="M280,40 L310,40 L310,90 L280,90"/><circle cx="280" cy="90" r="4" fill="#1A3FCC"/>
+        <path d="M30,380 L30,350 L70,350"/><circle cx="70" cy="350" r="4" fill="#1A3FCC"/>
+        <path d="M300,380 L300,350 L270,350"/><circle cx="270" cy="350" r="4" fill="#1A3FCC"/>
+      </g>
+    </svg>
+    <div class="hero-photo-badge">⚡ Eng. Student · Chuka University</div>
+  </div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow">Based in Webuye, Kenya</div>
+    <h1>
+      <span class="ln">Sidney</span>
+      <span class="ln outlined">Wafula.</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Electrical & Electronics Engineering</strong> student, web developer,
+      and football player who loves challenges, making friends, and building things that matter.
+    </p>
+    <div class="hero-btns">
+      <a class="btn-p" href="#contact">Get in touch</a>
+      <a class="btn-g" href="#projects">My projects →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">B+</div><div class="hstat-lbl">KCSE — Starehe Boys</div></div>
+      <div class="hstat"><div class="hstat-num">406</div><div class="hstat-lbl">KCPE marks</div></div>
+      <div class="hstat"><div class="hstat-num">3</div><div class="hstat-lbl">Live projects built</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-outer" id="about">
+  <div class="section-inner">
+    <div class="sec-label">Who I am</div>
+    <div class="about-layout">
+      <div>
+        <h2 class="sec-title">A curious mind<br>from Bungoma.</h2>
+        <div class="about-body">
+          <p>I'm <strong>Sidney Wafula</strong>, born on 30 May 2006 in Webuye, Bungoma County, Kenya. I'm currently in my first year studying <strong>Electrical & Electronics Engineering</strong> at Chuka University — a course I chose because I want to understand how things really work, from circuits to systems.</p>
+          <p>People who know me say I'm <strong>talkative, energetic, and hardworking</strong>. I genuinely love meeting people and working in groups — the best ideas always come from collaboration. I see every challenge as an opportunity to grow.</p>
+          <p>Outside the classroom I play <strong>football</strong>, enjoy a good board game, and spend time coding and building websites. I'm always learning something new.</p>
+        </div>
+        <div class="about-traits">
+          <span class="trait">Hardworking</span><span class="trait">Team player</span>
+          <span class="trait">Talkative</span><span class="trait">Loves challenges</span>
+          <span class="trait">Friendly</span>
+        </div>
+      </div>
+      <div class="facts-panel">
+        <div class="facts-panel-header">Quick facts</div>
+        <div class="fact-row"><span class="fact-lbl">Full name</span><span class="fact-val">Sidney Wafula</span></div>
+        <div class="fact-row"><span class="fact-lbl">Date of birth</span><span class="fact-val">30 May 2006</span></div>
+        <div class="fact-row"><span class="fact-lbl">Hometown</span><span class="fact-val">Webuye, Bungoma County</span></div>
+        <div class="fact-row"><span class="fact-lbl">University</span><span class="fact-val">Chuka University</span></div>
+        <div class="fact-row"><span class="fact-lbl">Course</span><span class="fact-val">Electrical & Electronics Eng.</span></div>
+        <div class="fact-row"><span class="fact-lbl">KCSE</span><span class="fact-val">B+ — Starehe Boys Centre</span></div>
+        <div class="fact-row"><span class="fact-lbl">KCPE</span><span class="fact-val">406 marks — Sambu Central</span></div>
+        <div class="fact-row"><span class="fact-lbl">Hobbies</span><span class="fact-val">Football · Board games · Coding</span></div>
+        <div class="fact-row"><span class="fact-lbl">Email</span><span class="fact-val" style="color:var(--accent)">sidneywafula30@gmail.com</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="section-outer" id="education">
+  <div class="section-inner">
+    <div class="sec-label">Academic journey</div>
+    <h2 class="sec-title">Education.</h2>
+    <div style="max-width:680px">
+      <div class="edu-timeline">
+        <div class="edu-entry current">
+          <div class="edu-dot"></div>
+          <div class="edu-year">2024 — Present</div>
+          <div class="edu-card">
+            <div class="edu-school">Chuka University</div>
+            <div class="edu-detail">Bachelor of Science — Electrical & Electronics Engineering</div>
+            <span class="badge badge-blue">Currently enrolled · Year 1</span>
+          </div>
+        </div>
+        <div class="edu-entry highlight">
+          <div class="edu-dot"></div>
+          <div class="edu-year">2019 — 2023</div>
+          <div class="edu-card">
+            <div class="edu-school">Starehe Boys Centre & School</div>
+            <div class="edu-detail">Kenya Certificate of Secondary Education (KCSE)</div>
+            <span class="badge badge-green">Grade: B+</span>
+          </div>
+        </div>
+        <div class="edu-entry highlight">
+          <div class="edu-dot"></div>
+          <div class="edu-year">Completed 2019</div>
+          <div class="edu-card">
+            <div class="edu-school">Sambu Central Primary School</div>
+            <div class="edu-detail">Kenya Certificate of Primary Education (KCPE)</div>
+            <span class="badge badge-green">406 marks</span>
+          </div>
+        </div>
+        <div class="edu-entry">
+          <div class="edu-dot"></div>
+          <div class="edu-year">Early years</div>
+          <div class="edu-card">
+            <div class="edu-school">Mukhuyu Primary &amp; St Joseph Primary</div>
+            <div class="edu-detail">Early primary education, Bungoma County</div>
+            <span class="badge badge-gray">Foundation years</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section-outer" id="skills">
+  <div class="section-inner">
+    <div class="sec-label">What I can do</div>
+    <h2 class="sec-title">Skills &amp; interests.</h2>
+    <div class="skills-layout">
+      <div class="skill-cards">
+        <div class="skill-card">
+          <div class="skill-ico" style="background:#EBF0FF">💻</div>
+          <div class="skill-body">
+            <div class="sk-name">Web Development</div>
+            <div class="sk-desc">Building websites from scratch — layout, design, interactivity, and responsiveness. Comfortable with HTML, CSS, and JavaScript.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-ico" style="background:#E6FAF5">⚙️</div>
+          <div class="skill-body">
+            <div class="sk-name">Google Apps Script</div>
+            <div class="sk-desc">Automating Google Workspace — building triggered email systems, web apps, and live dashboards connected to Google Sheets.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-ico" style="background:#F0F0EC">⌨️</div>
+          <div class="skill-body">
+            <div class="sk-name">Coding & Logic</div>
+            <div class="sk-desc">Strong logical thinking and problem-solving. Enjoy writing code that's clean, efficient, and easy to understand.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-ico" style="background:#FFF7E6">⚡</div>
+          <div class="skill-body">
+            <div class="sk-name">Electrical Engineering</div>
+            <div class="sk-desc">Core fundamentals of circuits, electronics, and systems — applied through hands-on coursework at Chuka University.</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-ico" style="background:#EBF0FF">🤝</div>
+          <div class="skill-body">
+            <div class="sk-name">Teamwork & Communication</div>
+            <div class="sk-desc">Naturally talkative and collaborative. I thrive in group settings and am good at keeping people motivated and aligned.</div>
+          </div>
+        </div>
+      </div>
+      <div class="interests-side">
+        <div class="int-title">Hobbies & interests</div>
+        <div class="int-grid">
+          <div class="int-card"><div class="ico">⚽</div><div class="lbl">Football</div></div>
+          <div class="int-card"><div class="ico">♟️</div><div class="lbl">Board games</div></div>
+          <div class="int-card"><div class="ico">💡</div><div class="lbl">Challenges</div></div>
+          <div class="int-card"><div class="ico">👥</div><div class="lbl">Group work</div></div>
+          <div class="int-card"><div class="ico">🌍</div><div class="lbl">Making friends</div></div>
+          <div class="int-card"><div class="ico">🔧</div><div class="lbl">Building things</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PROJECTS — Real samples ════ -->
+<div class="section-outer" id="projects">
+  <div class="section-inner">
+    <div class="sec-label">Things I've built</div>
+    <h2 class="sec-title">Projects.</h2>
+    <div class="proj-grid">
+
+      <!-- Project 1: FriendCheck -->
+      <div class="proj-card green-card">
+        <div>
+          <div class="live-badge"><span class="live-dot"></span>Live · Google Apps Script</div>
+        </div>
+        <div class="proj-num">01</div>
+        <div class="proj-title">FriendCheck 💚</div>
+        <div class="proj-desc">
+          A wellness check-in platform for friend groups. Users register via email, then receive 3 automated check-in emails daily. One tap confirms they're okay — responses are logged to Google Sheets and visible on a live dashboard anyone can access.
+        </div>
+        <div style="background:#f1f8e9;border-radius:8px;padding:14px;margin-top:4px;font-size:12px;color:#2e7d32;line-height:1.7;">
+          <strong>How it works:</strong><br/>
+          📧 Register → ✅ Get 3 daily emails → Click "I'm Good" → 📊 Dashboard updates live
+        </div>
+        <div class="proj-tags">
+          <span class="ptag">Google Apps Script</span>
+          <span class="ptag">Gmail API</span>
+          <span class="ptag">Google Sheets</span>
+          <span class="ptag">HTML Web App</span>
+          <span class="ptag">Automation</span>
+        </div>
+      </div>
+
+      <!-- Project 2: Enemind -->
+      <div class="proj-card blue-card">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-bottom:4px;">
+            🚀 Full Website · Multi-page
+          </div>
+        </div>
+        <div class="proj-num">02</div>
+        <div class="proj-title">Enemind 📊</div>
+        <div class="proj-desc">
+          A full business website for an engineering student platform selling Google Sheets courses, GitHub portfolio services, electrical components, and books. Features course filtering, shop tabs, a 10-question contact form that submits to Google Sheets, and a full responsive layout.
+        </div>
+        <div style="background:var(--accent-light);border-radius:8px;padding:14px;margin-top:4px;font-size:12px;color:var(--accent);line-height:1.7;">
+          <strong>Pages built:</strong> Home · Courses · Shop · GitHub Portfolio · Contact
+        </div>
+        <div class="proj-tags">
+          <span class="ptag">HTML / CSS</span>
+          <span class="ptag">JavaScript</span>
+          <span class="ptag">Responsive design</span>
+          <span class="ptag">Google Sheets integration</span>
+        </div>
+      </div>
+
+      <!-- Project 3: Portfolio site -->
+      <div class="proj-card">
+        <div class="proj-num">03</div>
+        <div class="proj-title">Personal Portfolio Website</div>
+        <div class="proj-desc">This site — designed and coded from scratch to present my story, education, skills, and contact info in a clean, modern way. Fully responsive, scroll-animated nav, and SVG illustrated avatar.</div>
+        <div class="proj-tags">
+          <span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span><span class="ptag">SVG</span>
+        </div>
+      </div>
+
+      <!-- Project 4: Circuit Lab -->
+      <div class="proj-card">
+        <div class="proj-num">04</div>
+        <div class="proj-title">Circuit Lab Work</div>
+        <div class="proj-desc">Hands-on electronics projects at Chuka University — building, analysing, and testing circuit designs in the engineering lab. First-year practical coursework documented and uploaded to GitHub.</div>
+        <div class="proj-tags">
+          <span class="ptag">Electronics</span><span class="ptag">Circuits</span><span class="ptag">Engineering</span>
+        </div>
+      </div>
+
+      <!-- Project 5: Coming soon -->
+      <div class="proj-card">
+        <div class="proj-num">05</div>
+        <div class="proj-title">Arduino IoT Sensor Node</div>
+        <div class="proj-desc">Upcoming project: a temperature and humidity monitoring node using DHT11 + Arduino, pushing readings to a Google Sheets dashboard in real time via Google Apps Script.</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:#FFF7E6;color:#854f0b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-top:4px;">
+          🔨 In progress
+        </div>
+        <div class="proj-tags">
+          <span class="ptag">Arduino</span><span class="ptag">DHT11</span><span class="ptag">IoT</span><span class="ptag">Google Sheets</span>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="proj-card proj-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <div class="proj-num">→</div>
+        <div class="proj-title">Want to collaborate?</div>
+        <div class="proj-desc">I'm open to interesting projects, internships, and new challenges. More coming as I grow through university.</div>
+        <div style="margin-top:auto;padding-top:12px;font-size:13px;color:rgba(255,255,255,.6);font-weight:600">Click to get in touch ↓</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section-outer" id="contact">
+  <div class="section-inner">
+    <div class="sec-label">Reach out</div>
+    <div class="contact-layout">
+      <div>
+        <div class="contact-head">Let's talk<br>and build<br>together.</div>
+        <p class="contact-sub">Whether it's about engineering, a project idea, football, or just saying hi — I'm always happy to connect. Don't be a stranger.</p>
+        <a class="wa-btn" href="https://wa.me/254711629600" target="_blank" rel="noopener">📲 Message on WhatsApp</a>
+      </div>
+      <div>
+        <div class="contact-links">
+          <a class="c-row" href="tel:+254711629600">
+            <div class="c-ico">📞</div>
+            <div class="c-info"><span class="c-lbl">Phone</span><span class="c-val">+254 711 629 600</span></div>
+            <span class="c-arr">→</span>
+          </a>
+          <a class="c-row" href="mailto:sidneywafula30@gmail.com">
+            <div class="c-ico">✉️</div>
+            <div class="c-info"><span class="c-lbl">Email</span><span class="c-val">sidneywafula30@gmail.com</span></div>
+            <span class="c-arr">→</span>
+          </a>
+          <a class="c-row" href="https://instagram.com/sido.cdo" target="_blank" rel="noopener">
+            <div class="c-ico">📸</div>
+            <div class="c-info"><span class="c-lbl">Instagram</span><span class="c-val">@sido.cdo</span></div>
+            <span class="c-arr">→</span>
+          </a>
+          <a class="c-row" href="https://facebook.com/sidneywafula" target="_blank" rel="noopener">
+            <div class="c-ico">👤</div>
+            <div class="c-info"><span class="c-lbl">Facebook</span><span class="c-val">Sidney Wafula</span></div>
+            <span class="c-arr">→</span>
+          </a>
+          <a class="c-row" href="https://wa.me/254711629600" target="_blank" rel="noopener">
+            <div class="c-ico">💬</div>
+            <div class="c-info"><span class="c-lbl">WhatsApp</span><span class="c-val">+254 711 629 600</span></div>
+            <span class="c-arr">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sidney Wafula · Webuye, Bungoma County, Kenya</span>
+  <span>Electrical & Electronics Engineering · <a href="https://chuka.ac.ke" target="_blank">Chuka University</a></span>
+</footer>
+
+<script>
+const navAs = document.querySelectorAll('.nav-links a');
+const secs  = document.querySelectorAll('.section-outer[id]');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navAs.forEach(a=>a.classList.remove('active'));
+      const hit = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if(hit) hit.classList.add('active');
+    }
+  });
+},{threshold:0.35});
+secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
