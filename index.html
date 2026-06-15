@@ -4,791 +4,375 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Enemind — Engineering Skills for Chuka University Students</title>
-<meta name="description" content="Master Google Sheets, build your GitHub portfolio, automate workflows, and get the components and books you need — built for Chuka University engineering students." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --chuka-red:    #8B0000;
-  --chuka-red2:   #A52020;
-  --chuka-red3:   #6a0000;
-  --chuka-gold:   #C8960C;
-  --chuka-gold2:  #E8B420;
-  --chuka-gold3:  #f5d060;
-  --chuka-light:  #fdf6e3;
-  --chuka-cream:  #fff9ee;
-  --teal:         #0e9f80;
-  --teal-light:   #e1f5ee;
-  --teal-text:    #0f6e56;
-  --blue-light:   #e6f1fb;
-  --blue-text:    #185fa5;
-  --amber-light:  #faeeda;
-  --amber-text:   #854f0b;
-  --purple-light: #eeedfe;
-  --purple-text:  #534ab7;
-  --coral-light:  #faece7;
-  --coral-text:   #993c1d;
-  --text:         #111827;
-  --text-muted:   #6b7280;
-  --text-light:   #9ca3af;
-  --border:       #e5e7eb;
-  --bg:           #ffffff;
-  --bg-soft:      #fdf8f0;
-  --radius:       10px;
-  --radius-lg:    16px;
-  --shadow:       0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:    0 4px 16px rgba(0,0,0,0.10);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --chuka-red:#8B0000;--chuka-red2:#A52020;--chuka-red3:#6a0000;
+  --chuka-gold:#C8960C;--chuka-gold2:#E8B420;--chuka-gold3:#f5d060;
+  --chuka-cream:#fff9ee;--teal-light:#e1f5ee;--teal-text:#0f6e56;
+  --blue-light:#e6f1fb;--blue-text:#185fa5;--amber-light:#faeeda;--amber-text:#854f0b;
+  --purple-light:#eeedfe;--purple-text:#534ab7;--coral-light:#faece7;--coral-text:#993c1d;
+  --text:#111827;--text-muted:#6b7280;--text-light:#9ca3af;
+  --border:#e5e7eb;--bg:#ffffff;--bg-soft:#fdf8f0;
+  --radius:10px;--radius-lg:16px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.10);
 }
-html { scroll-behavior: smooth; }
-body { font-family:'Inter',sans-serif; color:var(--text); background:var(--bg); line-height:1.6; font-size:16px; }
-h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var(--text); }
-
-/* ── NAV ── */
-.nav {
-  position:sticky; top:0; z-index:200;
-  background:rgba(255,255,255,0.97); backdrop-filter:blur(12px);
-  border-bottom:3px solid var(--chuka-red);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:8px 40px;
-}
-.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; cursor:pointer; }
-.logo-img { height:52px; width:auto; object-fit:contain; display:block; }
-.logo-name-wrap { display:flex; flex-direction:column; line-height:1.15; }
-.logo-name { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--chuka-red); letter-spacing:-.3px; }
-.logo-sub  { font-size:10px; font-weight:500; color:var(--chuka-gold); text-transform:uppercase; letter-spacing:.1em; }
-.nav-links { display:flex; gap:4px; list-style:none; align-items:center; }
-.nav-links > li { position:relative; }
-.nav-links a, .nav-links .nav-dd-trigger {
-  font-size:13px; font-weight:500; color:var(--text-muted);
-  text-decoration:none; padding:6px 13px; border-radius:8px;
-  transition:all .15s; cursor:pointer; display:flex; align-items:center; gap:4px;
-  background:none; border:none; font-family:'Inter',sans-serif;
-}
-.nav-links a:hover, .nav-links a.active,
-.nav-links .nav-dd-trigger:hover, .nav-links .nav-dd-trigger.active {
-  background:rgba(139,0,0,.08); color:var(--chuka-red);
-}
-.dd-arrow { font-size:10px; transition:transform .2s; display:inline-block; }
-.nav-dd:hover .dd-arrow, .nav-dd.open .dd-arrow { transform:rotate(180deg); }
-.dd-menu {
-  position:absolute; top:calc(100% + 8px); left:0;
-  background:var(--bg); border:1px solid var(--border);
-  border-radius:var(--radius-lg); box-shadow:var(--shadow-md);
-  min-width:280px; padding:8px; z-index:300;
-  opacity:0; visibility:hidden; transform:translateY(-6px);
-  transition:all .18s ease;
-}
-.nav-dd:hover .dd-menu, .nav-dd.open .dd-menu {
-  opacity:1; visibility:visible; transform:translateY(0);
-}
-.dd-item {
-  display:flex; align-items:flex-start; gap:10px;
-  padding:10px 12px; border-radius:8px; cursor:pointer;
-  transition:background .12s; text-decoration:none;
-}
-.dd-item:hover { background:var(--bg-soft); }
-.dd-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
-.dd-label { font-size:13px; font-weight:600; color:var(--text); display:block; margin-bottom:2px; }
-.dd-desc  { font-size:11px; color:var(--text-muted); display:block; line-height:1.4; }
-.dd-divider { height:1px; background:var(--border); margin:6px 0; }
-.dd-all { font-size:13px; font-weight:600; color:var(--chuka-red); padding:8px 12px; display:block; border-radius:8px; text-decoration:none; }
-.dd-all:hover { background:rgba(139,0,0,.07); }
-.nav-cta {
-  background:var(--chuka-red); color:#fff; border:none;
-  padding:9px 20px; border-radius:8px; font-size:13px; font-weight:600;
-  cursor:pointer; text-decoration:none; transition:background .15s;
-}
-.nav-cta:hover { background:var(--chuka-red2); }
-.nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; }
-.nav-mobile { display:none; }
-
-/* ── PAGES ── */
-.page { display:none; }
-.page.active { display:block; }
-
-/* ── HERO ── */
-.hero {
-  position:relative; padding:96px 40px 80px; text-align:center;
-  overflow:hidden; border-bottom:1px solid var(--border);
-  min-height:500px; display:flex; align-items:center; justify-content:center;
-}
-.hero-bg {
-  position:absolute; inset:0; z-index:0;
-  background:url('https://portal.chuka.ac.ke/assets/images/logo2.png') center/contain no-repeat,
-             linear-gradient(160deg, var(--chuka-red3) 0%, var(--chuka-red) 50%, #5a0000 100%);
-  background-blend-mode:luminosity;
-  filter:brightness(.18) saturate(1.1); transform:scale(1.04);
-}
-.hero-overlay {
-  position:absolute; inset:0; z-index:1;
-  background:linear-gradient(160deg, rgba(139,0,0,.9) 0%, rgba(200,150,12,.5) 100%);
-}
-.hero-content { position:relative; z-index:2; max-width:700px; margin:0 auto; }
-.hero-chuka-logo {
-  width:90px; height:90px; object-fit:contain;
-  margin:0 auto 20px; display:block;
-  filter:drop-shadow(0 2px 12px rgba(0,0,0,.4));
-  border-radius:50%; background:rgba(255,255,255,.1);
-  padding:6px;
-}
-.hero-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  background:rgba(200,150,12,.25); color:var(--chuka-gold3);
-  font-size:11px; font-weight:700; padding:5px 16px; border-radius:99px;
-  margin-bottom:18px; letter-spacing:.06em;
-  border:1px solid rgba(200,150,12,.4); backdrop-filter:blur(4px);
-  text-transform:uppercase;
-}
-.hero h1 {
-  font-size:clamp(30px,5vw,56px); font-weight:700;
-  max-width:660px; margin:0 auto 18px; color:#fff;
-  letter-spacing:-1.5px; text-shadow:0 2px 20px rgba(0,0,0,.4);
-}
-.hero h1 span { color:var(--chuka-gold3); }
-.hero p { font-size:17px; color:rgba(255,255,255,.82); max-width:520px; margin:0 auto 32px; line-height:1.7; }
-.hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.btn { display:inline-block; padding:12px 28px; border-radius:9px; font-size:15px; font-weight:600; text-decoration:none; cursor:pointer; border:none; transition:all .15s; font-family:'Inter',sans-serif; }
-.btn-red   { background:var(--chuka-red); color:#fff; }
-.btn-red:hover { background:var(--chuka-red2); transform:translateY(-1px); box-shadow:var(--shadow-md); }
-.btn-gold  { background:linear-gradient(135deg,var(--chuka-gold),var(--chuka-gold2)); color:var(--chuka-red3); font-weight:700; }
-.btn-gold:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(200,150,12,.4); }
-.btn-white { background:#fff; color:var(--chuka-red); }
-.btn-white:hover { background:#fff5e6; }
-.btn-ghost-white { background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(4px); }
-.btn-ghost-white:hover { background:rgba(255,255,255,.22); }
-.btn-outline-gold { background:transparent; color:var(--chuka-gold3); border:2px solid rgba(200,150,12,.6); }
-.btn-outline-gold:hover { background:rgba(200,150,12,.15); }
-
-/* ── STATS ── */
-.stats { display:flex; justify-content:center; gap:0; border-bottom:1px solid var(--border); background:var(--bg); }
-.stat { text-align:center; padding:26px 40px; border-right:1px solid var(--border); }
-.stat:last-child { border-right:none; }
-.stat-num { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:700; color:var(--chuka-red); }
-.stat-label { font-size:13px; color:var(--text-muted); margin-top:2px; }
-
-/* ── YEAR BAND ── */
-.year-band {
-  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
-  padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-}
-.year-band-title { color:#fff; font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
-.year-band-sub { color:rgba(255,255,255,.65); font-size:13px; margin-top:3px; }
-.year-pills { display:flex; gap:8px; flex-wrap:wrap; }
-.year-pill {
-  padding:9px 20px; border-radius:99px; font-size:13px; font-weight:600;
-  border:2px solid rgba(255,255,255,.3); background:rgba(255,255,255,.08);
-  color:rgba(255,255,255,.85); cursor:pointer; transition:all .18s; font-family:'Inter',sans-serif;
-}
-.year-pill:hover, .year-pill.active {
-  background:var(--chuka-gold); border-color:var(--chuka-gold);
-  color:var(--chuka-red3); transform:translateY(-1px);
-}
-
-/* ── SECTION ── */
-.section { padding:64px 40px; }
-.section.alt { background:var(--bg-soft); }
-.section-header { max-width:560px; margin-bottom:48px; }
-.section-header.centered { text-align:center; margin:0 auto 48px; }
-.eyebrow { font-size:11px; font-weight:700; color:var(--chuka-gold); text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px; }
-.section-title { font-size:32px; font-weight:700; margin-bottom:12px; letter-spacing:-.5px; }
-.section-sub { font-size:15px; color:var(--text-muted); line-height:1.7; }
-
-/* ── SERVICE CARDS ── */
-.cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
-.card {
-  background:var(--bg); border:1px solid var(--border);
-  border-radius:var(--radius-lg); padding:26px 22px;
-  cursor:pointer; transition:all .2s; box-shadow:var(--shadow);
-}
-.card:hover { border-color:var(--chuka-red); box-shadow:var(--shadow-md); transform:translateY(-2px); }
-.card-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; font-size:22px; }
-.ic-red    { background:rgba(139,0,0,.1); color:var(--chuka-red); }
-.ic-gold   { background:rgba(200,150,12,.1); color:#7a5800; }
-.ic-teal   { background:var(--teal-light); color:var(--teal-text); }
-.ic-blue   { background:var(--blue-light); color:var(--blue-text); }
-.ic-purple { background:var(--purple-light); color:var(--purple-text); }
-.ic-coral  { background:var(--coral-light); color:var(--coral-text); }
-.ic-green  { background:#e8f5e9; color:#2e7d32; }
-.card h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
-.card p  { font-size:13px; color:var(--text-muted); line-height:1.65; }
-.card-tag { display:inline-block; margin-top:14px; font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; letter-spacing:.04em; }
-.tag-red    { background:rgba(139,0,0,.1); color:var(--chuka-red); }
-.tag-gold   { background:rgba(200,150,12,.15); color:#7a5800; }
-.tag-teal   { background:var(--teal-light); color:var(--teal-text); }
-.tag-blue   { background:var(--blue-light); color:var(--blue-text); }
-.tag-amber  { background:var(--amber-light); color:var(--amber-text); }
-.tag-purple { background:var(--purple-light); color:var(--purple-text); }
-.tag-coral  { background:var(--coral-light); color:var(--coral-text); }
-.tag-green  { background:#e8f5e9; color:#2e7d32; }
-
-/* ── AUTOMATION ── */
-.auto-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
-.auto-card { border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border); transition:all .2s; cursor:pointer; background:var(--bg); }
-.auto-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
-.auto-img { width:100%; height:175px; object-fit:cover; display:block; }
-.auto-body { padding:20px; }
-.auto-body h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
-.auto-body p  { font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:12px; }
-.auto-tags { display:flex; gap:6px; flex-wrap:wrap; }
-.auto-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; }
-
-/* ── WHY ── */
-.why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
-.why-item { display:flex; align-items:flex-start; gap:14px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow); }
-.why-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
-.why-item h4 { font-size:14px; font-weight:600; margin-bottom:5px; }
-.why-item p  { font-size:13px; color:var(--text-muted); line-height:1.55; }
-
-/* ── TESTIMONIALS ── */
-.testimonials { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
-.tcard { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow); }
-.stars { color:var(--chuka-gold); font-size:14px; letter-spacing:2px; margin-bottom:12px; }
-.tcard p { font-size:14px; color:var(--text-muted); line-height:1.7; font-style:italic; margin-bottom:18px; }
-.tcard-author { display:flex; align-items:center; gap:12px; }
-.avatar { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
-.av-red    { background:rgba(139,0,0,.12); color:var(--chuka-red); }
-.av-gold   { background:rgba(200,150,12,.15); color:#7a5800; }
-.av-teal   { background:var(--teal-light); color:var(--teal-text); }
-.tname { font-size:14px; font-weight:600; }
-.trole { font-size:12px; color:var(--text-muted); }
-
-/* ── CTA BAND ── */
-.cta-band { background:linear-gradient(135deg,var(--chuka-red3) 0%,var(--chuka-red) 100%); padding:64px 40px; text-align:center; }
-.cta-band h2 { font-size:34px; font-weight:700; color:#fff; margin-bottom:12px; }
-.cta-band p  { font-size:17px; color:rgba(255,255,255,.72); margin-bottom:32px; }
-
-/* ── CHUKA DIVIDER ── */
-.chuka-divider {
-  text-align:center; padding:20px 40px;
-  background:var(--chuka-cream);
-  border-top:1px solid rgba(200,150,12,.2);
-  border-bottom:1px solid rgba(200,150,12,.2);
-  display:flex; align-items:center; justify-content:center; gap:16px;
-}
-.chuka-divider img { height:36px; width:auto; object-fit:contain; }
-.chuka-divider-text { font-size:13px; color:var(--chuka-red); font-weight:600; letter-spacing:.04em; }
-
-/* ══ COURSES ══ */
-.courses-top {
-  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
-  padding:48px 40px 0; color:#fff;
-}
-.courses-top h1 { color:#fff; font-size:32px; margin-bottom:8px; }
-.courses-top p  { color:rgba(255,255,255,.72); font-size:15px; max-width:540px; margin-bottom:28px; }
-.year-tabs { display:flex; gap:0; overflow-x:auto; }
-.year-tab {
-  padding:14px 28px; font-size:14px; font-weight:600;
-  color:rgba(255,255,255,.55); cursor:pointer; border:none;
-  background:transparent; font-family:'Inter',sans-serif;
-  border-bottom:3px solid transparent; white-space:nowrap; transition:all .18s;
-}
-.year-tab:hover { color:rgba(255,255,255,.85); }
-.year-tab.active { color:#fff; border-bottom-color:var(--chuka-gold); }
-.year-panel { display:none; }
-.year-panel.active { display:block; }
-.year-hero {
-  padding:32px 40px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;
-  background:rgba(139,0,0,.04); border-bottom:1px solid var(--border);
-}
-.year-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  background:linear-gradient(135deg,var(--chuka-red),var(--chuka-red2));
-  color:#fff; border-radius:99px; padding:8px 20px;
-  font-size:13px; font-weight:700; flex-shrink:0;
-}
-.year-desc { flex:1; min-width:220px; }
-.year-desc h2 { font-size:20px; margin-bottom:4px; }
-.year-desc p  { font-size:13px; color:var(--text-muted); }
-.courses-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; padding:32px 40px; }
-.course-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); transition:all .2s; }
-.course-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
-.course-thumb { height:175px; overflow:hidden; position:relative; }
-.course-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
-.course-card:hover .course-thumb img { transform:scale(1.04); }
-.thumb-badge { position:absolute; top:12px; left:12px; background:rgba(139,0,0,.88); color:#fff; font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; backdrop-filter:blur(4px); }
-.course-body { padding:20px; }
-.course-body h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
-.course-body p  { font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:16px; }
-.course-meta { display:flex; align-items:center; justify-content:space-between; }
-.course-level { font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; }
-.level-beg { background:var(--teal-light); color:var(--teal-text); }
-.level-int { background:var(--amber-light); color:var(--amber-text); }
-.level-adv { background:var(--coral-light); color:var(--coral-text); }
-.course-price { font-size:15px; font-weight:700; color:var(--chuka-red); }
-.enroll-btn { display:block; width:100%; margin-top:14px; background:var(--chuka-red); color:#fff; border:none; padding:10px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; transition:background .15s; }
-.enroll-btn:hover { background:var(--chuka-red2); }
-
-/* ── SHOP ── */
-.shop-tabs { display:flex; gap:4px; background:var(--bg-soft); border-radius:10px; padding:4px; width:fit-content; margin-bottom:36px; border:1px solid var(--border); }
-.shop-tab { padding:8px 22px; border-radius:8px; font-size:14px; font-weight:500; cursor:pointer; border:none; background:none; color:var(--text-muted); font-family:'Inter',sans-serif; transition:all .15s; }
-.shop-tab.active { background:var(--bg); color:var(--chuka-red); box-shadow:var(--shadow); font-weight:600; }
-.shop-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
-.product-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); transition:all .2s; }
-.product-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
-.product-img-wrap { height:150px; overflow:hidden; }
-.product-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
-.product-card:hover .product-img-wrap img { transform:scale(1.05); }
-.product-body { padding:16px; }
-.product-body h4 { font-size:14px; font-weight:600; margin-bottom:6px; }
-.product-body p  { font-size:12px; color:var(--text-muted); line-height:1.55; margin-bottom:12px; }
-.product-footer { display:flex; align-items:center; justify-content:space-between; }
-.product-price { font-size:15px; font-weight:700; color:var(--chuka-red); }
-.add-btn { background:var(--chuka-red); color:#fff; border:none; padding:6px 14px; border-radius:7px; font-size:12px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; transition:background .15s; }
-.add-btn:hover { background:var(--chuka-red2); }
-.in-stock { font-size:11px; color:var(--teal-text); font-weight:500; }
-
-/* ── PORTFOLIO ── */
-.portfolio-hero { background:linear-gradient(135deg,var(--chuka-red3) 0%,var(--chuka-red) 100%); padding:60px 40px; color:#fff; }
-.portfolio-hero h1 { color:#fff; font-size:34px; margin-bottom:12px; }
-.portfolio-hero p  { color:rgba(255,255,255,.75); font-size:16px; max-width:540px; }
-.portfolio-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:48px; }
-.step-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px 20px; box-shadow:var(--shadow); }
-.step-num { width:36px; height:36px; border-radius:50%; background:var(--chuka-red); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; margin-bottom:14px; }
-.step-card h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
-.step-card p  { font-size:13px; color:var(--text-muted); line-height:1.6; }
-.portfolio-showcase { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
-.portfolio-item { background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); transition:all .2s; cursor:pointer; }
-.portfolio-item:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); border-color:var(--chuka-red); }
-.portfolio-thumb { height:160px; overflow:hidden; }
-.portfolio-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-.portfolio-info { padding:18px; }
-.portfolio-info h4 { font-size:15px; font-weight:600; margin-bottom:6px; }
-.portfolio-info p  { font-size:13px; color:var(--text-muted); line-height:1.55; }
-.portfolio-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
-.ptag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; background:var(--blue-light); color:var(--blue-text); }
-
-/* ── LIVE PORTFOLIO PREVIEW ── */
-.live-portfolio-wrap {
-  border:2px solid var(--border); border-radius:var(--radius-lg);
-  overflow:hidden; box-shadow:var(--shadow-md); margin-bottom:48px;
-  background:var(--bg);
-}
-.live-portfolio-header {
-  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
-  padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:12px;
-  flex-wrap:wrap;
-}
-.live-portfolio-header-left { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.live-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  background:rgba(255,255,255,.15); color:#fff;
-  font-size:11px; font-weight:700; padding:4px 12px; border-radius:99px;
-  border:1px solid rgba(255,255,255,.3);
-}
-.live-badge-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; animation:pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.live-portfolio-header h4 { font-size:14px; font-weight:700; color:#fff; margin:0; }
-.live-portfolio-header p  { font-size:11px; color:rgba(255,255,255,.65); margin:0; }
-.live-portfolio-open {
-  font-size:12px; font-weight:600; color:#fff; text-decoration:none;
-  background:rgba(255,255,255,.15); padding:6px 14px; border-radius:8px;
-  border:1px solid rgba(255,255,255,.3); transition:background .15s; white-space:nowrap;
-}
-.live-portfolio-open:hover { background:rgba(255,255,255,.28); }
-.portfolio-preview-card {
-  display:block; text-decoration:none;
-  padding:48px 32px; text-align:center;
-  background:linear-gradient(145deg, #faf8f5, #f0ede7);
-  transition:all .2s;
-  cursor:pointer;
-  border-top:1px solid var(--border);
-}
-.portfolio-preview-card:hover {
-  background:linear-gradient(145deg, #f5f2ec, #e8e3db);
-}
-.preview-icon { font-size:48px; margin-bottom:16px; }
-.preview-title { font-size:18px; font-weight:700; color:var(--chuka-red); margin-bottom:8px; }
-.preview-desc { font-size:13px; color:var(--text-muted); margin-bottom:20px; }
-.preview-btn {
-  display:inline-block; background:var(--chuka-red); color:#fff;
-  padding:10px 24px; border-radius:40px; font-size:13px; font-weight:600;
-  text-decoration:none; transition:all .15s;
-}
-.preview-btn:hover { background:var(--chuka-red2); transform:translateY(-1px); }
-
-/* ══ ENGINEERING CLUB ══ */
-.club-hero {
-  background:linear-gradient(135deg,#1a0000 0%,var(--chuka-red3) 50%,var(--chuka-red) 100%);
-  padding:72px 40px 56px; color:#fff; position:relative; overflow:hidden;
-}
-.club-hero::before {
-  content:'⚙️'; position:absolute; right:-20px; top:-20px;
-  font-size:200px; opacity:.06; line-height:1;
-}
-.club-hero .eyebrow { color:rgba(200,150,12,.8); }
-.club-hero h1 { color:#fff; font-size:clamp(28px,4vw,44px); margin-bottom:12px; }
-.club-hero p  { color:rgba(255,255,255,.75); font-size:16px; max-width:560px; margin-bottom:32px; }
-.club-hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
-
-.club-stats {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  background:var(--bg); border-bottom:1px solid var(--border);
-}
-.club-stat { text-align:center; padding:24px 20px; border-right:1px solid var(--border); }
-.club-stat:last-child { border-right:none; }
-.club-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--chuka-red); }
-.club-stat-label { font-size:12px; color:var(--text-muted); margin-top:3px; }
-
-.club-activities { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
-.club-activity-card {
-  border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow);
-  border:1px solid var(--border); background:var(--bg); transition:all .2s;
-}
-.club-activity-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
-.club-activity-img { height:160px; overflow:hidden; }
-.club-activity-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
-.club-activity-card:hover .club-activity-img img { transform:scale(1.04); }
-.club-activity-body { padding:20px; }
-.club-activity-body h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
-.club-activity-body p  { font-size:13px; color:var(--text-muted); line-height:1.6; }
-.club-activity-meta { display:flex; align-items:center; gap:8px; margin-top:14px; }
-.club-activity-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; }
-
-.club-events { display:flex; flex-direction:column; gap:14px; }
-.club-event {
-  display:flex; gap:16px; align-items:flex-start;
-  background:var(--bg); border:1px solid var(--border);
-  border-radius:var(--radius-lg); padding:18px 20px; box-shadow:var(--shadow);
-  transition:all .2s; cursor:pointer;
-}
-.club-event:hover { border-color:var(--chuka-red); box-shadow:var(--shadow-md); }
-.club-event-date {
-  flex-shrink:0; width:52px; text-align:center;
-  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
-  border-radius:10px; padding:8px 4px; color:#fff;
-}
-.club-event-day   { font-size:22px; font-weight:700; font-family:'Space Grotesk',sans-serif; line-height:1; }
-.club-event-month { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; opacity:.8; }
-.club-event-info h4 { font-size:15px; font-weight:600; margin-bottom:4px; }
-.club-event-info p  { font-size:13px; color:var(--text-muted); line-height:1.5; }
-.club-event-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
-.club-event-tag { font-size:11px; font-weight:600; padding:2px 9px; border-radius:99px; background:var(--blue-light); color:var(--blue-text); }
-
-/* ── CONTACT PAGE ── */
-.contact-page-wrap {
-  max-width:960px; margin:0 auto; padding:56px 40px;
-}
-.contact-top {
-  display:grid; grid-template-columns:1fr 2fr; gap:48px; align-items:start;
-}
-.contact-sidebar .eyebrow { margin-bottom:10px; }
-.contact-sidebar h2 { font-size:28px; font-weight:700; margin-bottom:12px; }
-.contact-sidebar > p { font-size:15px; color:var(--text-muted); margin-bottom:32px; line-height:1.7; }
-.contact-item { display:flex; align-items:flex-start; gap:14px; margin-bottom:22px; }
-.contact-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.ci-phone  { background:var(--teal-light); }
-.ci-email  { background:var(--blue-light); }
-.ci-ig     { background:var(--purple-light); }
-.ci-fb     { background:var(--blue-light); }
-.contact-item h4 { font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:3px; text-transform:uppercase; letter-spacing:.06em; }
-.contact-item a, .contact-item p { font-size:15px; color:var(--text); text-decoration:none; font-weight:500; }
-.contact-item a:hover { color:var(--chuka-red); text-decoration:underline; }
-.contact-local {
-  margin-top:24px; padding:16px 18px;
-  background:rgba(139,0,0,.05); border:1px solid rgba(139,0,0,.15);
-  border-radius:12px;
-}
-.contact-local-label { font-size:12px; font-weight:700; color:var(--chuka-red); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; }
-.contact-local p { font-size:13px; color:var(--text-muted); line-height:1.6; }
-
-.gform-wrap {
-  background:var(--bg); border:1px solid var(--border);
-  border-radius:var(--radius-lg); overflow:hidden;
-  box-shadow:var(--shadow-md);
-}
-.gform-header {
-  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
-  padding:20px 28px; display:flex; align-items:center; gap:12px;
-}
-.gform-header-icon { font-size:22px; }
-.gform-header h3 { font-size:17px; font-weight:700; color:#fff; margin-bottom:2px; }
-.gform-header p  { font-size:12px; color:rgba(255,255,255,.65); }
-
-.back-to-site-bar {
-  display:none;
-  position:fixed; top:0; left:0; right:0; z-index:999;
-  background:var(--chuka-red); padding:12px 24px;
-  align-items:center; justify-content:space-between; gap:12px;
-}
-.back-to-site-bar.visible { display:flex; }
-.back-to-site-logo { display:flex; align-items:center; gap:10px; }
-.back-to-site-logo span { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:#fff; }
-.back-to-site-btn {
-  background:#fff; color:var(--chuka-red); border:none;
-  padding:8px 20px; border-radius:8px; font-size:13px; font-weight:700;
-  cursor:pointer; font-family:'Inter',sans-serif;
-  display:flex; align-items:center; gap:6px; text-decoration:none;
-}
-.back-to-site-btn:hover { background:var(--chuka-gold3); }
-
-.footer { background:#1a0000; color:rgba(255,255,255,.65); padding:48px 40px 28px; border-top:3px solid var(--chuka-gold); }
-.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
-.footer-brand .logo-name { color:#fff; font-size:20px; }
-.footer-brand .logo-sub  { color:var(--chuka-gold2); }
-.footer-brand p { font-size:13px; color:rgba(255,255,255,.45); margin-top:12px; line-height:1.7; max-width:240px; }
-.footer-logo-wrap { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-.footer-logo-img { height:44px; width:auto; object-fit:contain; }
-.footer-col h4 { font-size:11px; font-weight:700; color:var(--chuka-gold2); margin-bottom:16px; text-transform:uppercase; letter-spacing:.1em; }
-.footer-col a { display:block; font-size:13px; color:rgba(255,255,255,.55); text-decoration:none; margin-bottom:10px; cursor:pointer; transition:color .15s; }
-.footer-col a:hover { color:var(--chuka-gold2); }
-.footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:24px; display:flex; align-items:center; justify-content:space-between; font-size:12px; flex-wrap:wrap; gap:12px; }
-.social-links { display:flex; gap:10px; }
-.social-link { width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.6); text-decoration:none; font-size:16px; transition:background .15s; }
-.social-link:hover { background:var(--chuka-red); color:#fff; }
-.chuka-credit { display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(255,255,255,.35); }
-.chuka-credit img { height:24px; width:auto; opacity:.5; }
-
-@media (max-width:768px) {
-  .nav { padding:10px 16px; }
-  .nav-links { display:none; }
-  .nav-hamburger { display:flex; flex-direction:column; gap:4px; }
-  .nav-hamburger span { width:22px; height:2px; background:var(--chuka-red); border-radius:2px; display:block; }
-  .nav-mobile { flex-direction:column; gap:4px; padding:12px 20px; border-bottom:1px solid var(--border); background:var(--bg); }
-  .nav-mobile.open { display:flex; }
-  .nav-mobile a { font-size:14px; font-weight:500; color:var(--text-muted); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); }
-  .hero { padding:56px 20px 48px; }
-  .section { padding:40px 20px; }
-  .stats { flex-wrap:wrap; }
-  .stat { border-right:none; border-bottom:1px solid var(--border); flex:1 1 50%; }
-  .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
-  .cta-band { padding:48px 20px; }
-  .footer { padding:36px 20px 24px; }
-  .year-band { padding:24px 20px; }
-  .courses-top { padding:36px 20px 0; }
-  .courses-grid { padding:24px 20px; }
-  .year-hero { padding:24px 20px; }
-  .year-tab { padding:12px 18px; font-size:13px; }
-  .contact-page-wrap { padding:32px 16px; }
-  .contact-top { grid-template-columns:1fr; gap:28px; }
-  .club-hero { padding:48px 20px 36px; }
-  .club-event { flex-direction:column; gap:10px; }
-  .club-event-date { width:100%; display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 14px; border-radius:8px; }
-  .portfolio-preview-card { padding:32px 20px; }
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);line-height:1.6;font-size:16px}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.2;color:var(--text)}
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:3px solid var(--chuka-red);display:flex;align-items:center;justify-content:space-between;padding:8px 40px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer}
+.logo-img{height:52px;width:auto;object-fit:contain;display:block}
+.logo-name-wrap{display:flex;flex-direction:column;line-height:1.15}
+.logo-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--chuka-red);letter-spacing:-.3px}
+.logo-sub{font-size:10px;font-weight:500;color:var(--chuka-gold);text-transform:uppercase;letter-spacing:.1em}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links>li{position:relative}
+.nav-links a,.nav-links .nav-dd-trigger{font-size:13px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:6px 13px;border-radius:8px;transition:all .15s;cursor:pointer;display:flex;align-items:center;gap:4px;background:none;border:none;font-family:'Inter',sans-serif}
+.nav-links a:hover,.nav-links a.active,.nav-links .nav-dd-trigger:hover,.nav-links .nav-dd-trigger.active{background:rgba(139,0,0,.08);color:var(--chuka-red)}
+.dd-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dd:hover .dd-arrow,.nav-dd.open .dd-arrow{transform:rotate(180deg)}
+.dd-menu{position:absolute;top:calc(100% + 8px);left:0;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);min-width:280px;padding:8px;z-index:300;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all .18s ease}
+.nav-dd:hover .dd-menu,.nav-dd.open .dd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.dd-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .12s;text-decoration:none}
+.dd-item:hover{background:var(--bg-soft)}
+.dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.dd-label{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:2px}
+.dd-desc{font-size:11px;color:var(--text-muted);display:block;line-height:1.4}
+.dd-divider{height:1px;background:var(--border);margin:6px 0}
+.dd-all{font-size:13px;font-weight:600;color:var(--chuka-red);padding:8px 12px;display:block;border-radius:8px;text-decoration:none}
+.dd-all:hover{background:rgba(139,0,0,.07)}
+.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.nav-mobile{display:none}
+.page{display:none}.page.active{display:block}
+/* HERO */
+.hero{position:relative;padding:96px 40px 80px;text-align:center;overflow:hidden;border-bottom:1px solid var(--border);min-height:500px;display:flex;align-items:center;justify-content:center}
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('https://portal.chuka.ac.ke/assets/images/logo2.png') center/contain no-repeat,linear-gradient(160deg,var(--chuka-red3) 0%,var(--chuka-red) 50%,#5a0000 100%);background-blend-mode:luminosity;filter:brightness(.18) saturate(1.1);transform:scale(1.04)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(139,0,0,.9) 0%,rgba(200,150,12,.5) 100%)}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-chuka-logo{width:90px;height:90px;object-fit:contain;margin:0 auto 20px;display:block;filter:drop-shadow(0 2px 12px rgba(0,0,0,.4));border-radius:50%;background:rgba(255,255,255,.1);padding:6px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(200,150,12,.25);color:var(--chuka-gold3);font-size:11px;font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:18px;letter-spacing:.06em;border:1px solid rgba(200,150,12,.4);backdrop-filter:blur(4px);text-transform:uppercase}
+.hero h1{font-size:clamp(30px,5vw,56px);font-weight:700;max-width:660px;margin:0 auto 18px;color:#fff;letter-spacing:-1.5px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero h1 span{color:var(--chuka-gold3)}
+.hero p{font-size:17px;color:rgba(255,255,255,.82);max-width:520px;margin:0 auto 32px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 28px;border-radius:9px;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .15s;font-family:'Inter',sans-serif}
+.btn-red{background:var(--chuka-red);color:#fff}.btn-red:hover{background:var(--chuka-red2);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.btn-gold{background:linear-gradient(135deg,var(--chuka-gold),var(--chuka-gold2));color:var(--chuka-red3);font-weight:700}.btn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,150,12,.4)}
+.btn-ghost-white{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px)}.btn-ghost-white:hover{background:rgba(255,255,255,.22)}
+/* STATS */
+.stats{display:flex;justify-content:center;gap:0;border-bottom:1px solid var(--border);background:var(--bg)}
+.stat{text-align:center;padding:26px 40px;border-right:1px solid var(--border)}.stat:last-child{border-right:none}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:var(--chuka-red)}
+.stat-label{font-size:13px;color:var(--text-muted);margin-top:2px}
+/* YEAR BAND */
+.year-band{background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.year-band-title{color:#fff;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700}
+.year-band-sub{color:rgba(255,255,255,.65);font-size:13px;margin-top:3px}
+.year-pills{display:flex;gap:8px;flex-wrap:wrap}
+.year-pill{padding:9px 20px;border-radius:99px;font-size:13px;font-weight:600;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;transition:all .18s;font-family:'Inter',sans-serif}
+.year-pill:hover,.year-pill.active{background:var(--chuka-gold);border-color:var(--chuka-gold);color:var(--chuka-red3);transform:translateY(-1px)}
+/* SECTION */
+.section{padding:64px 40px}.section.alt{background:var(--bg-soft)}
+.section-header{max-width:560px;margin-bottom:48px}.section-header.centered{text-align:center;margin:0 auto 48px}
+.eyebrow{font-size:11px;font-weight:700;color:var(--chuka-gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.section-title{font-size:32px;font-weight:700;margin-bottom:12px;letter-spacing:-.5px}
+.section-sub{font-size:15px;color:var(--text-muted);line-height:1.7}
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:26px 22px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+.card:hover{border-color:var(--chuka-red);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+.ic-red{background:rgba(139,0,0,.1);color:var(--chuka-red)}.ic-gold{background:rgba(200,150,12,.1);color:#7a5800}
+.ic-teal{background:var(--teal-light);color:var(--teal-text)}.ic-blue{background:var(--blue-light);color:var(--blue-text)}
+.ic-purple{background:var(--purple-light);color:var(--purple-text)}.ic-coral{background:var(--coral-light);color:var(--coral-text)}
+.ic-green{background:#e8f5e9;color:#2e7d32}
+.card h3{font-size:15px;font-weight:600;margin-bottom:8px}.card p{font-size:13px;color:var(--text-muted);line-height:1.65}
+.card-tag{display:inline-block;margin-top:14px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;letter-spacing:.04em}
+.tag-red{background:rgba(139,0,0,.1);color:var(--chuka-red)}.tag-gold{background:rgba(200,150,12,.15);color:#7a5800}
+.tag-teal{background:var(--teal-light);color:var(--teal-text)}.tag-blue{background:var(--blue-light);color:var(--blue-text)}
+.tag-amber{background:var(--amber-light);color:var(--amber-text)}.tag-purple{background:var(--purple-light);color:var(--purple-text)}
+.tag-coral{background:var(--coral-light);color:var(--coral-text)}.tag-green{background:#e8f5e9;color:#2e7d32}
+/* AUTO */
+.auto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.auto-card{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);transition:all .2s;cursor:pointer;background:var(--bg)}
+.auto-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--chuka-red)}
+.auto-img{width:100%;height:175px;object-fit:cover;display:block}
+.auto-body{padding:20px}.auto-body h3{font-size:15px;font-weight:600;margin-bottom:8px}.auto-body p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:12px}
+.auto-tags{display:flex;gap:6px;flex-wrap:wrap}.auto-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px}
+/* WHY */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.why-item{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
+.why-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.why-item h4{font-size:14px;font-weight:600;margin-bottom:5px}.why-item p{font-size:13px;color:var(--text-muted);line-height:1.55}
+/* TESTIMONIALS */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.tcard{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow)}
+.stars{color:var(--chuka-gold);font-size:14px;letter-spacing:2px;margin-bottom:12px}
+.tcard p{font-size:14px;color:var(--text-muted);line-height:1.7;font-style:italic;margin-bottom:18px}
+.tcard-author{display:flex;align-items:center;gap:12px}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.av-red{background:rgba(139,0,0,.12);color:var(--chuka-red)}.av-gold{background:rgba(200,150,12,.15);color:#7a5800}.av-teal{background:var(--teal-light);color:var(--teal-text)}
+.tname{font-size:14px;font-weight:600}.trole{font-size:12px;color:var(--text-muted)}
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,var(--chuka-red3) 0%,var(--chuka-red) 100%);padding:64px 40px;text-align:center}
+.cta-band h2{font-size:34px;font-weight:700;color:#fff;margin-bottom:12px}
+.cta-band p{font-size:17px;color:rgba(255,255,255,.72);margin-bottom:32px}
+/* CHUKA DIVIDER */
+.chuka-divider{text-align:center;padding:20px 40px;background:var(--chuka-cream);border-top:1px solid rgba(200,150,12,.2);border-bottom:1px solid rgba(200,150,12,.2);display:flex;align-items:center;justify-content:center;gap:16px}
+.chuka-divider img{height:36px;width:auto;object-fit:contain}
+.chuka-divider-text{font-size:13px;color:var(--chuka-red);font-weight:600;letter-spacing:.04em}
+/* COURSES */
+.courses-top{background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));padding:48px 40px 0;color:#fff}
+.courses-top h1{color:#fff;font-size:32px;margin-bottom:8px}
+.courses-top p{color:rgba(255,255,255,.72);font-size:15px;max-width:540px;margin-bottom:28px}
+.year-tabs{display:flex;gap:0;overflow-x:auto}
+.year-tab{padding:14px 28px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;border-bottom:3px solid transparent;white-space:nowrap;transition:all .18s}
+.year-tab:hover{color:rgba(255,255,255,.85)}.year-tab.active{color:#fff;border-bottom-color:var(--chuka-gold)}
+.year-panel{display:none}.year-panel.active{display:block}
+.year-hero{padding:32px 40px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:rgba(139,0,0,.04);border-bottom:1px solid var(--border)}
+.year-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--chuka-red),var(--chuka-red2));color:#fff;border-radius:99px;padding:8px 20px;font-size:13px;font-weight:700;flex-shrink:0}
+.year-desc{flex:1;min-width:220px}.year-desc h2{font-size:20px;margin-bottom:4px}.year-desc p{font-size:13px;color:var(--text-muted)}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;padding:32px 40px}
+.course-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all .2s}
+.course-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--chuka-red)}
+.course-thumb{height:175px;overflow:hidden;position:relative}
+.course-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.course-card:hover .course-thumb img{transform:scale(1.04)}
+.thumb-badge{position:absolute;top:12px;left:12px;background:rgba(139,0,0,.88);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;backdrop-filter:blur(4px)}
+.course-body{padding:20px}.course-body h3{font-size:15px;font-weight:600;margin-bottom:8px}.course-body p{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:16px}
+.course-meta{display:flex;align-items:center;justify-content:space-between}
+.course-level{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px}
+.level-beg{background:var(--teal-light);color:var(--teal-text)}.level-int{background:var(--amber-light);color:var(--amber-text)}.level-adv{background:var(--coral-light);color:var(--coral-text)}
+.course-price{font-size:15px;font-weight:700;color:var(--chuka-red)}
+.enroll-btn{display:block;width:100%;margin-top:14px;background:var(--chuka-red);color:#fff;border:none;padding:10px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s}
+.enroll-btn:hover{background:var(--chuka-red2)}
+/* SHOP */
+.shop-tabs{display:flex;gap:4px;background:var(--bg-soft);border-radius:10px;padding:4px;width:fit-content;margin-bottom:36px;border:1px solid var(--border)}
+.shop-tab{padding:8px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;background:none;color:var(--text-muted);font-family:'Inter',sans-serif;transition:all .15s}
+.shop-tab.active{background:var(--bg);color:var(--chuka-red);box-shadow:var(--shadow);font-weight:600}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.product-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all .2s}
+.product-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--chuka-red)}
+.product-img-wrap{height:150px;overflow:hidden}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.product-card:hover .product-img-wrap img{transform:scale(1.05)}
+.product-body{padding:16px}.product-body h4{font-size:14px;font-weight:600;margin-bottom:6px}.product-body p{font-size:12px;color:var(--text-muted);line-height:1.55;margin-bottom:12px}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:15px;font-weight:700;color:var(--chuka-red)}
+.add-btn{background:var(--chuka-red);color:#fff;border:none;padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s}
+.add-btn:hover{background:var(--chuka-red2)}.in-stock{font-size:11px;color:var(--teal-text);font-weight:500}
+/* PORTFOLIO */
+.portfolio-hero{background:linear-gradient(135deg,var(--chuka-red3) 0%,var(--chuka-red) 100%);padding:60px 40px;color:#fff}
+.portfolio-hero h1{color:#fff;font-size:34px;margin-bottom:12px}
+.portfolio-hero p{color:rgba(255,255,255,.75);font-size:16px;max-width:540px}
+.portfolio-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:48px}
+.step-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;box-shadow:var(--shadow)}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--chuka-red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:14px}
+.step-card h3{font-size:15px;font-weight:600;margin-bottom:8px}.step-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.portfolio-showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.portfolio-item{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all .2s;cursor:pointer}
+.portfolio-item:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--chuka-red)}
+.portfolio-thumb{height:160px;overflow:hidden}
+.portfolio-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.portfolio-info{padding:18px}.portfolio-info h4{font-size:15px;font-weight:600;margin-bottom:6px}.portfolio-info p{font-size:13px;color:var(--text-muted);line-height:1.55}
+.portfolio-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.ptag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--blue-light);color:var(--blue-text)}
+.live-portfolio-wrap{border:2px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);margin-bottom:48px;background:var(--bg)}
+.live-portfolio-header{background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.live-portfolio-header-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.3)}
+.live-badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.live-portfolio-header h4{font-size:14px;font-weight:700;color:#fff;margin:0}
+.live-portfolio-header p{font-size:11px;color:rgba(255,255,255,.65);margin:0}
+.live-portfolio-open{font-size:12px;font-weight:600;color:#fff;text-decoration:none;background:rgba(255,255,255,.15);padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.3);transition:background .15s;white-space:nowrap}
+.live-portfolio-open:hover{background:rgba(255,255,255,.28)}
+.portfolio-preview-card{display:block;text-decoration:none;padding:48px 32px;text-align:center;background:linear-gradient(145deg,#faf8f5,#f0ede7);transition:all .2s;cursor:pointer;border-top:1px solid var(--border)}
+.portfolio-preview-card:hover{background:linear-gradient(145deg,#f5f2ec,#e8e3db)}
+.preview-icon{font-size:48px;margin-bottom:16px}.preview-title{font-size:18px;font-weight:700;color:var(--chuka-red);margin-bottom:8px}
+.preview-desc{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+.preview-btn{display:inline-block;background:var(--chuka-red);color:#fff;padding:10px 24px;border-radius:40px;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s}
+.preview-btn:hover{background:var(--chuka-red2);transform:translateY(-1px)}
+/* CLUB */
+.club-hero{background:linear-gradient(135deg,#1a0000 0%,var(--chuka-red3) 50%,var(--chuka-red) 100%);padding:72px 40px 56px;color:#fff;position:relative;overflow:hidden}
+.club-hero::before{content:'⚙️';position:absolute;right:-20px;top:-20px;font-size:200px;opacity:.06;line-height:1}
+.club-logo-header{display:flex;align-items:center;gap:24px;margin-bottom:28px;flex-wrap:wrap}
+.club-logo-img{width:110px;height:110px;object-fit:contain;border-radius:18px;background:rgba(255,255,255,.12);padding:10px;border:2px solid rgba(255,255,255,.3);box-shadow:0 4px 24px rgba(0,0,0,.35);flex-shrink:0}
+.club-logo-text h1{color:#fff;font-size:clamp(26px,4vw,40px);margin-bottom:6px}
+.club-logo-text p{color:rgba(255,255,255,.7);font-size:15px;max-width:480px}
+.club-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.club-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));background:var(--bg);border-bottom:1px solid var(--border)}
+.club-stat{text-align:center;padding:24px 20px;border-right:1px solid var(--border)}.club-stat:last-child{border-right:none}
+.club-stat-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--chuka-red)}
+.club-stat-label{font-size:12px;color:var(--text-muted);margin-top:3px}
+.club-activities{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.club-activity-card{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);background:var(--bg);transition:all .2s}
+.club-activity-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--chuka-red)}
+.club-activity-img{height:160px;overflow:hidden}
+.club-activity-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.club-activity-card:hover .club-activity-img img{transform:scale(1.04)}
+.club-activity-body{padding:20px}.club-activity-body h3{font-size:15px;font-weight:600;margin-bottom:8px}.club-activity-body p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.club-activity-meta{display:flex;align-items:center;gap:8px;margin-top:14px}
+.club-activity-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px}
+.club-events{display:flex;flex-direction:column;gap:14px}
+.club-event{display:flex;gap:16px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);transition:all .2s;cursor:pointer}
+.club-event:hover{border-color:var(--chuka-red);box-shadow:var(--shadow-md)}
+.club-event-date{flex-shrink:0;width:52px;text-align:center;background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));border-radius:10px;padding:8px 4px;color:#fff}
+.club-event-day{font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif;line-height:1}
+.club-event-month{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+.club-event-info h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.club-event-info p{font-size:13px;color:var(--text-muted);line-height:1.5}
+.club-event-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.club-event-tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--blue-light);color:var(--blue-text)}
+/* ANNOUNCEMENTS */
+.announcements-section{padding:0 40px 48px}
+.announcement-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.announcement-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--chuka-red);border-radius:4px 0 0 4px}
+.announcement-card.pinned::before{background:var(--chuka-gold)}
+.announcement-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.announcement-author{font-size:12px;font-weight:700;color:var(--chuka-red)}
+.announcement-date{font-size:11px;color:var(--text-light)}
+.announcement-pin{font-size:11px;font-weight:700;background:rgba(200,150,12,.15);color:#7a5800;padding:2px 8px;border-radius:99px}
+.announcement-card h4{font-size:15px;font-weight:600;margin-bottom:6px}
+.announcement-card p{font-size:14px;color:var(--text-muted);line-height:1.65}
+.announcement-img{width:100%;border-radius:10px;margin-top:14px;max-height:280px;object-fit:cover;display:block}
+.announcement-empty{text-align:center;padding:48px 24px;color:var(--text-light);font-size:14px}
+/* CONTACT */
+.contact-page-wrap{max-width:960px;margin:0 auto;padding:56px 40px}
+.contact-top{display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:start}
+.contact-sidebar h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.contact-sidebar>p{font-size:15px;color:var(--text-muted);margin-bottom:32px;line-height:1.7}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+.contact-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ci-phone{background:var(--teal-light)}.ci-email{background:var(--blue-light)}.ci-ig{background:var(--purple-light)}
+.contact-item h4{font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+.contact-item a,.contact-item p{font-size:15px;color:var(--text);text-decoration:none;font-weight:500}
+.contact-item a:hover{color:var(--chuka-red);text-decoration:underline}
+.contact-local{margin-top:24px;padding:16px 18px;background:rgba(139,0,0,.05);border:1px solid rgba(139,0,0,.15);border-radius:12px}
+.contact-local-label{font-size:12px;font-weight:700;color:var(--chuka-red);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.contact-local p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.gform-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md)}
+.gform-header{background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));padding:20px 28px;display:flex;align-items:center;gap:12px}
+.gform-header-icon{font-size:22px}
+.gform-header h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px}
+.gform-header p{font-size:12px;color:rgba(255,255,255,.65)}
+/* ADMIN */
+#page-admin{background:var(--bg-soft);min-height:100vh}
+.admin-topbar{background:linear-gradient(135deg,#0f0f1a,#1a0030);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--chuka-gold)}
+.admin-topbar-left{display:flex;align-items:center;gap:14px}
+.admin-logo{width:40px;height:40px;object-fit:contain}
+.admin-title{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.admin-subtitle{font-size:11px;color:rgba(255,255,255,.45)}
+.admin-logout{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.admin-logout:hover{background:rgba(255,255,255,.2)}
+.admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 73px)}
+.admin-sidebar{background:#fff;border-right:1px solid var(--border);padding:24px 0}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:11px 24px;font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.admin-nav-item:hover{background:var(--bg-soft);color:var(--text)}
+.admin-nav-item.active{color:var(--chuka-red);background:rgba(139,0,0,.06);border-left-color:var(--chuka-red);font-weight:600}
+.admin-nav-item .a-icon{font-size:18px;width:22px;text-align:center}
+.admin-nav-section{font-size:10px;font-weight:700;color:var(--text-light);padding:18px 24px 6px;text-transform:uppercase;letter-spacing:.1em}
+.admin-content{padding:36px 40px;overflow-y:auto}
+.admin-panel{display:none}.admin-panel.active{display:block}
+.admin-panel-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.admin-panel-sub{font-size:14px;color:var(--text-muted);margin-bottom:32px}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:36px}
+.admin-stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
+.admin-stat-card .num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--chuka-red)}
+.admin-stat-card .lbl{font-size:12px;color:var(--text-muted);margin-top:4px}
+.admin-stat-card .chg{font-size:11px;font-weight:600;color:var(--teal-text);margin-top:6px}
+.admin-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);margin-bottom:28px}
+.admin-form h3{font-size:16px;font-weight:700;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-group label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.form-group input,.form-group textarea,.form-group select{padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--chuka-red);box-shadow:0 0 0 3px rgba(139,0,0,.08)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-actions{display:flex;gap:10px;align-items:center;padding-top:6px}
+.admin-btn{padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .15s}
+.admin-btn-primary{background:var(--chuka-red);color:#fff}.admin-btn-primary:hover{background:var(--chuka-red2)}
+.admin-btn-gold{background:linear-gradient(135deg,var(--chuka-gold),var(--chuka-gold2));color:var(--chuka-red3)}.admin-btn-gold:hover{opacity:.9}
+.admin-btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border)}.admin-btn-ghost:hover{background:var(--bg-soft);color:var(--text)}
+.admin-btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}.admin-btn-danger:hover{background:#fecaca}
+.admin-table-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+.admin-table-header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.admin-table-header h3{font-size:15px;font-weight:700}
+table.admin-table{width:100%;border-collapse:collapse}
+table.admin-table th{background:var(--bg-soft);font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;padding:11px 18px;text-align:left;border-bottom:1px solid var(--border)}
+table.admin-table td{padding:13px 18px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+table.admin-table tr:last-child td{border-bottom:none}
+table.admin-table tr:hover td{background:var(--bg-soft)}
+.tbl-badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600}
+.tbl-badge-green{background:var(--teal-light);color:var(--teal-text)}.tbl-badge-amber{background:var(--amber-light);color:var(--amber-text)}.tbl-badge-red{background:rgba(139,0,0,.1);color:var(--chuka-red)}
+.tbl-actions{display:flex;gap:6px}
+.tbl-btn{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.tbl-btn-edit{background:var(--blue-light);color:var(--blue-text)}.tbl-btn-delete{background:#fee2e2;color:#b91c1c}
+.admin-alert{padding:12px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:18px;display:none}
+.admin-alert.show{display:flex;align-items:center;gap:8px}
+.admin-alert-success{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.admin-alert-error{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}
+.img-preview{width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-top:12px;display:none}
+.img-preview.show{display:block}
+/* LOGIN */
+.admin-login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0f1a,#1a0030,#2a0010);padding:20px}
+.admin-login-box{background:#fff;border-radius:20px;padding:48px 40px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.admin-login-logo{text-align:center;margin-bottom:28px}
+.admin-login-logo img{width:64px;height:64px;object-fit:contain;border-radius:12px;margin-bottom:10px}
+.admin-login-logo h2{font-size:22px;font-weight:700;color:var(--chuka-red)}
+.admin-login-logo p{font-size:13px;color:var(--text-muted);margin-top:4px}
+.login-form .form-group{margin-bottom:18px}
+.login-form .form-group label{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px}
+.login-form input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:9px;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
+.login-form input:focus{border-color:var(--chuka-red);box-shadow:0 0 0 3px rgba(139,0,0,.08)}
+.login-submit{width:100%;padding:13px;background:var(--chuka-red);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;margin-top:4px}
+.login-submit:hover{background:var(--chuka-red2)}
+.login-error{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:500;margin-bottom:16px;display:none}
+.login-error.show{display:block}
+.back-to-site-link{display:block;text-align:center;margin-top:20px;font-size:13px;color:var(--text-muted);text-decoration:none;cursor:pointer}
+.back-to-site-link:hover{color:var(--chuka-red)}
+/* FOOTER */
+.footer{background:#1a0000;color:rgba(255,255,255,.65);padding:48px 40px 28px;border-top:3px solid var(--chuka-gold)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.45);margin-top:12px;line-height:1.7;max-width:240px}
+.footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.footer-logo-img{height:44px;width:auto;object-fit:contain}
+.footer-col h4{font-size:11px;font-weight:700;color:var(--chuka-gold2);margin-bottom:16px;text-transform:uppercase;letter-spacing:.1em}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:10px;cursor:pointer;transition:color .15s}
+.footer-col a:hover{color:var(--chuka-gold2)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:12px}
+.social-links{display:flex;gap:10px}
+.social-link{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);text-decoration:none;font-size:16px;transition:background .15s}
+.social-link:hover{background:var(--chuka-red);color:#fff}
+.chuka-credit{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.35)}
+.chuka-credit img{height:24px;width:auto;opacity:.5}
+@media(max-width:768px){
+  .nav{padding:10px 16px}.nav-links{display:none}
+  .nav-hamburger{display:flex;flex-direction:column;gap:4px}
+  .nav-hamburger span{width:22px;height:2px;background:var(--chuka-red);border-radius:2px;display:block}
+  .nav-mobile{flex-direction:column;gap:4px;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+  .nav-mobile.open{display:flex}
+  .nav-mobile a{font-size:14px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border)}
+  .hero{padding:56px 20px 48px}.section{padding:40px 20px}.announcements-section{padding:0 20px 40px}
+  .stats{flex-wrap:wrap}.stat{border-right:none;border-bottom:1px solid var(--border);flex:1 1 50%}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}.cta-band{padding:48px 20px}.footer{padding:36px 20px 24px}
+  .year-band{padding:24px 20px}.courses-top{padding:36px 20px 0}.courses-grid{padding:24px 20px}
+  .year-hero{padding:24px 20px}.year-tab{padding:12px 18px;font-size:13px}
+  .contact-page-wrap{padding:32px 16px}.contact-top{grid-template-columns:1fr;gap:28px}
+  .club-hero{padding:48px 20px 36px}.club-logo-header{flex-direction:column;align-items:flex-start}
+  .club-event{flex-direction:column;gap:10px}
+  .club-event-date{width:100%;display:flex;gap:8px;align-items:center;justify-content:center;padding:8px 14px;border-radius:8px}
+  .portfolio-preview-card{padding:32px 20px}
+  .admin-layout{grid-template-columns:1fr}.admin-sidebar{display:none}
+  .admin-topbar{padding:12px 20px}.admin-content{padding:24px 16px}
+  .form-row{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
-<div class="back-to-site-bar" id="backToSiteBar">
-  <div class="back-to-site-logo">
-    <img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" style="height:32px;object-fit:contain;" onerror="this.style.display='none'" />
-    <span>enemind · Chuka University</span>
-  </div>
-  <a href="javascript:history.back()" class="back-to-site-btn" onclick="goBackToSite()">← Back to website</a>
-</div>
-
-<nav class="nav">
-  <a class="nav-logo" onclick="showPage('home')" style="text-decoration:none">
-    <img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka University" class="logo-img" onerror="this.style.display='none'" />
-    <div class="logo-name-wrap">
-      <span class="logo-name">enemind</span>
-      <span class="logo-sub">Chuka University</span>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-    <li class="nav-dd" id="nav-dd-classes">
-      <button class="nav-dd-trigger" onclick="toggleDD('classes')">
-        Classes <span class="dd-arrow">▾</span>
-      </button>
-      <div class="dd-menu">
-        <a class="dd-item" onclick="gotoYear('y1')"><div class="dd-icon ic-red">1️⃣</div><div><span class="dd-label">First Year</span><span class="dd-desc">Foundations: Sheets basics, intro to coding, orientation tools</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y2')"><div class="dd-icon ic-gold">2️⃣</div><div><span class="dd-label">Second Year</span><span class="dd-desc">Intermediate Sheets, data handling, GitHub setup</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y3')"><div class="dd-icon ic-teal">3️⃣</div><div><span class="dd-label">Third Year</span><span class="dd-desc">Automation, Apps Script, project documentation</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y4')"><div class="dd-icon ic-blue">4️⃣</div><div><span class="dd-label">Fourth Year</span><span class="dd-desc">Advanced data analysis, live dashboards, portfolio polish</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y5')"><div class="dd-icon ic-purple">5️⃣</div><div><span class="dd-label">Fifth Year</span><span class="dd-desc">Capstone projects, career tools, full workflow automation</span></div></a>
-        <div class="dd-divider"></div>
-        <a class="dd-all" onclick="gotoYear('all')">Browse all classes →</a>
-      </div>
-    </li>
-    <!-- ── MY COURSES DROPDOWN (NEW) ── -->
-    <li class="nav-dd" id="nav-dd-mycourses">
-      <button class="nav-dd-trigger" onclick="toggleDD('mycourses')">
-        My Courses <span class="dd-arrow">▾</span>
-      </button>
-      <div class="dd-menu" style="min-width:310px">
-        <a class="dd-item" href="https://docs.google.com/spreadsheets" target="_blank" rel="noopener"><div class="dd-icon ic-teal">📊</div><div><span class="dd-label">Google Sheets</span><span class="dd-desc">Open Google Sheets to practise your course exercises</span></div></a>
-        <div class="dd-divider"></div>
-        <a class="dd-item" onclick="gotoYear('all')"><div class="dd-icon ic-red">🎓</div><div><span class="dd-label">Browse all classes</span><span class="dd-desc">View the full Enemind course catalogue by year</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y1')"><div class="dd-icon" style="background:rgba(139,0,0,.1);color:var(--chuka-red)">1️⃣</div><div><span class="dd-label">1st Year</span><span class="dd-desc">Google Sheets from scratch &amp; foundations</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y2')"><div class="dd-icon ic-gold">2️⃣</div><div><span class="dd-label">2nd Year</span><span class="dd-desc">Advanced Sheets, dashboards &amp; GitHub starter</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y3')"><div class="dd-icon ic-teal">3️⃣</div><div><span class="dd-label">3rd Year</span><span class="dd-desc">Automation with Apps Script</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y4')"><div class="dd-icon ic-blue">4️⃣</div><div><span class="dd-label">4th Year</span><span class="dd-desc">Data analysis &amp; live dashboards</span></div></a>
-        <a class="dd-item" onclick="gotoYear('y5')"><div class="dd-icon ic-purple">5️⃣</div><div><span class="dd-label">5th Year</span><span class="dd-desc">Capstone projects &amp; advanced automation</span></div></a>
-        <div class="dd-divider"></div>
-        <a class="dd-all" onclick="showPage('contact')">Enrol in a course →</a>
-      </div>
-    </li>
-    <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
-    <li><a onclick="showPage('portfolio')" id="nav-portfolio">GitHub Portfolio</a></li>
-    <li><a onclick="showPage('club')" id="nav-club">⚙️ Eng. Club</a></li>
-    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
-  </ul>
-  <button class="btn-red" style="font-size:13px;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:600;" onclick="showPage('contact')">Get in touch</button>
-  <button class="nav-hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<nav class="nav-mobile" id="nav-mobile">
-  <a onclick="showPage('home');closeMobile()">Home</a>
-  <a onclick="gotoYear('y1');closeMobile()">Classes — First Year</a>
-  <a onclick="gotoYear('y2');closeMobile()">Classes — Second Year</a>
-  <a onclick="gotoYear('y3');closeMobile()">Classes — Third Year</a>
-  <a onclick="gotoYear('y4');closeMobile()">Classes — Fourth Year</a>
-  <a onclick="gotoYear('y5');closeMobile()">Classes — Fifth Year</a>
-  <a onclick="gotoYear('all');closeMobile()">My Courses — All Classes</a>
-  <a href="https://docs.google.com/spreadsheets" target="_blank" rel="noopener" onclick="closeMobile()">📊 My Courses — Google Sheets</a>
-  <a onclick="showPage('shop');closeMobile()">Shop</a>
-  <a onclick="showPage('portfolio');closeMobile()">GitHub Portfolio</a>
-  <a onclick="showPage('club');closeMobile()">⚙️ Engineering Club</a>
-  <a onclick="showPage('contact');closeMobile()">Contact</a>
-</nav>
-
-<!-- HOME PAGE -->
-<div class="page active" id="page-home">
-  <section class="hero"><div class="hero-bg"></div><div class="hero-overlay"></div><div class="hero-content">
-    <img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka University" class="hero-chuka-logo" onerror="this.style.display='none'" />
-    <div class="hero-badge">🎓 Built for Chuka University Engineering Students</div>
-    <h1>Skills, tools &amp; kits for<br><span>Chuka's next-generation</span> engineers</h1>
-    <p>Master Google Sheets, build your GitHub portfolio, automate workflows, and get the components and books you need — tailored to every year of your engineering journey.</p>
-    <div class="hero-btns"><button class="btn btn-gold" onclick="gotoYear('all')">Browse classes by year →</button><button class="btn btn-ghost-white" onclick="showPage('shop')">Visit the shop</button></div>
-  </div></section>
-  <div class="stats"><div class="stat"><div class="stat-num">1,200+</div><div class="stat-label">Chuka students enrolled</div></div><div class="stat"><div class="stat-num">20+</div><div class="stat-label">Courses across 5 years</div></div><div class="stat"><div class="stat-num">300+</div><div class="stat-label">Components in stock</div></div><div class="stat"><div class="stat-num">4.9 ★</div><div class="stat-label">Average rating</div></div></div>
-  <div class="year-band"><div><div class="year-band-title">🎓 Find your year</div><div class="year-band-sub">Courses are tailored to where you are in your engineering degree</div></div><div class="year-pills"><button class="year-pill" onclick="gotoYear('y1')">1st Year</button><button class="year-pill" onclick="gotoYear('y2')">2nd Year</button><button class="year-pill" onclick="gotoYear('y3')">3rd Year</button><button class="year-pill" onclick="gotoYear('y4')">4th Year</button><button class="year-pill" onclick="gotoYear('y5')">5th Year</button></div></div>
-  <section class="section"><div class="section-header"><div class="eyebrow">What we offer</div><h2 class="section-title">Everything you need to grow at Chuka</h2><p class="section-sub">From first-year foundations to final-year projects — Enemind walks with you through every semester.</p></div><div class="cards-grid">
-    <div class="card" onclick="gotoYear('y1')"><div class="card-icon ic-red">📊</div><h3>Google Sheets learning</h3><p>From basics to advanced formulas, pivot tables, and dashboards. Real exercises built around engineering use cases at Chuka.</p><span class="card-tag tag-red">Course</span></div>
-    <div class="card" onclick="showPage('portfolio')"><div class="card-icon ic-gold">🐙</div><h3>GitHub portfolio making</h3><p>We build a polished GitHub profile that showcases your engineering projects and gets you noticed for internships.</p><span class="card-tag tag-gold">Service</span></div>
-    <div class="card" onclick="gotoYear('y3')"><div class="card-icon ic-teal">🤖</div><h3>Sheets automation</h3><p>Automate repetitive tasks using Google Apps Script. Perfect for 3rd and 4th year project data management.</p><span class="card-tag tag-teal">Course</span></div>
-    <div class="card" onclick="showPage('shop')"><div class="card-icon ic-blue">⚡</div><h3>Electrical components</h3><p>Resistors, capacitors, microcontrollers, sensors and more — curated kits for Chuka engineering student projects.</p><span class="card-tag tag-blue">Shop</span></div>
-    <div class="card" onclick="showPage('shop')"><div class="card-icon ic-coral">📚</div><h3>Books for reading</h3><p>Engineering, tech, and personal growth books carefully selected to support your coursework and career journey.</p><span class="card-tag tag-coral">Shop</span></div>
-    <div class="card" onclick="showPage('club')"><div class="card-icon ic-green">⚙️</div><h3>Engineering Club</h3><p>Join the Chuka Engineering Club — hackathons, workshops, peer projects, and a network that lasts beyond graduation.</p><span class="card-tag tag-green">Community</span></div>
-  </div></section>
-  <section class="section alt"><div class="section-header"><div class="eyebrow">Automation spotlight</div><h2 class="section-title">Automate everything with Sheets</h2><p class="section-sub">Real automation projects our Chuka students have built — saving hours of manual work every week.</p></div><div class="auto-grid">
-    <div class="auto-card" onclick="gotoYear('y3')"><img class="auto-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Sheets dashboard" loading="lazy"/><div class="auto-body"><h3>Auto-reporting dashboards</h3><p>Pull live data from Google Forms, process it with Apps Script, and email a formatted PDF report — zero manual work.</p><div class="auto-tags"><span class="auto-tag tag-teal">Apps Script</span><span class="auto-tag tag-amber">Gmail API</span></div></div></div>
-    <div class="auto-card" onclick="gotoYear('y3')"><img class="auto-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Student automation" loading="lazy"/><div class="auto-body"><h3>Student timetable scheduler</h3><p>Automated unit scheduling that checks conflicts, assigns rooms, and sends reminders to students via WhatsApp.</p><div class="auto-tags"><span class="auto-tag tag-blue">Sheets API</span><span class="auto-tag tag-purple">WhatsApp</span></div></div></div>
-    <div class="auto-card" onclick="gotoYear('y4')"><img class="auto-img" src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80" alt="Inventory tracker" loading="lazy"/><div class="auto-body"><h3>Inventory tracker &amp; alerts</h3><p>Track stock levels in a shared Sheet. When any item drops below threshold, automatic email and SMS alerts fire.</p><div class="auto-tags"><span class="auto-tag tag-teal">Triggers</span><span class="auto-tag tag-coral">SMS API</span></div></div></div>
-  </div><div style="text-align:center;margin-top:36px;"><button class="btn btn-red" onclick="gotoYear('y3')">See automation courses →</button></div></section>
-  <section class="section"><div class="section-header"><div class="eyebrow">Why Enemind</div><h2 class="section-title">Built for Chuka University students</h2><p class="section-sub">Enemind is designed around the real challenges Chuka engineering students face — not generic content.</p></div><div class="why-grid">
-    <div class="why-item"><span class="why-icon">🏫</span><div><h4>Chuka-specific</h4><p>Content built around Chuka's engineering curriculum and local project needs.</p></div></div>
-    <div class="why-item"><span class="why-icon">🎯</span><div><h4>Year-by-year learning</h4><p>Courses matched to what you actually need in Year 1 through Year 5.</p></div></div>
-    <div class="why-item"><span class="why-icon">💰</span><div><h4>Student pricing</h4><p>Affordable plans made for student budgets — starting from KES 500.</p></div></div>
-    <div class="why-item"><span class="why-icon">🏆</span><div><h4>Portfolio outcomes</h4><p>Leave with a GitHub profile and real projects employers at Kenyan firms notice.</p></div></div>
-    <div class="why-item"><span class="why-icon">🚚</span><div><h4>Fast local delivery</h4><p>Components delivered quickly around Chuka town and nearby areas.</p></div></div>
-    <div class="why-item"><span class="why-icon">👥</span><div><h4>Chuka community</h4><p>Join a growing WhatsApp community of Chuka engineering students.</p></div></div>
-  </div></section>
-  <section class="section alt"><div class="section-header centered"><div class="eyebrow">Student reviews</div><h2 class="section-title">What Chuka students say</h2></div><div class="testimonials">
-    <div class="tcard"><div class="stars">★★★★★</div><p>"The Google Sheets automation course saved me so much time on my data analysis assignments. Clear, practical, and worth every shilling."</p><div class="tcard-author"><div class="avatar av-red">AM</div><div><div class="tname">Amina M.</div><div class="trole">Electrical Engineering, Chuka — Year 3</div></div></div></div>
-    <div class="tcard"><div class="stars">★★★★★</div><p>"I got my first internship after Enemind helped me build my GitHub portfolio. The components shop also has everything for my final year project."</p><div class="tcard-author"><div class="avatar av-gold">BK</div><div><div class="tname">Brian K.</div><div class="trole">Mechatronics, Chuka — Year 4</div></div></div></div>
-    <div class="tcard"><div class="stars">★★★★★</div><p>"The books selection is brilliant — I picked up two titles and they genuinely changed how I think about problem solving. Highly recommend."</p><div class="tcard-author"><div class="avatar av-teal">FW</div><div><div class="tname">Faith W.</div><div class="trole">Computer Engineering, Chuka — Year 2</div></div></div></div>
-  </div></section>
-  <div class="cta-band"><h2>Ready to level up at Chuka?</h2><p>Join hundreds of Chuka engineering students already learning, building, and growing with Enemind.</p><button class="btn btn-gold" onclick="gotoYear('all')">Find your year's courses →</button></div>
-  <div class="chuka-divider"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka University" onerror="this.style.display='none'" /><span class="chuka-divider-text">Proud partner of Chuka University engineering community</span></div>
-</div>
-
-<!-- COURSES PAGE -->
-<div class="page" id="page-courses"><div class="courses-top"><h1>Classes at Enemind</h1><p>Courses organised by your year of study at Chuka University. Pick your year and dive in.</p><div class="year-tabs" id="yearTabs"><button class="year-tab active" id="ytab-all" onclick="switchYear('all',this)">All Classes</button><button class="year-tab" id="ytab-y1" onclick="switchYear('y1',this)">1st Year</button><button class="year-tab" id="ytab-y2" onclick="switchYear('y2',this)">2nd Year</button><button class="year-tab" id="ytab-y3" onclick="switchYear('y3',this)">3rd Year</button><button class="year-tab" id="ytab-y4" onclick="switchYear('y4',this)">4th Year</button><button class="year-tab" id="ytab-y5" onclick="switchYear('y5',this)">5th Year</button></div></div><div class="year-panel active" id="panel-all"><div class="year-hero"><div class="year-badge">🎓 All Years</div><div class="year-desc"><h2>Full course catalogue</h2><p>Browse every Enemind course — or use the tabs above to filter by your year of study.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt=""/><span class="thumb-badge">Year 1</span></div><div class="course-body"><h3>Google Sheets from scratch</h3><p>Fundamentals — formulas, cell references, data types, basic charts.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 500</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=80" alt=""/><span class="thumb-badge">Year 2</span></div><div class="course-body"><h3>Advanced Sheets &amp; dashboards</h3><p>Pivot tables, VLOOKUP, ARRAYFORMULA, data validation, and interactive dashboards.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 800</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&q=80" alt=""/><span class="thumb-badge">Year 2</span></div><div class="course-body"><h3>GitHub portfolio starter</h3><p>Set up your GitHub profile, write a standout README, and publish your first project.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 600</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt=""/><span class="thumb-badge">Year 3</span></div><div class="course-body"><h3>Google Sheets automation</h3><p>Automate tasks with Google Apps Script — macros, triggers, automated reports.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 1,000</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="year-panel" id="panel-y1"><div class="year-hero"><div class="year-badge">1️⃣ First Year</div><div class="year-desc"><h2>Welcome to Chuka Engineering</h2><p>Foundation tools and digital skills to set you up from day one.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt=""/><span class="thumb-badge">Beginner</span></div><div class="course-body"><h3>Google Sheets from scratch</h3><p>Master the fundamentals — formulas, cell references, data types, basic charts.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 500</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="year-panel" id="panel-y2"><div class="year-hero"><div class="year-badge">2️⃣ Second Year</div><div class="year-desc"><h2>Build stronger foundations</h2><p>Deepen your Sheets skills, start your GitHub presence.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=80" alt=""/><span class="thumb-badge">Intermediate</span></div><div class="course-body"><h3>Advanced Sheets &amp; dashboards</h3><p>Pivot tables, VLOOKUP, ARRAYFORMULA, data validation.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 800</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="year-panel" id="panel-y3"><div class="year-hero"><div class="year-badge">3️⃣ Third Year</div><div class="year-desc"><h2>Automate and document</h2><p>Learn automation and Apps Script to handle project workflows.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt=""/><span class="thumb-badge">Intermediate</span></div><div class="course-body"><h3>Google Sheets automation</h3><p>Automate tasks with Google Apps Script — macros, triggers, automated reports.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 1,000</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="year-panel" id="panel-y4"><div class="year-hero"><div class="year-badge">4️⃣ Fourth Year</div><div class="year-desc"><h2>Advanced analysis &amp; live data</h2><p>Handle complex datasets, build live dashboards.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80" alt=""/><span class="thumb-badge">Intermediate</span></div><div class="course-body"><h3>Data analysis for engineers</h3><p>Clean, filter, and visualise complex engineering datasets.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 700</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="year-panel" id="panel-y5"><div class="year-hero"><div class="year-badge">5️⃣ Fifth Year</div><div class="year-desc"><h2>Capstone, career &amp; full automation</h2><p>Final-year tools for capstone projects, job applications.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1587620962725-abab19836100?w=600&q=80" alt=""/><span class="thumb-badge">Advanced</span></div><div class="course-body"><h3>Advanced Apps Script</h3><p>Connect Sheets to Gmail, Forms, and external APIs.</p><div class="course-meta"><span class="course-level level-adv">Advanced</span><span class="course-price">KES 1,200</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
-  <div class="cta-band"><h2>Not sure which class to start with?</h2><p>Send us a message and we'll recommend the right one.</p><button class="btn btn-gold" onclick="showPage('contact')">Ask us →</button></div>
-</div>
-
-<!-- SHOP PAGE -->
-<div class="page" id="page-shop"><section class="section"><div class="section-header"><div class="eyebrow">Shop</div><h2 class="section-title">Components &amp; books</h2><p class="section-sub">Everything Chuka engineering students need for projects and reading — curated and delivered locally.</p></div><div class="shop-tabs"><button class="shop-tab active" onclick="switchShopTab('components',this)">⚡ Electrical components</button><button class="shop-tab" onclick="switchShopTab('books',this)">📚 Books</button></div><div id="tab-components"><div class="shop-grid"><div class="product-card"><div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?w=400&q=80" alt="Arduino"/></div><div class="product-body"><h4>Arduino Uno R3</h4><p>Classic microcontroller for any engineering project.</p><div class="product-footer"><span class="product-price">KES 900</span><button class="add-btn" onclick="showPage('contact')">Order</button></div><div class="in-stock">✓ In stock</div></div></div></div></div><div id="tab-books" style="display:none"><div class="shop-grid"><div class="product-card"><div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&q=80" alt="Book"/></div><div class="product-body"><h4>The Pragmatic Programmer</h4><p>A must-read for any engineer going into software development.</p><div class="product-footer"><span class="product-price">KES 1,200</span><button class="add-btn" onclick="showPage('contact')">Order</button></div></div></div></div></div></section><div class="cta-band"><h2>Need something not listed?</h2><p>We source components and books on request. Just get in touch.</p><button class="btn btn-gold" onclick="showPage('contact')">Make a request →</button></div></div>
-
-<!-- PORTFOLIO PAGE -->
-<div class="page" id="page-portfolio">
-  <div class="portfolio-hero"><div class="eyebrow" style="color:rgba(255,255,255,.5)">GitHub Portfolio</div><h1>Your portfolio is your CV — let's make it count</h1><p>We help Chuka engineering students build GitHub profiles that impress internship coordinators and employers across Kenya.</p><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px"><button class="btn btn-gold" onclick="showPage('contact')">Create yours today →</button><button class="btn btn-ghost-white" onclick="showPage('contact')">Ask us a question</button></div></div>
-  <section class="section"><div class="section-header centered"><div class="eyebrow">The process</div><h2 class="section-title">How we build your portfolio</h2></div><div class="portfolio-steps"><div class="step-card"><div class="step-num">1</div><h3>Profile audit</h3><p>We review your existing GitHub (or start fresh) and assess what employers are looking for in your engineering field.</p></div><div class="step-card"><div class="step-num">2</div><h3>README &amp; bio setup</h3><p>We write a compelling profile README with your skills, projects, and contact links — fully personalised for Chuka graduates.</p></div><div class="step-card"><div class="step-num">3</div><h3>Project uploads</h3><p>We help you upload and document your class and personal projects with clear descriptions and clean code.</p></div><div class="step-card"><div class="step-num">4</div><h3>Live demo pages</h3><p>We set up GitHub Pages so your projects are live and accessible with a real URL employers can visit.</p></div></div>
-    <div class="section-header" style="margin-bottom:24px;"><div class="eyebrow">Live example</div><h2 class="section-title">See a real portfolio in action</h2><p class="section-sub">This is what a finished Enemind portfolio looks like. Click to open in a new tab.</p></div>
-    <div class="live-portfolio-wrap">
-      <div class="live-portfolio-header">
-        <div class="live-portfolio-header-left"><div><h4>Sidney Wafula — Portfolio</h4><p>Sample built with Enemind · sidneywafula.my.canva.site</p></div><span class="live-badge"><span class="live-badge-dot"></span> Live site</span></div>
-        <a class="live-portfolio-open" href="https://sidneywafula.my.canva.site/" target="_blank" rel="noopener">Open full screen ↗</a>
-      </div>
-      <a href="https://sidneywafula.my.canva.site/" target="_blank" class="portfolio-preview-card">
-        <div class="preview-icon">📁</div>
-        <div class="preview-title">View Sidney Wafula's Portfolio</div>
-        <div class="preview-desc">Engineering projects · GitHub documentation · Live demos</div>
-        <span class="preview-btn">Open in new tab →</span>
-      </a>
-    </div>
-    <div class="section-header" style="margin-top:56px;"><div class="eyebrow">More examples</div><h2 class="section-title">Projects our students have built</h2></div>
-    <div class="portfolio-showcase"><div class="portfolio-item" onclick="showPage('contact')"><div class="portfolio-thumb"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt=""/></div><div class="portfolio-info"><h4>Smart home automation system</h4><p>Arduino + sensors controlling home appliances via a web dashboard.</p><div class="portfolio-tags"><span class="ptag">Arduino</span><span class="ptag">IoT</span></div></div></div><div class="portfolio-item" onclick="showPage('contact')"><div class="portfolio-thumb"><img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&q=80" alt=""/></div><div class="portfolio-info"><h4>Air quality tracker</h4><p>Python + Google Sheets dashboard pulling real sensor data.</p><div class="portfolio-tags"><span class="ptag">Python</span><span class="ptag">Sheets API</span></div></div></div><div class="portfolio-item" onclick="showPage('contact')"><div class="portfolio-thumb"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt=""/></div><div class="portfolio-info"><h4>Line-following robot</h4><p>Autonomous robot using IR sensors and motor control.</p><div class="portfolio-tags"><span class="ptag">Robotics</span><span class="ptag">C++</span></div></div></div></div>
-  </section>
-  <div class="cta-band"><h2>Ready to build your Chuka portfolio?</h2><p>Reach out and we'll get started within 24 hours.</p><button class="btn btn-gold" onclick="showPage('contact')">Create yours today →</button></div>
-</div>
-
-<!-- ENGINEERING CLUB PAGE -->
-<div class="page" id="page-club">
-  <div class="club-hero">
-    <div class="eyebrow">Engineering Club</div>
-    <h1>⚙️ Chuka Engineering Club</h1>
-    <p>A community for Chuka University engineering students who want to build real things, meet like-minded peers, and develop skills beyond the classroom.</p>
-    <div class="club-hero-btns">
-      <!-- PATCHED: links to club join form -->
-      <a class="btn btn-gold" href="https://docs.google.com/forms/d/e/1FAIpQLSea00sc79fuxaiGJq6IHC47IXpDwjvchhYCTa2jkHmO0AdZsw/viewform?usp=header" target="_blank" rel="noopener">Join the club →</a>
-      <button class="btn btn-ghost-white" onclick="document.getElementById('club-events-section').scrollIntoView({behavior:'smooth'})">See upcoming events</button>
-    </div>
-  </div>
-  <div class="club-stats"><div class="club-stat"><div class="club-stat-num">120+</div><div class="club-stat-label">Active members</div></div><div class="club-stat"><div class="club-stat-num">18</div><div class="club-stat-label">Events this year</div></div><div class="club-stat"><div class="club-stat-num">6</div><div class="club-stat-label">Hackathons held</div></div><div class="club-stat"><div class="club-stat-num">40+</div><div class="club-stat-label">Projects built</div></div></div>
-  <section class="section"><div class="section-header"><div class="eyebrow">What we do</div><h2 class="section-title">Club activities &amp; events</h2><p class="section-sub">From monthly workshops to semester-long build challenges — there's always something happening at the Engineering Club.</p></div><div class="club-activities"><div class="club-activity-card"><div class="club-activity-img"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="Hackathon"/></div><div class="club-activity-body"><h3>Semester hackathons</h3><p>48-hour build challenges where teams design and ship a working engineering project.</p><div class="club-activity-meta"><span class="club-activity-tag tag-red">Competitive</span><span class="club-activity-tag tag-gold">Prizes</span></div></div></div></div></section>
-  <section class="section alt" id="club-events-section"><div class="section-header"><div class="eyebrow">Upcoming events</div><h2 class="section-title">What's coming up</h2></div><div class="club-events"><div class="club-event" onclick="showPage('contact')"><div class="club-event-date"><div class="club-event-day">28</div><div class="club-event-month">Jun</div></div><div class="club-event-info"><h4>Intro to PCB Design — Workshop</h4><p>Learn to design your first printed circuit board using free software.</p><div class="club-event-tags"><span class="club-event-tag">In-person</span></div></div></div></div></section>
-  <div class="cta-band">
-    <h2>Ready to join the club?</h2>
-    <p>Fill in the form and we'll add you to the WhatsApp group within the hour.</p>
-    <!-- PATCHED: links to club join form -->
-    <a class="btn btn-gold" href="https://docs.google.com/forms/d/e/1FAIpQLSea00sc79fuxaiGJq6IHC47IXpDwjvchhYCTa2jkHmO0AdZsw/viewform?usp=header" target="_blank" rel="noopener">Join today →</a>
-  </div>
-</div>
-
-<!-- CONTACT PAGE -->
-<div class="page" id="page-contact">
-  <div class="contact-page-wrap">
-    <div class="contact-top">
-      <div class="contact-sidebar">
-        <div class="eyebrow">Contact</div>
-        <h2>Let's talk</h2>
-        <p>Whether you have a question about a class, want to order a component, or need help with your GitHub portfolio — fill in the form or reach us directly.</p>
-        <div class="contact-item"><div class="contact-icon ci-phone">📞</div><div><h4>Phone / WhatsApp</h4><a href="tel:+254711629600">+254 711 629 600</a></div></div>
-        <div class="contact-item"><div class="contact-icon ci-email">✉️</div><div><h4>Email</h4><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a></div></div>
-        <div class="contact-item"><div class="contact-icon ci-ig">📸</div><div><h4>Instagram</h4><a href="https://instagram.com/sido.cdo" target="_blank">@sido.cdo</a></div></div>
-        <div class="contact-local"><div class="contact-local-label">📍 Based at Chuka</div><p>Locally based and serving Chuka University students directly.</p></div>
-      </div>
-      <!-- PATCHED: iframe removed, replaced with button -->
-      <div class="gform-wrap">
-        <div class="gform-header">
-          <div class="gform-header-icon">📋</div>
-          <div><h3>Send us a message</h3><p>Click below to open our contact form — we'll reply within a few hours</p></div>
-        </div>
-        <div style="padding:56px 32px;text-align:center;background:var(--bg-soft);border-top:1px solid var(--border)">
-          <div style="font-size:52px;margin-bottom:18px">📋</div>
-          <p style="font-size:15px;color:var(--text-muted);margin-bottom:28px;line-height:1.75;max-width:320px;margin-left:auto;margin-right:auto">Our contact form opens in Google Forms. Fill it in and we'll get back to you within a few hours.</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSegj4EzSoTGpertkNp0rN3FpA6YqgFhYQ-DrEv6btGy4c5nLQ/viewform" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--chuka-red);color:#fff;padding:15px 40px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;font-family:'Inter',sans-serif;transition:background .15s;">
-            Open contact form →
-          </a>
-          <p style="font-size:12px;color:var(--text-light);margin-top:20px">🔒 Your response goes directly to the Enemind team</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo-wrap"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" class="footer-logo-img" onerror="this.style.display='none'" /><div><div class="logo-name" style="color:#fff">enemind</div><div class="logo-sub" style="color:var(--chuka-gold2)">Chuka University</div></div></div><p>Skills, tools &amp; kits for Chuka University engineering students.</p></div><div class="footer-col"><h4>Classes by Year</h4><a onclick="gotoYear('y1')">First Year</a><a onclick="gotoYear('y2')">Second Year</a><a onclick="gotoYear('y3')">Third Year</a><a onclick="gotoYear('y4')">Fourth Year</a><a onclick="gotoYear('y5')">Fifth Year</a></div><div class="footer-col"><h4>Services</h4><a onclick="showPage('portfolio')">GitHub portfolio</a><a onclick="showPage('shop')">Components shop</a><a onclick="showPage('shop')">Books shop</a><a onclick="showPage('club')">Engineering Club</a></div><div class="footer-col"><h4>Connect</h4><a href="tel:+254711629600">+254 711 629 600</a><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a><a href="https://instagram.com/sido.cdo" target="_blank">Instagram: @sido.cdo</a></div></div><div class="footer-bottom"><div class="chuka-credit"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" onerror="this.style.display='none'" /><span>© 2026 Enemind · Serving Chuka University</span></div><div class="social-links"><a class="social-link" href="https://instagram.com/sido.cdo" target="_blank">📸</a><a class="social-link" href="https://facebook.com/sidney.wafula" target="_blank">👤</a><a class="social-link" href="https://wa.me/254711629600" target="_blank">💬</a><a class="social-link" href="mailto:sidneywafula30@gmail.com">✉️</a></div></div></footer>
-</div>
-
-<script>
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-links a, .nav-links .nav-dd-trigger').forEach(a=>a.classList.remove('active'));var el=document.getElementById('nav-'+id);if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-function gotoYear(y){showPage('courses');switchYear(y,document.getElementById('ytab-'+y)||document.getElementById('ytab-all'));}
-function switchYear(y,btn){document.querySelectorAll('.year-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.year-tab').forEach(b=>b.classList.remove('active'));var panel=document.getElementById('panel-'+y);if(panel)panel.classList.add('active');if(btn)btn.classList.add('active');document.querySelector('.courses-top')?.scrollIntoView({behavior:'smooth',block:'start'});}
-function toggleDD(name){document.querySelectorAll('.nav-dd').forEach(d=>{if(d.id!=='nav-dd-'+name)d.classList.remove('open');});document.getElementById('nav-dd-'+name).classList.toggle('open');}
-document.addEventListener('click',function(e){if(!e.target.closest('.nav-dd'))document.querySelectorAll('.nav-dd').forEach(d=>d.classList.remove('open'));});
-function toggleMobile(){document.getElementById('nav-mobile').classList.toggle('open');}
-function closeMobile(){document.getElementById('nav-mobile').classList.remove('open');}
-function switchShopTab(tab,btn){document.querySelectorAll('.shop-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-components').style.display=tab==='components'?'block':'none';document.getElementById('tab-books').style.display=tab==='books'?'block':'none';}
-function goBackToSite(){if(window.history.length>1){history.back();}else{window.close();}}
-(function(){var fromInternal=sessionStorage.getItem('enemind_visited');if(!fromInternal){var ref=document.referrer;var sameOrigin=ref&&ref.indexOf(window.location.hostname)!==-1;if(!sameOrigin&&window.location.hash==='#contact'){document.getElementById('backToSiteBar').classList.add('visible');}}sessionStorage.setItem('enemind_visited','1');})();
-</script>
-</body>
-</html>
