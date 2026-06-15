@@ -210,6 +210,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .ic-blue   { background:var(--blue-light); color:var(--blue-text); }
 .ic-purple { background:var(--purple-light); color:var(--purple-text); }
 .ic-coral  { background:var(--coral-light); color:var(--coral-text); }
+.ic-green  { background:#e8f5e9; color:#2e7d32; }
 .card h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
 .card p  { font-size:13px; color:var(--text-muted); line-height:1.65; }
 .card-tag { display:inline-block; margin-top:14px; font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; letter-spacing:.04em; }
@@ -220,6 +221,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .tag-amber  { background:var(--amber-light); color:var(--amber-text); }
 .tag-purple { background:var(--purple-light); color:var(--purple-text); }
 .tag-coral  { background:var(--coral-light); color:var(--coral-text); }
+.tag-green  { background:#e8f5e9; color:#2e7d32; }
 
 /* ── AUTOMATION ── */
 .auto-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
@@ -357,6 +359,128 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .portfolio-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
 .ptag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; background:var(--blue-light); color:var(--blue-text); }
 
+/* ── LIVE PORTFOLIO EMBED ── */
+.live-portfolio-wrap {
+  border:2px solid var(--border); border-radius:var(--radius-lg);
+  overflow:hidden; box-shadow:var(--shadow-md); margin-bottom:48px;
+  position:relative;
+}
+.live-portfolio-header {
+  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
+  padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.live-portfolio-header-left { display:flex; align-items:center; gap:10px; }
+.live-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+.live-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,.15); color:#fff;
+  font-size:11px; font-weight:700; padding:4px 12px; border-radius:99px;
+  border:1px solid rgba(255,255,255,.3);
+}
+.live-badge-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.live-portfolio-header h4 { font-size:14px; font-weight:700; color:#fff; }
+.live-portfolio-header p  { font-size:11px; color:rgba(255,255,255,.65); }
+.live-portfolio-open {
+  font-size:12px; font-weight:600; color:#fff; text-decoration:none;
+  background:rgba(255,255,255,.15); padding:6px 14px; border-radius:8px;
+  border:1px solid rgba(255,255,255,.3); transition:background .15s; white-space:nowrap;
+}
+.live-portfolio-open:hover { background:rgba(255,255,255,.28); }
+.live-portfolio-iframe { display:block; width:100%; height:600px; border:none; }
+
+/* ══════════════
+   ENGINEERING CLUB PAGE
+══════════════ */
+.club-hero {
+  background:linear-gradient(135deg,#1a0000 0%,var(--chuka-red3) 50%,var(--chuka-red) 100%);
+  padding:72px 40px 56px; color:#fff; position:relative; overflow:hidden;
+}
+.club-hero::before {
+  content:'⚙️'; position:absolute; right:-20px; top:-20px;
+  font-size:200px; opacity:.06; line-height:1;
+}
+.club-hero .eyebrow { color:rgba(200,150,12,.8); }
+.club-hero h1 { color:#fff; font-size:clamp(28px,4vw,44px); margin-bottom:12px; }
+.club-hero p  { color:rgba(255,255,255,.75); font-size:16px; max-width:560px; margin-bottom:32px; }
+.club-hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+/* Club stats band */
+.club-stats {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  background:var(--bg); border-bottom:1px solid var(--border);
+}
+.club-stat { text-align:center; padding:24px 20px; border-right:1px solid var(--border); }
+.club-stat:last-child { border-right:none; }
+.club-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--chuka-red); }
+.club-stat-label { font-size:12px; color:var(--text-muted); margin-top:3px; }
+
+/* Club activity cards */
+.club-activities { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+.club-activity-card {
+  border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow);
+  border:1px solid var(--border); background:var(--bg); transition:all .2s;
+}
+.club-activity-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
+.club-activity-img { height:160px; overflow:hidden; }
+.club-activity-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s; }
+.club-activity-card:hover .club-activity-img img { transform:scale(1.04); }
+.club-activity-body { padding:20px; }
+.club-activity-body h3 { font-size:15px; font-weight:600; margin-bottom:8px; }
+.club-activity-body p  { font-size:13px; color:var(--text-muted); line-height:1.6; }
+.club-activity-meta { display:flex; align-items:center; gap:8px; margin-top:14px; }
+.club-activity-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; }
+
+/* Club membership tiers */
+.club-tiers { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.club-tier {
+  border:2px solid var(--border); border-radius:var(--radius-lg);
+  padding:28px 22px; background:var(--bg); box-shadow:var(--shadow);
+  transition:all .2s; position:relative; overflow:hidden;
+}
+.club-tier.featured {
+  border-color:var(--chuka-gold);
+  background:linear-gradient(135deg,rgba(200,150,12,.05),rgba(200,150,12,.02));
+}
+.club-tier.featured::after {
+  content:'Most popular'; position:absolute; top:14px; right:-22px;
+  background:var(--chuka-gold); color:var(--chuka-red3); font-size:10px; font-weight:700;
+  padding:3px 32px; transform:rotate(35deg); letter-spacing:.05em; text-transform:uppercase;
+}
+.club-tier:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
+.club-tier.featured:hover { border-color:var(--chuka-gold2); }
+.club-tier-icon { font-size:28px; margin-bottom:12px; }
+.club-tier h3 { font-size:17px; font-weight:700; margin-bottom:4px; }
+.club-tier-price { font-size:26px; font-weight:700; color:var(--chuka-red); font-family:'Space Grotesk',sans-serif; margin-bottom:4px; }
+.club-tier-period { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
+.club-tier-perks { list-style:none; padding:0; margin-bottom:20px; }
+.club-tier-perks li { font-size:13px; color:var(--text-muted); padding:5px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; }
+.club-tier-perks li:last-child { border-bottom:none; }
+.perk-check { color:var(--teal); font-size:14px; flex-shrink:0; margin-top:1px; }
+.club-join-btn { display:block; width:100%; padding:10px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; transition:all .15s; border:2px solid var(--chuka-red); background:transparent; color:var(--chuka-red); }
+.club-join-btn:hover, .club-tier.featured .club-join-btn { background:var(--chuka-red); color:#fff; }
+
+/* Club upcoming events */
+.club-events { display:flex; flex-direction:column; gap:14px; }
+.club-event {
+  display:flex; gap:16px; align-items:flex-start;
+  background:var(--bg); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:18px 20px; box-shadow:var(--shadow);
+  transition:all .2s; cursor:pointer;
+}
+.club-event:hover { border-color:var(--chuka-red); box-shadow:var(--shadow-md); }
+.club-event-date {
+  flex-shrink:0; width:52px; text-align:center;
+  background:linear-gradient(135deg,var(--chuka-red3),var(--chuka-red));
+  border-radius:10px; padding:8px 4px; color:#fff;
+}
+.club-event-day   { font-size:22px; font-weight:700; font-family:'Space Grotesk',sans-serif; line-height:1; }
+.club-event-month { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; opacity:.8; }
+.club-event-info h4 { font-size:15px; font-weight:600; margin-bottom:4px; }
+.club-event-info p  { font-size:13px; color:var(--text-muted); line-height:1.5; }
+.club-event-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.club-event-tag { font-size:11px; font-weight:600; padding:2px 9px; border-radius:99px; background:var(--blue-light); color:var(--blue-text); }
+
 /* ══════════════
    CONTACT PAGE — GOOGLE FORM EMBED
 ══════════════ */
@@ -418,9 +542,8 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .gform-open-link:hover { text-decoration:underline; }
 
 /* ── BACK TO WEBSITE FLOATING BUTTON ── */
-/* This shows when form is opened in a new tab — handled via query param */
 .back-to-site-bar {
-  display:none; /* hidden by default, shown by JS when ?standalone=1 */
+  display:none;
   position:fixed; top:0; left:0; right:0; z-index:999;
   background:var(--chuka-red); padding:12px 24px;
   align-items:center; justify-content:space-between; gap:12px;
@@ -481,12 +604,17 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   .contact-top { grid-template-columns:1fr; gap:28px; }
   .gform-iframe-wrap iframe { min-height:1100px; }
   .gform-header { padding:16px 18px; }
+  /* Club responsive */
+  .club-hero { padding:48px 20px 36px; }
+  .club-event { flex-direction:column; gap:10px; }
+  .club-event-date { width:100%; display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 14px; border-radius:8px; }
+  .live-portfolio-iframe { height:420px; }
 }
 </style>
 </head>
 <body>
 
-<!-- BACK TO SITE BAR (visible only in standalone/new-tab mode) -->
+<!-- BACK TO SITE BAR -->
 <div class="back-to-site-bar" id="backToSiteBar">
   <div class="back-to-site-logo">
     <img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" style="height:32px;object-fit:contain;" onerror="this.style.display='none'" />
@@ -537,6 +665,8 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
     </li>
     <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
     <li><a onclick="showPage('portfolio')" id="nav-portfolio">GitHub Portfolio</a></li>
+    <!-- ★ NEW: Engineering Club nav item -->
+    <li><a onclick="showPage('club')" id="nav-club">⚙️ Eng. Club</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
   <button class="btn-red" style="font-size:13px;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;" onclick="showPage('contact')">Get in touch</button>
@@ -553,6 +683,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   <a onclick="gotoYear('y5');closeMobile()">Classes — Fifth Year</a>
   <a onclick="showPage('shop');closeMobile()">Shop</a>
   <a onclick="showPage('portfolio');closeMobile()">GitHub Portfolio</a>
+  <a onclick="showPage('club');closeMobile()">⚙️ Engineering Club</a>
   <a onclick="showPage('contact');closeMobile()">Contact</a>
 </nav>
 
@@ -603,6 +734,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
       <div class="card" onclick="gotoYear('y3')"><div class="card-icon ic-teal">🤖</div><h3>Sheets automation</h3><p>Automate repetitive tasks using Google Apps Script. Perfect for 3rd and 4th year project data management.</p><span class="card-tag tag-teal">Course</span></div>
       <div class="card" onclick="showPage('shop')"><div class="card-icon ic-blue">⚡</div><h3>Electrical components</h3><p>Resistors, capacitors, microcontrollers, sensors and more — curated kits for Chuka engineering student projects.</p><span class="card-tag tag-blue">Shop</span></div>
       <div class="card" onclick="showPage('shop')"><div class="card-icon ic-coral">📚</div><h3>Books for reading</h3><p>Engineering, tech, and personal growth books carefully selected to support your coursework and career journey.</p><span class="card-tag tag-coral">Shop</span></div>
+      <div class="card" onclick="showPage('club')"><div class="card-icon ic-green">⚙️</div><h3>Engineering Club</h3><p>Join the Chuka Engineering Club — hackathons, workshops, peer projects, and a network that lasts beyond graduation.</p><span class="card-tag tag-green">Community</span></div>
     </div>
   </section>
   <section class="section alt">
@@ -789,7 +921,34 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
       <div class="step-card"><div class="step-num">3</div><h3>Project uploads</h3><p>We help you upload and document your class and personal projects with clear descriptions and clean code.</p></div>
       <div class="step-card"><div class="step-num">4</div><h3>Live demo pages</h3><p>We set up GitHub Pages so your projects are live and accessible with a real URL employers can visit.</p></div>
     </div>
-    <div class="section-header"><div class="eyebrow">Example portfolios</div><h2 class="section-title">What a great portfolio looks like</h2></div>
+
+    <!-- ★ NEW: Live sample portfolio embed -->
+    <div class="section-header" style="margin-bottom:24px;">
+      <div class="eyebrow">Live example</div>
+      <h2 class="section-title">See a real portfolio in action</h2>
+      <p class="section-sub">This is what a finished Enemind portfolio looks like. Browse it below or open it full screen.</p>
+    </div>
+    <div class="live-portfolio-wrap">
+      <div class="live-portfolio-header">
+        <div class="live-portfolio-header-left">
+          <div>
+            <h4>Sidney Wafula — Portfolio</h4>
+            <p>Sample built with Enemind · sidneywafula.my.canva.site</p>
+          </div>
+          <span class="live-badge"><span class="live-badge-dot"></span> Live site</span>
+        </div>
+        <a class="live-portfolio-open" href="https://sidneywafula.my.canva.site/" target="_blank" rel="noopener">Open full screen ↗</a>
+      </div>
+      <iframe
+        class="live-portfolio-iframe"
+        src="https://sidneywafula.my.canva.site/"
+        title="Sidney Wafula — sample portfolio"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-popups"
+      ></iframe>
+    </div>
+
+    <div class="section-header" style="margin-top:56px;"><div class="eyebrow">More examples</div><h2 class="section-title">Projects our students have built</h2></div>
     <div class="portfolio-showcase">
       <div class="portfolio-item" onclick="showPage('contact')"><div class="portfolio-thumb"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="" loading="lazy"/></div><div class="portfolio-info"><h4>Smart home automation system</h4><p>Arduino + sensors controlling home appliances via a web dashboard. Final year project by a Chuka student.</p><div class="portfolio-tags"><span class="ptag">Arduino</span><span class="ptag">IoT</span><span class="ptag">Web</span></div></div></div>
       <div class="portfolio-item" onclick="showPage('contact')"><div class="portfolio-thumb"><img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&q=80" alt="" loading="lazy"/></div><div class="portfolio-info"><h4>Air quality tracker</h4><p>Python + Google Sheets dashboard pulling real sensor data and visualizing pollution trends for a Chuka project.</p><div class="portfolio-tags"><span class="ptag">Python</span><span class="ptag">Sheets API</span><span class="ptag">Data viz</span></div></div></div>
@@ -803,19 +962,202 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   </div>
 </div>
 
-<!-- ══ CONTACT PAGE — GOOGLE FORM EMBEDDED ══ -->
+<!-- ══ ENGINEERING CLUB PAGE ★ NEW ══ -->
+<div class="page" id="page-club">
+  <div class="club-hero">
+    <div class="eyebrow">Engineering Club</div>
+    <h1>⚙️ Chuka Engineering Club</h1>
+    <p>A community for Chuka University engineering students who want to build real things, meet like-minded peers, and develop skills beyond the classroom.</p>
+    <div class="club-hero-btns">
+      <button class="btn btn-gold" onclick="showPage('contact')">Join the club →</button>
+      <button class="btn btn-ghost-white" onclick="document.getElementById('club-events-section').scrollIntoView({behavior:'smooth'})">See upcoming events</button>
+    </div>
+  </div>
+
+  <div class="club-stats">
+    <div class="club-stat"><div class="club-stat-num">120+</div><div class="club-stat-label">Active members</div></div>
+    <div class="club-stat"><div class="club-stat-num">18</div><div class="club-stat-label">Events this year</div></div>
+    <div class="club-stat"><div class="club-stat-num">6</div><div class="club-stat-label">Hackathons held</div></div>
+    <div class="club-stat"><div class="club-stat-num">40+</div><div class="club-stat-label">Projects built</div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="eyebrow">What we do</div>
+      <h2 class="section-title">Club activities &amp; events</h2>
+      <p class="section-sub">From monthly workshops to semester-long build challenges — there's always something happening at the Engineering Club.</p>
+    </div>
+    <div class="club-activities">
+      <div class="club-activity-card">
+        <div class="club-activity-img"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="Hackathon" loading="lazy"/></div>
+        <div class="club-activity-body">
+          <h3>Semester hackathons</h3>
+          <p>48-hour build challenges where teams design and ship a working engineering project. Cross-discipline teams, real prizes, and serious learning.</p>
+          <div class="club-activity-meta">
+            <span class="club-activity-tag tag-red">Competitive</span>
+            <span class="club-activity-tag tag-gold">Prizes</span>
+          </div>
+        </div>
+      </div>
+      <div class="club-activity-card">
+        <div class="club-activity-img"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80" alt="Workshop" loading="lazy"/></div>
+        <div class="club-activity-body">
+          <h3>Monthly workshops</h3>
+          <p>Hands-on sessions on topics like PCB design, 3D printing, IoT, and embedded systems — run by students and invited professionals.</p>
+          <div class="club-activity-meta">
+            <span class="club-activity-tag tag-teal">Skills</span>
+            <span class="club-activity-tag tag-blue">Monthly</span>
+          </div>
+        </div>
+      </div>
+      <div class="club-activity-card">
+        <div class="club-activity-img"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Peer projects" loading="lazy"/></div>
+        <div class="club-activity-body">
+          <h3>Peer project teams</h3>
+          <p>Join a 3–5 person team working on a semester-long project. Great for your GitHub, your CV, and the experience of real collaborative engineering.</p>
+          <div class="club-activity-meta">
+            <span class="club-activity-tag tag-purple">Collaborative</span>
+            <span class="club-activity-tag tag-amber">Portfolio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="club-events-section">
+    <div class="section-header">
+      <div class="eyebrow">Upcoming events</div>
+      <h2 class="section-title">What's coming up</h2>
+      <p class="section-sub">All events are open to Chuka engineering students. Club members get priority spots and discounts.</p>
+    </div>
+    <div class="club-events">
+      <div class="club-event" onclick="showPage('contact')">
+        <div class="club-event-date">
+          <div class="club-event-day">28</div>
+          <div class="club-event-month">Jun</div>
+        </div>
+        <div class="club-event-info">
+          <h4>Intro to PCB Design — Workshop</h4>
+          <p>Learn to design your first printed circuit board using free software. Bring your laptop. Limited to 25 spots.</p>
+          <div class="club-event-tags">
+            <span class="club-event-tag">In-person</span>
+            <span class="club-event-tag">Free for members</span>
+            <span class="club-event-tag">KES 300 for non-members</span>
+          </div>
+        </div>
+      </div>
+      <div class="club-event" onclick="showPage('contact')">
+        <div class="club-event-date">
+          <div class="club-event-day">12</div>
+          <div class="club-event-month">Jul</div>
+        </div>
+        <div class="club-event-info">
+          <h4>Semester Hackathon #7 — "Smart Chuka"</h4>
+          <p>Build a tech solution to a real local challenge in Chuka. Teams of 3–4. 48 hours. Cash prizes for top 3 teams.</p>
+          <div class="club-event-tags">
+            <span class="club-event-tag">48hrs</span>
+            <span class="club-event-tag">Team event</span>
+            <span class="club-event-tag">Cash prizes</span>
+          </div>
+        </div>
+      </div>
+      <div class="club-event" onclick="showPage('contact')">
+        <div class="club-event-date">
+          <div class="club-event-day">02</div>
+          <div class="club-event-month">Aug</div>
+        </div>
+        <div class="club-event-info">
+          <h4>GitHub &amp; Portfolio Day</h4>
+          <p>A full-day session where we build or polish everyone's GitHub portfolio together, supported by Enemind mentors.</p>
+          <div class="club-event-tags">
+            <span class="club-event-tag">In-person</span>
+            <span class="club-event-tag">Free for members</span>
+            <span class="club-event-tag">Laptops required</span>
+          </div>
+        </div>
+      </div>
+      <div class="club-event" onclick="showPage('contact')">
+        <div class="club-event-date">
+          <div class="club-event-day">20</div>
+          <div class="club-event-month">Aug</div>
+        </div>
+        <div class="club-event-info">
+          <h4>Industry Talk — Career paths in engineering</h4>
+          <p>Professionals from Kenyan engineering firms share their career journeys and answer your questions live.</p>
+          <div class="club-event-tags">
+            <span class="club-event-tag">Talk</span>
+            <span class="club-event-tag">Open to all</span>
+            <span class="club-event-tag">Free</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header centered">
+      <div class="eyebrow">Membership</div>
+      <h2 class="section-title">Join the Engineering Club</h2>
+      <p class="section-sub">Pick the membership that fits you. All tiers include access to our WhatsApp community and event calendar.</p>
+    </div>
+    <div class="club-tiers">
+      <div class="club-tier">
+        <div class="club-tier-icon">🌱</div>
+        <h3>Observer</h3>
+        <div class="club-tier-price">Free</div>
+        <div class="club-tier-period">All year</div>
+        <ul class="club-tier-perks">
+          <li><span class="perk-check">✓</span> WhatsApp community access</li>
+          <li><span class="perk-check">✓</span> Event calendar & announcements</li>
+          <li><span class="perk-check">✓</span> Open events at standard price</li>
+        </ul>
+        <button class="club-join-btn" onclick="showPage('contact')">Join free</button>
+      </div>
+      <div class="club-tier featured">
+        <div class="club-tier-icon">⚙️</div>
+        <h3>Full Member</h3>
+        <div class="club-tier-price">KES 500</div>
+        <div class="club-tier-period">Per semester</div>
+        <ul class="club-tier-perks">
+          <li><span class="perk-check">✓</span> Everything in Observer</li>
+          <li><span class="perk-check">✓</span> Priority spots at all events</li>
+          <li><span class="perk-check">✓</span> Free or discounted workshops</li>
+          <li><span class="perk-check">✓</span> Peer project team matching</li>
+          <li><span class="perk-check">✓</span> 10% off all Enemind courses</li>
+        </ul>
+        <button class="club-join-btn" onclick="showPage('contact')">Become a member</button>
+      </div>
+      <div class="club-tier">
+        <div class="club-tier-icon">🚀</div>
+        <h3>Club + Courses</h3>
+        <div class="club-tier-price">KES 1,200</div>
+        <div class="club-tier-period">Per semester</div>
+        <ul class="club-tier-perks">
+          <li><span class="perk-check">✓</span> Everything in Full Member</li>
+          <li><span class="perk-check">✓</span> 1 Enemind course included</li>
+          <li><span class="perk-check">✓</span> GitHub portfolio review session</li>
+          <li><span class="perk-check">✓</span> Career mentoring check-in</li>
+        </ul>
+        <button class="club-join-btn" onclick="showPage('contact')">Get this bundle</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Ready to join the club?</h2>
+    <p>Send us a message and we'll add you to the WhatsApp group within the hour.</p>
+    <button class="btn btn-gold" onclick="showPage('contact')">Join today →</button>
+  </div>
+</div>
+
+<!-- ══ CONTACT PAGE ══ -->
 <div class="page" id="page-contact">
   <div class="contact-page-wrap">
-
-    <!-- Contact info sidebar + Google Form side by side -->
     <div class="contact-top">
-
-      <!-- LEFT: contact details -->
       <div class="contact-sidebar">
         <div class="eyebrow">Contact</div>
         <h2>Let's talk</h2>
         <p>Whether you have a question about a class, want to order a component, or need help with your GitHub portfolio — fill in the form or reach us directly. We reply fast on WhatsApp.</p>
-
         <div class="contact-item">
           <div class="contact-icon ci-phone">📞</div>
           <div><h4>Phone / WhatsApp</h4><a href="tel:+254711629600">+254 711 629 600</a></div>
@@ -832,13 +1174,10 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
           <div class="contact-icon ci-fb">👤</div>
           <div><h4>Facebook</h4><a href="https://facebook.com/sidney.wafula" target="_blank">Sidney Wafula</a></div>
         </div>
-
         <div class="contact-local">
           <div class="contact-local-label">📍 Based at Chuka</div>
           <p>Locally based and serving Chuka University students directly. Fast delivery, quick replies, and in-person sessions available.</p>
         </div>
-
-        <!-- Quick WhatsApp shortcut -->
         <div style="margin-top:20px;">
           <a href="https://wa.me/254711629600?text=Hi%20Enemind!%20I'm%20a%20Chuka%20engineering%20student%20and%20I'd%20like%20to%20know%20more." target="_blank"
              style="display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:opacity .15s;"
@@ -848,10 +1187,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
           </a>
         </div>
       </div>
-
-      <!-- RIGHT: Google Form embedded -->
       <div class="gform-wrap">
-        <!-- Branded header above the form -->
         <div class="gform-header">
           <div class="gform-header-icon">📋</div>
           <div>
@@ -859,8 +1195,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
             <p>Fill in the form below — we'll reply within a few hours</p>
           </div>
         </div>
-
-        <!-- The Google Form iframe -->
         <div class="gform-iframe-wrap">
           <iframe
             src="https://docs.google.com/forms/d/e/1FAIpQLSegj4EzSoTGpertkNp0rN3FpA6YqgFhYQ-DrEv6btGy4c5nLQ/viewform?embedded=true"
@@ -872,8 +1206,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
             loading="lazy"
           >Loading form…</iframe>
         </div>
-
-        <!-- Footer with open-in-new-tab option -->
         <div class="gform-footer">
           <span class="gform-footer-note">🔒 Your response goes directly to the Enemind team</span>
           <a class="gform-open-link"
@@ -883,7 +1215,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -914,6 +1245,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
       <a onclick="showPage('portfolio')">GitHub portfolio</a>
       <a onclick="showPage('shop')">Components shop</a>
       <a onclick="showPage('shop')">Books shop</a>
+      <a onclick="showPage('club')">Engineering Club</a>
     </div>
     <div class="footer-col">
       <h4>Connect</h4>
@@ -984,22 +1316,12 @@ function switchShopTab(tab, btn) {
 }
 
 /* ── BACK TO SITE bar ── */
-// Shows the bar if the page is loaded standalone (e.g. user opened the form link in a new tab)
-// We detect this by checking if there's no referrer from within the same origin
 function goBackToSite() {
-  // If opened in same window, go back; otherwise close tab
-  if (window.history.length > 1) {
-    history.back();
-  } else {
-    window.close();
-  }
+  if (window.history.length > 1) { history.back(); } else { window.close(); }
 }
-// Show the bar only when the page is in a standalone context (opened fresh, not via nav)
-// We use sessionStorage to track whether the user navigated from within the site
 (function() {
   var fromInternal = sessionStorage.getItem('enemind_visited');
   if (!fromInternal) {
-    // First load — could be standalone, check hash/referrer
     var ref = document.referrer;
     var sameOrigin = ref && ref.indexOf(window.location.hostname) !== -1;
     if (!sameOrigin && window.location.hash === '#contact') {
