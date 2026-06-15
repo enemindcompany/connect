@@ -19,7 +19,7 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--B);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 
-/* ── PROMO BANNER (links back to Enemind) ── */
+/* PROMO BAR */
 .promo-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 16px;font-size:13px;font-weight:500;flex-wrap:wrap;text-align:center;}
 .promo-bar strong{color:#fff}
 .promo-bar a.promo-cta{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;font-family:var(--B);font-weight:700;font-size:12px;padding:6px 14px;border-radius:100px;text-decoration:none;letter-spacing:.02em;transition:.15s;white-space:nowrap;}
@@ -36,8 +36,30 @@ nav{position:fixed;top:38px;left:0;right:0;z-index:200;height:64px;display:flex;
 
 /* HERO */
 .hero-wrap{min-height:100vh;display:flex;align-items:center;padding:140px 6% 60px;gap:60px;max-width:1200px;margin:0 auto;}
-.hero-photo{flex-shrink:0;width:340px;height:420px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--border);background:linear-gradient(145deg,#dde6ff 0%,#c8d9ff 100%);}
-.hero-photo-badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:100px;padding:7px 18px;font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;letter-spacing:.02em;}
+
+/* ── PHOTO — no border, natural shape ── */
+.hero-photo{
+  flex-shrink:0;width:340px;height:420px;border-radius:24px;overflow:hidden;
+  position:relative;background:#C8D9FF;
+}
+.hero-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;
+}
+/* Fallback avatar shown when img fails */
+.hero-photo .avatar-fallback{
+  display:none;width:100%;height:100%;
+}
+.hero-photo img[src="YOUR_PHOTO_URL_HERE"]{display:none}
+.hero-photo img[src="YOUR_PHOTO_URL_HERE"] ~ .avatar-fallback{display:block}
+.hero-photo-badge{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border-radius:100px;padding:7px 18px;
+  font-size:12px;font-weight:600;color:var(--accent);
+  white-space:nowrap;letter-spacing:.02em;
+}
+
 .hero-text{flex:1;min-width:0}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px;}
 .hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--accent);flex-shrink:0}
@@ -110,7 +132,7 @@ nav{position:fixed;top:38px;left:0;right:0;z-index:200;height:64px;display:flex;
 .int-card .ico{font-size:26px;margin-bottom:6px}
 .int-card .lbl{font-size:12px;font-weight:500;color:var(--ink2)}
 
-/* PROJECTS — updated with real samples */
+/* PROJECTS */
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;display:flex;flex-direction:column;gap:10px;transition:.2s;position:relative;overflow:hidden;}
 .proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:.2s;}
@@ -121,7 +143,6 @@ nav{position:fixed;top:38px;left:0;right:0;z-index:200;height:64px;display:flex;
 .proj-desc{font-size:13px;color:var(--ink2);line-height:1.65;font-weight:300;flex:1}
 .proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
 .ptag{font-size:11px;background:var(--bg);color:var(--ink3);padding:3px 10px;border-radius:3px;font-weight:500}
-/* Special card colours */
 .proj-card.green-card{border-color:var(--green)}
 .proj-card.green-card::before{background:var(--green)}
 .proj-card.green-card:hover{border-color:var(--green)}
@@ -133,14 +154,11 @@ nav{position:fixed;top:38px;left:0;right:0;z-index:200;height:64px;display:flex;
 .proj-cta .proj-num{color:rgba(255,255,255,.5)}
 .proj-cta .proj-title{color:#fff}
 .proj-cta .proj-desc{color:rgba(255,255,255,.75)}
-/* Live badge */
 .live-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-light);color:#00865F;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-bottom:4px;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#00865F;animation:pulse 1.4s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-/* Project screenshot mockup */
-.proj-thumb{border-radius:8px;overflow:hidden;margin-bottom:4px;border:1px solid var(--border);}
 
-/* ── CREATE YOURS TODAY — full-width CTA band ── */
+/* CTA BAND */
 .cta-create{background:linear-gradient(135deg,var(--ink) 0%,#1a1a2e 100%);color:#fff;text-align:center;padding:80px 6%;}
 .cta-create .sec-label{color:rgba(255,255,255,.5)}
 .cta-create .sec-label::after{background:rgba(255,255,255,.15)}
@@ -176,7 +194,7 @@ footer a{color:var(--accent);text-decoration:none}
 
 @media(max-width:900px){
   .hero-wrap{flex-direction:column;padding-top:160px;align-items:center;text-align:center}
-  .hero-photo{width:240px;height:300px}
+  .hero-photo{width:260px;height:320px}
   .hero-sub{margin-left:auto;margin-right:auto}
   .hero-btns{justify-content:center}
   .hero-stats{justify-content:center}
@@ -197,7 +215,7 @@ footer a{color:var(--accent);text-decoration:none}
 </head>
 <body>
 
-<!-- ══ PROMO BAR — links back to Enemind / Google Form ══ -->
+<!-- PROMO BAR -->
 <div class="promo-bar">
   <span>✨ This portfolio was built with <strong>Enemind</strong> — want one like it?</span>
   <a class="promo-cta" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">
@@ -220,8 +238,16 @@ footer a{color:var(--accent);text-decoration:none}
 
 <!-- HERO -->
 <div class="hero-wrap">
+
+  <!-- PHOTO — replace YOUR_PHOTO_URL_HERE with the direct image URL -->
   <div class="hero-photo">
-    <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" width="340" height="420">
+    <img
+      src="YOUR_PHOTO_URL_HERE"
+      alt="Sidney Wafula"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+    />
+    <!-- SVG fallback shown if image fails to load -->
+    <svg class="avatar-fallback" viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" width="340" height="420" style="display:none">
       <rect width="340" height="420" fill="#C8D9FF"/>
       <pattern id="grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
         <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#B8CCFF" stroke-width=".5"/>
@@ -249,19 +275,11 @@ footer a{color:var(--accent);text-decoration:none}
       <ellipse cx="190" cy="249" rx="3.5" ry="3.5" fill="#0D0800"/>
       <ellipse cx="187.5" cy="246.5" rx="2" ry="2" fill="#fff"/>
       <path d="M168,262 Q165,275 158,280 Q170,285 182,280 Q175,275 172,262" fill="#e8a880"/>
-      <path d="M152,295 Q170,310 188,295" stroke="#C47A50" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M155,295 Q162,300 170,298 Q178,300 185,295" fill="#D4856A" opacity=".7"/>
-      <ellipse cx="170" cy="318" rx="34" ry="8" fill="#e8a880" opacity=".4"/>
+      <path d="M152,295 Q162,300 170,298 Q178,300 185,295" fill="#D4856A" opacity=".7"/>
       <ellipse cx="72" cy="360" rx="22" ry="40" fill="#1A3FCC" transform="rotate(-10,72,360)"/>
       <ellipse cx="268" cy="360" rx="22" ry="40" fill="#1A3FCC" transform="rotate(10,268,360)"/>
       <ellipse cx="62" cy="395" rx="16" ry="18" fill="#F5C09A"/>
       <ellipse cx="278" cy="395" rx="16" ry="18" fill="#F5C09A"/>
-      <g opacity=".18" stroke="#1A3FCC" stroke-width="1.5" fill="none">
-        <path d="M20,60 L60,60 L60,100"/><circle cx="60" cy="100" r="4" fill="#1A3FCC"/>
-        <path d="M280,40 L310,40 L310,90 L280,90"/><circle cx="280" cy="90" r="4" fill="#1A3FCC"/>
-        <path d="M30,380 L30,350 L70,350"/><circle cx="70" cy="350" r="4" fill="#1A3FCC"/>
-        <path d="M300,380 L300,350 L270,350"/><circle cx="270" cy="350" r="4" fill="#1A3FCC"/>
-      </g>
     </svg>
     <div class="hero-photo-badge">⚡ Eng. Student · Chuka University</div>
   </div>
@@ -428,60 +446,38 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 
-<!-- ════ PROJECTS — Real samples ════ -->
+<!-- PROJECTS -->
 <div class="section-outer" id="projects">
   <div class="section-inner">
     <div class="sec-label">Things I've built</div>
     <h2 class="sec-title">Projects.</h2>
     <div class="proj-grid">
-
-      <!-- Project 1: FriendCheck -->
       <div class="proj-card green-card">
-        <div>
-          <div class="live-badge"><span class="live-dot"></span>Live · Google Apps Script</div>
-        </div>
+        <div><div class="live-badge"><span class="live-dot"></span>Live · Google Apps Script</div></div>
         <div class="proj-num">01</div>
         <div class="proj-title">FriendCheck 💚</div>
-        <div class="proj-desc">
-          A wellness check-in platform for friend groups. Users register via email, then receive 3 automated check-in emails daily. One tap confirms they're okay — responses are logged to Google Sheets and visible on a live dashboard anyone can access.
-        </div>
+        <div class="proj-desc">A wellness check-in platform for friend groups. Users register via email, then receive 3 automated check-in emails daily. One tap confirms they're okay — responses are logged to Google Sheets and visible on a live dashboard anyone can access.</div>
         <div style="background:#f1f8e9;border-radius:8px;padding:14px;margin-top:4px;font-size:12px;color:#2e7d32;line-height:1.7;">
-          <strong>How it works:</strong><br/>
-          📧 Register → ✅ Get 3 daily emails → Click "I'm Good" → 📊 Dashboard updates live
+          <strong>How it works:</strong><br/>📧 Register → ✅ Get 3 daily emails → Click "I'm Good" → 📊 Dashboard updates live
         </div>
         <div class="proj-tags">
-          <span class="ptag">Google Apps Script</span>
-          <span class="ptag">Gmail API</span>
-          <span class="ptag">Google Sheets</span>
-          <span class="ptag">HTML Web App</span>
-          <span class="ptag">Automation</span>
+          <span class="ptag">Google Apps Script</span><span class="ptag">Gmail API</span>
+          <span class="ptag">Google Sheets</span><span class="ptag">HTML Web App</span><span class="ptag">Automation</span>
         </div>
       </div>
-
-      <!-- Project 2: Enemind -->
       <div class="proj-card blue-card">
-        <div>
-          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-bottom:4px;">
-            🚀 Full Website · Multi-page
-          </div>
-        </div>
+        <div><div style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);color:var(--accent);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-bottom:4px;">🚀 Full Website · Multi-page</div></div>
         <div class="proj-num">02</div>
         <div class="proj-title">Enemind 📊</div>
-        <div class="proj-desc">
-          A full business website for an engineering student platform selling Google Sheets courses, GitHub portfolio services, electrical components, and books. Features course filtering, shop tabs, a 10-question contact form that submits to Google Sheets, and a full responsive layout.
-        </div>
+        <div class="proj-desc">A full business website for an engineering student platform selling Google Sheets courses, GitHub portfolio services, electrical components, and books. Features course filtering, shop tabs, a 10-question contact form that submits to Google Sheets, and a full responsive layout.</div>
         <div style="background:var(--accent-light);border-radius:8px;padding:14px;margin-top:4px;font-size:12px;color:var(--accent);line-height:1.7;">
-          <strong>Pages built:</strong> Home · Courses · Shop · GitHub Portfolio · Contact
+          <strong>Pages built:</strong> Home · Classes · Shop · GitHub Portfolio · Contact
         </div>
         <div class="proj-tags">
-          <span class="ptag">HTML / CSS</span>
-          <span class="ptag">JavaScript</span>
-          <span class="ptag">Responsive design</span>
-          <span class="ptag">Google Sheets integration</span>
+          <span class="ptag">HTML / CSS</span><span class="ptag">JavaScript</span>
+          <span class="ptag">Responsive design</span><span class="ptag">Google Sheets integration</span>
         </div>
       </div>
-
-      <!-- Project 3: Portfolio site -->
       <div class="proj-card">
         <div class="proj-num">03</div>
         <div class="proj-title">Personal Portfolio Website</div>
@@ -490,8 +486,6 @@ footer a{color:var(--accent);text-decoration:none}
           <span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span><span class="ptag">SVG</span>
         </div>
       </div>
-
-      <!-- Project 4: Circuit Lab -->
       <div class="proj-card">
         <div class="proj-num">04</div>
         <div class="proj-title">Circuit Lab Work</div>
@@ -500,41 +494,32 @@ footer a{color:var(--accent);text-decoration:none}
           <span class="ptag">Electronics</span><span class="ptag">Circuits</span><span class="ptag">Engineering</span>
         </div>
       </div>
-
-      <!-- Project 5: Coming soon -->
       <div class="proj-card">
         <div class="proj-num">05</div>
         <div class="proj-title">Arduino IoT Sensor Node</div>
         <div class="proj-desc">Upcoming project: a temperature and humidity monitoring node using DHT11 + Arduino, pushing readings to a Google Sheets dashboard in real time via Google Apps Script.</div>
-        <div style="display:inline-flex;align-items:center;gap:5px;background:#FFF7E6;color:#854f0b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-top:4px;">
-          🔨 In progress
-        </div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:#FFF7E6;color:#854f0b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-top:4px;">🔨 In progress</div>
         <div class="proj-tags">
           <span class="ptag">Arduino</span><span class="ptag">DHT11</span><span class="ptag">IoT</span><span class="ptag">Google Sheets</span>
         </div>
       </div>
-
-      <!-- CTA card -->
       <div class="proj-card proj-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
         <div class="proj-num">→</div>
         <div class="proj-title">Want to collaborate?</div>
         <div class="proj-desc">I'm open to interesting projects, internships, and new challenges. More coming as I grow through university.</div>
         <div style="margin-top:auto;padding-top:12px;font-size:13px;color:rgba(255,255,255,.6);font-weight:600">Click to get in touch ↓</div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ════ CREATE YOURS TODAY — big CTA band ════ -->
+<!-- CTA BAND -->
 <div class="cta-create">
   <div class="section-inner" style="padding:0;">
     <div class="sec-label" style="justify-content:center;">Like what you see?</div>
     <h2>Get a portfolio site <span class="accent-text">just like this one.</span></h2>
     <p>This entire site was designed and built by Enemind. Tell us about yourself using the quick form below and we'll build a personalised portfolio site for you — just like this.</p>
-    <a class="cta-create-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">
-      🚀 Create Yours Today
-    </a>
+    <a class="cta-create-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScm3_ntvKnX9QsA59zqt4R2_azaXiTWxfChdT5sgC_6rGw-nw/viewform?usp=header" target="_blank" rel="noopener">🚀 Create Yours Today</a>
     <div class="cta-create-perks">
       <div class="cta-perk"><span class="ico">⚡</span> Fast turnaround</div>
       <div class="cta-perk"><span class="ico">🎨</span> Fully personalised design</div>
