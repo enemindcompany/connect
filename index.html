@@ -359,7 +359,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .portfolio-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
 .ptag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; background:var(--blue-light); color:var(--blue-text); }
 
-/* ── FIXED: LIVE PORTFOLIO PREVIEW (no iframe, clickable card) ── */
+/* ── LIVE PORTFOLIO PREVIEW ── */
 .live-portfolio-wrap {
   border:2px solid var(--border); border-radius:var(--radius-lg);
   overflow:hidden; box-shadow:var(--shadow-md); margin-bottom:48px;
@@ -408,9 +408,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 }
 .preview-btn:hover { background:var(--chuka-red2); transform:translateY(-1px); }
 
-/* ══════════════
-   ENGINEERING CLUB PAGE
-══════════════ */
+/* ══ ENGINEERING CLUB ══ */
 .club-hero {
   background:linear-gradient(135deg,#1a0000 0%,var(--chuka-red3) 50%,var(--chuka-red) 100%);
   padding:72px 40px 56px; color:#fff; position:relative; overflow:hidden;
@@ -447,33 +445,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .club-activity-body p  { font-size:13px; color:var(--text-muted); line-height:1.6; }
 .club-activity-meta { display:flex; align-items:center; gap:8px; margin-top:14px; }
 .club-activity-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; }
-
-.club-tiers { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
-.club-tier {
-  border:2px solid var(--border); border-radius:var(--radius-lg);
-  padding:28px 22px; background:var(--bg); box-shadow:var(--shadow);
-  transition:all .2s; position:relative; overflow:hidden;
-}
-.club-tier.featured {
-  border-color:var(--chuka-gold);
-  background:linear-gradient(135deg,rgba(200,150,12,.05),rgba(200,150,12,.02));
-}
-.club-tier.featured::after {
-  content:'Most popular'; position:absolute; top:14px; right:-22px;
-  background:var(--chuka-gold); color:var(--chuka-red3); font-size:10px; font-weight:700;
-  padding:3px 32px; transform:rotate(35deg); letter-spacing:.05em; text-transform:uppercase;
-}
-.club-tier:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); border-color:var(--chuka-red); }
-.club-tier-icon { font-size:28px; margin-bottom:12px; }
-.club-tier h3 { font-size:17px; font-weight:700; margin-bottom:4px; }
-.club-tier-price { font-size:26px; font-weight:700; color:var(--chuka-red); font-family:'Space Grotesk',sans-serif; margin-bottom:4px; }
-.club-tier-period { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
-.club-tier-perks { list-style:none; padding:0; margin-bottom:20px; }
-.club-tier-perks li { font-size:13px; color:var(--text-muted); padding:5px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; }
-.club-tier-perks li:last-child { border-bottom:none; }
-.perk-check { color:var(--teal); font-size:14px; flex-shrink:0; margin-top:1px; }
-.club-join-btn { display:block; width:100%; padding:10px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; transition:all .15s; border:2px solid var(--chuka-red); background:transparent; color:var(--chuka-red); }
-.club-join-btn:hover, .club-tier.featured .club-join-btn { background:var(--chuka-red); color:#fff; }
 
 .club-events { display:flex; flex-direction:column; gap:14px; }
 .club-event {
@@ -534,22 +505,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 .gform-header-icon { font-size:22px; }
 .gform-header h3 { font-size:17px; font-weight:700; color:#fff; margin-bottom:2px; }
 .gform-header p  { font-size:12px; color:rgba(255,255,255,.65); }
-.gform-iframe-wrap iframe {
-  display:block; width:100%; border:none;
-  min-height:900px;
-}
-.gform-footer {
-  padding:14px 20px; background:var(--bg-soft);
-  border-top:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:10px;
-}
-.gform-footer-note { font-size:12px; color:var(--text-muted); }
-.gform-open-link {
-  font-size:13px; font-weight:600; color:var(--chuka-red);
-  text-decoration:none; display:flex; align-items:center; gap:5px;
-}
-.gform-open-link:hover { text-decoration:underline; }
 
 .back-to-site-bar {
   display:none;
@@ -607,7 +562,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   .year-tab { padding:12px 18px; font-size:13px; }
   .contact-page-wrap { padding:32px 16px; }
   .contact-top { grid-template-columns:1fr; gap:28px; }
-  .gform-iframe-wrap iframe { min-height:1100px; }
   .club-hero { padding:48px 20px 36px; }
   .club-event { flex-direction:column; gap:10px; }
   .club-event-date { width:100%; display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 14px; border-radius:8px; }
@@ -649,6 +603,24 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
         <a class="dd-all" onclick="gotoYear('all')">Browse all classes →</a>
       </div>
     </li>
+    <!-- ── MY COURSES DROPDOWN (NEW) ── -->
+    <li class="nav-dd" id="nav-dd-mycourses">
+      <button class="nav-dd-trigger" onclick="toggleDD('mycourses')">
+        My Courses <span class="dd-arrow">▾</span>
+      </button>
+      <div class="dd-menu" style="min-width:310px">
+        <a class="dd-item" href="https://docs.google.com/spreadsheets" target="_blank" rel="noopener"><div class="dd-icon ic-teal">📊</div><div><span class="dd-label">Google Sheets</span><span class="dd-desc">Open Google Sheets to practise your course exercises</span></div></a>
+        <div class="dd-divider"></div>
+        <a class="dd-item" onclick="gotoYear('all')"><div class="dd-icon ic-red">🎓</div><div><span class="dd-label">Browse all classes</span><span class="dd-desc">View the full Enemind course catalogue by year</span></div></a>
+        <a class="dd-item" onclick="gotoYear('y1')"><div class="dd-icon" style="background:rgba(139,0,0,.1);color:var(--chuka-red)">1️⃣</div><div><span class="dd-label">1st Year</span><span class="dd-desc">Google Sheets from scratch &amp; foundations</span></div></a>
+        <a class="dd-item" onclick="gotoYear('y2')"><div class="dd-icon ic-gold">2️⃣</div><div><span class="dd-label">2nd Year</span><span class="dd-desc">Advanced Sheets, dashboards &amp; GitHub starter</span></div></a>
+        <a class="dd-item" onclick="gotoYear('y3')"><div class="dd-icon ic-teal">3️⃣</div><div><span class="dd-label">3rd Year</span><span class="dd-desc">Automation with Apps Script</span></div></a>
+        <a class="dd-item" onclick="gotoYear('y4')"><div class="dd-icon ic-blue">4️⃣</div><div><span class="dd-label">4th Year</span><span class="dd-desc">Data analysis &amp; live dashboards</span></div></a>
+        <a class="dd-item" onclick="gotoYear('y5')"><div class="dd-icon ic-purple">5️⃣</div><div><span class="dd-label">5th Year</span><span class="dd-desc">Capstone projects &amp; advanced automation</span></div></a>
+        <div class="dd-divider"></div>
+        <a class="dd-all" onclick="showPage('contact')">Enrol in a course →</a>
+      </div>
+    </li>
     <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
     <li><a onclick="showPage('portfolio')" id="nav-portfolio">GitHub Portfolio</a></li>
     <li><a onclick="showPage('club')" id="nav-club">⚙️ Eng. Club</a></li>
@@ -664,6 +636,8 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   <a onclick="gotoYear('y3');closeMobile()">Classes — Third Year</a>
   <a onclick="gotoYear('y4');closeMobile()">Classes — Fourth Year</a>
   <a onclick="gotoYear('y5');closeMobile()">Classes — Fifth Year</a>
+  <a onclick="gotoYear('all');closeMobile()">My Courses — All Classes</a>
+  <a href="https://docs.google.com/spreadsheets" target="_blank" rel="noopener" onclick="closeMobile()">📊 My Courses — Google Sheets</a>
   <a onclick="showPage('shop');closeMobile()">Shop</a>
   <a onclick="showPage('portfolio');closeMobile()">GitHub Portfolio</a>
   <a onclick="showPage('club');closeMobile()">⚙️ Engineering Club</a>
@@ -711,7 +685,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   <div class="chuka-divider"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka University" onerror="this.style.display='none'" /><span class="chuka-divider-text">Proud partner of Chuka University engineering community</span></div>
 </div>
 
-<!-- COURSES PAGE (truncated for brevity - same as original but works) -->
+<!-- COURSES PAGE -->
 <div class="page" id="page-courses"><div class="courses-top"><h1>Classes at Enemind</h1><p>Courses organised by your year of study at Chuka University. Pick your year and dive in.</p><div class="year-tabs" id="yearTabs"><button class="year-tab active" id="ytab-all" onclick="switchYear('all',this)">All Classes</button><button class="year-tab" id="ytab-y1" onclick="switchYear('y1',this)">1st Year</button><button class="year-tab" id="ytab-y2" onclick="switchYear('y2',this)">2nd Year</button><button class="year-tab" id="ytab-y3" onclick="switchYear('y3',this)">3rd Year</button><button class="year-tab" id="ytab-y4" onclick="switchYear('y4',this)">4th Year</button><button class="year-tab" id="ytab-y5" onclick="switchYear('y5',this)">5th Year</button></div></div><div class="year-panel active" id="panel-all"><div class="year-hero"><div class="year-badge">🎓 All Years</div><div class="year-desc"><h2>Full course catalogue</h2><p>Browse every Enemind course — or use the tabs above to filter by your year of study.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt=""/><span class="thumb-badge">Year 1</span></div><div class="course-body"><h3>Google Sheets from scratch</h3><p>Fundamentals — formulas, cell references, data types, basic charts.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 500</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=80" alt=""/><span class="thumb-badge">Year 2</span></div><div class="course-body"><h3>Advanced Sheets &amp; dashboards</h3><p>Pivot tables, VLOOKUP, ARRAYFORMULA, data validation, and interactive dashboards.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 800</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&q=80" alt=""/><span class="thumb-badge">Year 2</span></div><div class="course-body"><h3>GitHub portfolio starter</h3><p>Set up your GitHub profile, write a standout README, and publish your first project.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 600</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt=""/><span class="thumb-badge">Year 3</span></div><div class="course-body"><h3>Google Sheets automation</h3><p>Automate tasks with Google Apps Script — macros, triggers, automated reports.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 1,000</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
   <div class="year-panel" id="panel-y1"><div class="year-hero"><div class="year-badge">1️⃣ First Year</div><div class="year-desc"><h2>Welcome to Chuka Engineering</h2><p>Foundation tools and digital skills to set you up from day one.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt=""/><span class="thumb-badge">Beginner</span></div><div class="course-body"><h3>Google Sheets from scratch</h3><p>Master the fundamentals — formulas, cell references, data types, basic charts.</p><div class="course-meta"><span class="course-level level-beg">Beginner</span><span class="course-price">KES 500</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
   <div class="year-panel" id="panel-y2"><div class="year-hero"><div class="year-badge">2️⃣ Second Year</div><div class="year-desc"><h2>Build stronger foundations</h2><p>Deepen your Sheets skills, start your GitHub presence.</p></div></div><div class="courses-grid"><div class="course-card"><div class="course-thumb"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=80" alt=""/><span class="thumb-badge">Intermediate</span></div><div class="course-body"><h3>Advanced Sheets &amp; dashboards</h3><p>Pivot tables, VLOOKUP, ARRAYFORMULA, data validation.</p><div class="course-meta"><span class="course-level level-int">Intermediate</span><span class="course-price">KES 800</span></div><button class="enroll-btn" onclick="showPage('contact')">Enroll now</button></div></div></div></div>
@@ -724,7 +698,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
 <!-- SHOP PAGE -->
 <div class="page" id="page-shop"><section class="section"><div class="section-header"><div class="eyebrow">Shop</div><h2 class="section-title">Components &amp; books</h2><p class="section-sub">Everything Chuka engineering students need for projects and reading — curated and delivered locally.</p></div><div class="shop-tabs"><button class="shop-tab active" onclick="switchShopTab('components',this)">⚡ Electrical components</button><button class="shop-tab" onclick="switchShopTab('books',this)">📚 Books</button></div><div id="tab-components"><div class="shop-grid"><div class="product-card"><div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?w=400&q=80" alt="Arduino"/></div><div class="product-body"><h4>Arduino Uno R3</h4><p>Classic microcontroller for any engineering project.</p><div class="product-footer"><span class="product-price">KES 900</span><button class="add-btn" onclick="showPage('contact')">Order</button></div><div class="in-stock">✓ In stock</div></div></div></div></div><div id="tab-books" style="display:none"><div class="shop-grid"><div class="product-card"><div class="product-img-wrap"><img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&q=80" alt="Book"/></div><div class="product-body"><h4>The Pragmatic Programmer</h4><p>A must-read for any engineer going into software development.</p><div class="product-footer"><span class="product-price">KES 1,200</span><button class="add-btn" onclick="showPage('contact')">Order</button></div></div></div></div></div></section><div class="cta-band"><h2>Need something not listed?</h2><p>We source components and books on request. Just get in touch.</p><button class="btn btn-gold" onclick="showPage('contact')">Make a request →</button></div></div>
 
-<!-- PORTFOLIO PAGE (with FIXED preview - no iframe) -->
+<!-- PORTFOLIO PAGE -->
 <div class="page" id="page-portfolio">
   <div class="portfolio-hero"><div class="eyebrow" style="color:rgba(255,255,255,.5)">GitHub Portfolio</div><h1>Your portfolio is your CV — let's make it count</h1><p>We help Chuka engineering students build GitHub profiles that impress internship coordinators and employers across Kenya.</p><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px"><button class="btn btn-gold" onclick="showPage('contact')">Create yours today →</button><button class="btn btn-ghost-white" onclick="showPage('contact')">Ask us a question</button></div></div>
   <section class="section"><div class="section-header centered"><div class="eyebrow">The process</div><h2 class="section-title">How we build your portfolio</h2></div><div class="portfolio-steps"><div class="step-card"><div class="step-num">1</div><h3>Profile audit</h3><p>We review your existing GitHub (or start fresh) and assess what employers are looking for in your engineering field.</p></div><div class="step-card"><div class="step-num">2</div><h3>README &amp; bio setup</h3><p>We write a compelling profile README with your skills, projects, and contact links — fully personalised for Chuka graduates.</p></div><div class="step-card"><div class="step-num">3</div><h3>Project uploads</h3><p>We help you upload and document your class and personal projects with clear descriptions and clean code.</p></div><div class="step-card"><div class="step-num">4</div><h3>Live demo pages</h3><p>We set up GitHub Pages so your projects are live and accessible with a real URL employers can visit.</p></div></div>
@@ -747,23 +721,68 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; line-height:1.2; color:var
   <div class="cta-band"><h2>Ready to build your Chuka portfolio?</h2><p>Reach out and we'll get started within 24 hours.</p><button class="btn btn-gold" onclick="showPage('contact')">Create yours today →</button></div>
 </div>
 
-<!-- ENGINEERING CLUB PAGE (truncated) -->
-<div class="page" id="page-club"><div class="club-hero"><div class="eyebrow">Engineering Club</div><h1>⚙️ Chuka Engineering Club</h1><p>A community for Chuka University engineering students who want to build real things, meet like-minded peers, and develop skills beyond the classroom.</p><div class="club-hero-btns"><button class="btn btn-gold" onclick="showPage('contact')">Join the club →</button><button class="btn btn-ghost-white" onclick="document.getElementById('club-events-section').scrollIntoView({behavior:'smooth'})">See upcoming events</button></div></div><div class="club-stats"><div class="club-stat"><div class="club-stat-num">120+</div><div class="club-stat-label">Active members</div></div><div class="club-stat"><div class="club-stat-num">18</div><div class="club-stat-label">Events this year</div></div><div class="club-stat"><div class="club-stat-num">6</div><div class="club-stat-label">Hackathons held</div></div><div class="club-stat"><div class="club-stat-num">40+</div><div class="club-stat-label">Projects built</div></div></div>
+<!-- ENGINEERING CLUB PAGE -->
+<div class="page" id="page-club">
+  <div class="club-hero">
+    <div class="eyebrow">Engineering Club</div>
+    <h1>⚙️ Chuka Engineering Club</h1>
+    <p>A community for Chuka University engineering students who want to build real things, meet like-minded peers, and develop skills beyond the classroom.</p>
+    <div class="club-hero-btns">
+      <!-- PATCHED: links to club join form -->
+      <a class="btn btn-gold" href="https://docs.google.com/forms/d/e/1FAIpQLSea00sc79fuxaiGJq6IHC47IXpDwjvchhYCTa2jkHmO0AdZsw/viewform?usp=header" target="_blank" rel="noopener">Join the club →</a>
+      <button class="btn btn-ghost-white" onclick="document.getElementById('club-events-section').scrollIntoView({behavior:'smooth'})">See upcoming events</button>
+    </div>
+  </div>
+  <div class="club-stats"><div class="club-stat"><div class="club-stat-num">120+</div><div class="club-stat-label">Active members</div></div><div class="club-stat"><div class="club-stat-num">18</div><div class="club-stat-label">Events this year</div></div><div class="club-stat"><div class="club-stat-num">6</div><div class="club-stat-label">Hackathons held</div></div><div class="club-stat"><div class="club-stat-num">40+</div><div class="club-stat-label">Projects built</div></div></div>
   <section class="section"><div class="section-header"><div class="eyebrow">What we do</div><h2 class="section-title">Club activities &amp; events</h2><p class="section-sub">From monthly workshops to semester-long build challenges — there's always something happening at the Engineering Club.</p></div><div class="club-activities"><div class="club-activity-card"><div class="club-activity-img"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="Hackathon"/></div><div class="club-activity-body"><h3>Semester hackathons</h3><p>48-hour build challenges where teams design and ship a working engineering project.</p><div class="club-activity-meta"><span class="club-activity-tag tag-red">Competitive</span><span class="club-activity-tag tag-gold">Prizes</span></div></div></div></div></section>
   <section class="section alt" id="club-events-section"><div class="section-header"><div class="eyebrow">Upcoming events</div><h2 class="section-title">What's coming up</h2></div><div class="club-events"><div class="club-event" onclick="showPage('contact')"><div class="club-event-date"><div class="club-event-day">28</div><div class="club-event-month">Jun</div></div><div class="club-event-info"><h4>Intro to PCB Design — Workshop</h4><p>Learn to design your first printed circuit board using free software.</p><div class="club-event-tags"><span class="club-event-tag">In-person</span></div></div></div></div></section>
-  <div class="cta-band"><h2>Ready to join the club?</h2><p>Send us a message and we'll add you to the WhatsApp group within the hour.</p><button class="btn btn-gold" onclick="showPage('contact')">Join today →</button></div>
+  <div class="cta-band">
+    <h2>Ready to join the club?</h2>
+    <p>Fill in the form and we'll add you to the WhatsApp group within the hour.</p>
+    <!-- PATCHED: links to club join form -->
+    <a class="btn btn-gold" href="https://docs.google.com/forms/d/e/1FAIpQLSea00sc79fuxaiGJq6IHC47IXpDwjvchhYCTa2jkHmO0AdZsw/viewform?usp=header" target="_blank" rel="noopener">Join today →</a>
+  </div>
 </div>
 
 <!-- CONTACT PAGE -->
-<div class="page" id="page-contact"><div class="contact-page-wrap"><div class="contact-top"><div class="contact-sidebar"><div class="eyebrow">Contact</div><h2>Let's talk</h2><p>Whether you have a question about a class, want to order a component, or need help with your GitHub portfolio — fill in the form or reach us directly.</p><div class="contact-item"><div class="contact-icon ci-phone">📞</div><div><h4>Phone / WhatsApp</h4><a href="tel:+254711629600">+254 711 629 600</a></div></div><div class="contact-item"><div class="contact-icon ci-email">✉️</div><div><h4>Email</h4><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a></div></div><div class="contact-item"><div class="contact-icon ci-ig">📸</div><div><h4>Instagram</h4><a href="https://instagram.com/sido.cdo" target="_blank">@sido.cdo</a></div></div><div class="contact-local"><div class="contact-local-label">📍 Based at Chuka</div><p>Locally based and serving Chuka University students directly.</p></div></div><div class="gform-wrap"><div class="gform-header"><div class="gform-header-icon">📋</div><div><h3>Send us a message</h3><p>Fill in the form below — we'll reply within a few hours</p></div></div><div class="gform-iframe-wrap"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSegj4EzSoTGpertkNp0rN3FpA6YqgFhYQ-DrEv6btGy4c5nLQ/viewform?embedded=true" width="100%" frameborder="0" title="Enemind contact form" loading="lazy">Loading…</iframe></div><div class="gform-footer"><span class="gform-footer-note">🔒 Your response goes directly to the Enemind team</span><a class="gform-open-link" href="https://docs.google.com/forms/d/e/1FAIpQLSegj4EzSoTGpertkNp0rN3FpA6YqgFhYQ-DrEv6btGy4c5nLQ/viewform" target="_blank">Open in full screen ↗</a></div></div></div></div></div>
+<div class="page" id="page-contact">
+  <div class="contact-page-wrap">
+    <div class="contact-top">
+      <div class="contact-sidebar">
+        <div class="eyebrow">Contact</div>
+        <h2>Let's talk</h2>
+        <p>Whether you have a question about a class, want to order a component, or need help with your GitHub portfolio — fill in the form or reach us directly.</p>
+        <div class="contact-item"><div class="contact-icon ci-phone">📞</div><div><h4>Phone / WhatsApp</h4><a href="tel:+254711629600">+254 711 629 600</a></div></div>
+        <div class="contact-item"><div class="contact-icon ci-email">✉️</div><div><h4>Email</h4><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a></div></div>
+        <div class="contact-item"><div class="contact-icon ci-ig">📸</div><div><h4>Instagram</h4><a href="https://instagram.com/sido.cdo" target="_blank">@sido.cdo</a></div></div>
+        <div class="contact-local"><div class="contact-local-label">📍 Based at Chuka</div><p>Locally based and serving Chuka University students directly.</p></div>
+      </div>
+      <!-- PATCHED: iframe removed, replaced with button -->
+      <div class="gform-wrap">
+        <div class="gform-header">
+          <div class="gform-header-icon">📋</div>
+          <div><h3>Send us a message</h3><p>Click below to open our contact form — we'll reply within a few hours</p></div>
+        </div>
+        <div style="padding:56px 32px;text-align:center;background:var(--bg-soft);border-top:1px solid var(--border)">
+          <div style="font-size:52px;margin-bottom:18px">📋</div>
+          <p style="font-size:15px;color:var(--text-muted);margin-bottom:28px;line-height:1.75;max-width:320px;margin-left:auto;margin-right:auto">Our contact form opens in Google Forms. Fill it in and we'll get back to you within a few hours.</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSegj4EzSoTGpertkNp0rN3FpA6YqgFhYQ-DrEv6btGy4c5nLQ/viewform" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--chuka-red);color:#fff;padding:15px 40px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;font-family:'Inter',sans-serif;transition:background .15s;">
+            Open contact form →
+          </a>
+          <p style="font-size:12px;color:var(--text-light);margin-top:20px">🔒 Your response goes directly to the Enemind team</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<footer class="footer"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo-wrap"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" class="footer-logo-img" onerror="this.style.display='none'" /><div><div class="logo-name" style="color:#fff">enemind</div><div class="logo-sub" style="color:var(--chuka-gold2)">Chuka University</div></div></div><p>Skills, tools &amp; kits for Chuka University engineering students.</p></div><div class="footer-col"><h4>Classes by Year</h4><a onclick="gotoYear('y1')">First Year</a><a onclick="gotoYear('y2')">Second Year</a><a onclick="gotoYear('y3')">Third Year</a><a onclick="gotoYear('y4')">Fourth Year</a><a onclick="gotoYear('y5')">Fifth Year</a></div><div class="footer-col"><h4>Services</h4><a onclick="showPage('portfolio')">GitHub portfolio</a><a onclick="showPage('shop')">Components shop</a><a onclick="showPage('shop')">Books shop</a><a onclick="showPage('club')">Engineering Club</a></div><div class="footer-col"><h4>Connect</h4><a href="tel:+254711629600">+254 711 629 600</a><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a><a href="https://instagram.com/sido.cdo" target="_blank">Instagram: @sido.cdo</a></div></div><div class="footer-bottom"><div class="chuka-credit"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" onerror="this.style.display='none'" /><span>© 2026 Enemind · Serving Chuka University</span></div><div class="social-links"><a class="social-link" href="https://instagram.com/sido.cdo" target="_blank">📸</a><a class="social-link" href="https://facebook.com/sidney.wafula" target="_blank">👤</a><a class="social-link" href="https://wa.me/254711629600" target="_blank">💬</a><a class="social-link" href="mailto:sidneywafula30@gmail.com">✉️</a></div></div></footer>
+  <footer class="footer"><div class="footer-grid"><div class="footer-brand"><div class="footer-logo-wrap"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" class="footer-logo-img" onerror="this.style.display='none'" /><div><div class="logo-name" style="color:#fff">enemind</div><div class="logo-sub" style="color:var(--chuka-gold2)">Chuka University</div></div></div><p>Skills, tools &amp; kits for Chuka University engineering students.</p></div><div class="footer-col"><h4>Classes by Year</h4><a onclick="gotoYear('y1')">First Year</a><a onclick="gotoYear('y2')">Second Year</a><a onclick="gotoYear('y3')">Third Year</a><a onclick="gotoYear('y4')">Fourth Year</a><a onclick="gotoYear('y5')">Fifth Year</a></div><div class="footer-col"><h4>Services</h4><a onclick="showPage('portfolio')">GitHub portfolio</a><a onclick="showPage('shop')">Components shop</a><a onclick="showPage('shop')">Books shop</a><a onclick="showPage('club')">Engineering Club</a></div><div class="footer-col"><h4>Connect</h4><a href="tel:+254711629600">+254 711 629 600</a><a href="mailto:sidneywafula30@gmail.com">sidneywafula30@gmail.com</a><a href="https://instagram.com/sido.cdo" target="_blank">Instagram: @sido.cdo</a></div></div><div class="footer-bottom"><div class="chuka-credit"><img src="https://portal.chuka.ac.ke/assets/images/logo2.png" alt="Chuka" onerror="this.style.display='none'" /><span>© 2026 Enemind · Serving Chuka University</span></div><div class="social-links"><a class="social-link" href="https://instagram.com/sido.cdo" target="_blank">📸</a><a class="social-link" href="https://facebook.com/sidney.wafula" target="_blank">👤</a><a class="social-link" href="https://wa.me/254711629600" target="_blank">💬</a><a class="social-link" href="mailto:sidneywafula30@gmail.com">✉️</a></div></div></footer>
+</div>
 
 <script>
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-links a, .nav-links .nav-dd-trigger').forEach(a=>a.classList.remove('active'));var el=document.getElementById('nav-'+id);if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function gotoYear(y){showPage('courses');switchYear(y,document.getElementById('ytab-'+y)||document.getElementById('ytab-all'));}
 function switchYear(y,btn){document.querySelectorAll('.year-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.year-tab').forEach(b=>b.classList.remove('active'));var panel=document.getElementById('panel-'+y);if(panel)panel.classList.add('active');if(btn)btn.classList.add('active');document.querySelector('.courses-top')?.scrollIntoView({behavior:'smooth',block:'start'});}
-function toggleDD(name){document.getElementById('nav-dd-'+name).classList.toggle('open');}
+function toggleDD(name){document.querySelectorAll('.nav-dd').forEach(d=>{if(d.id!=='nav-dd-'+name)d.classList.remove('open');});document.getElementById('nav-dd-'+name).classList.toggle('open');}
 document.addEventListener('click',function(e){if(!e.target.closest('.nav-dd'))document.querySelectorAll('.nav-dd').forEach(d=>d.classList.remove('open'));});
 function toggleMobile(){document.getElementById('nav-mobile').classList.toggle('open');}
 function closeMobile(){document.getElementById('nav-mobile').classList.remove('open');}
