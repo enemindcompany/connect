@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Class Portal</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1558b0;
+    --accent: #34a853;
+    --warn: #fbbc04;
+    --danger: #ea4335;
+    --bg: #f0f4ff;
+    --card: #ffffff;
+    --text: #202124;
+    --muted: #5f6368;
+    --border: #e0e0e0;
+    --radius: 14px;
+    --sidebar-w: 248px;
+    --header-h: 64px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+  /* ── Layout ── */
+  nav {
+    width: var(--sidebar-w); background: #fff; border-right: 1px solid var(--border);
+    position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 200;
+    display: flex; flex-direction: column;
+  }
+  main { margin-left: var(--sidebar-w); min-height: 100vh; padding: 32px 36px; }
+
+  /* ── Sidebar header ── */
+  .nav-header {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: #fff; padding: 18px 18px 16px; flex-shrink: 0;
+  }
+  .nav-logo { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+  .nav-tag { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+
+  /* ── Nav items ── */
+  .nav-section { padding: 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1px; padding: 10px 18px 4px;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 18px;
+    cursor: pointer; font-size: 13.5px; color: #3c4043; border-left: 3px solid transparent;
+    transition: all 0.12s; text-decoration: none; user-select: none;
+  }
+  .nav-item:hover { background: #e8f0fe; color: var(--primary); }
+  .nav-item.active { background: #e8f0fe; color: var(--primary); border-left-color: var(--primary); font-weight: 600; }
+  .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .nav-item .badge-count {
+    margin-left: auto; background: var(--primary); color: #fff;
+    font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; min-width: 18px; text-align: center;
+  }
+
+  /* ── Pages ── */
+  .page { display: none; animation: fadeIn 0.2s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .page-title { font-size: 26px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.5px; }
+  .page-sub { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px; margin-bottom: 14px; transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .card-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .card-body { font-size: 14px; line-height: 1.7; color: #3c4043; white-space: pre-wrap; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block; font-size: 10.5px; font-weight: 700; padding: 3px 10px;
+    border-radius: 20px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .badge-blue   { background: #e8f0fe; color: #1a73e8; }
+  .badge-green  { background: #e6f4ea; color: #137333; }
+  .badge-amber  { background: #fef3cd; color: #856404; }
+  .badge-red    { background: #fce8e6; color: #c5221f; }
+  .badge-purple { background: #f3e8fd; color: #7c4dff; }
+  .badge-gray   { background: #f1f3f4; color: #5f6368; }
+  .badge-teal   { background: #e0f7fa; color: #00696d; }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); background: #fff; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { background: #f8f9fa; text-align: left; padding: 11px 16px; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid #f1f3f4; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfe; }
+
+  /* ── Stats ── */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .stat-val { font-size: 30px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+  .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px;
+    border: none; border-radius: 8px; font-size: 13.5px; font-weight: 500; cursor: pointer; transition: all 0.12s;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-success { background: var(--accent); color: #fff; }
+  .btn-danger  { background: var(--danger); color: #fff; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: var(--bg); }
+
+  /* ── Forms ── */
+  .form-group { margin-bottom: 14px; }
+  label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+  input[type=text], input[type=password], input[type=email], input[type=url], select, textarea {
+    width: 100%; padding: 9px 13px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13.5px; outline: none; transition: border 0.15s; background: #fff;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,115,232,0.1); }
+  textarea { min-height: 90px; resize: vertical; }
+
+  /* ── Alerts ── */
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 13.5px; margin-bottom: 14px; }
+  .alert-success { background: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+  .alert-error   { background: #fce8e6; color: #c5221f; border: 1px solid #f8bbb7; }
+  .alert-info    { background: #e8f0fe; color: #1a73e8; border: 1px solid #c6d7f8; }
+  .alert-warn    { background: #fff3cd; color: #7a5800; border: 1px solid #ffe082; }
+
+  /* ── Personnel ── */
+  .person-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+  .person-avatar {
+    width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg,#e8f0fe,#c6d7f8);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: #1a73e8; margin: 0 auto 12px;
+  }
+  .person-name { font-size: 15px; font-weight: 600; }
+  .person-role { font-size: 12px; color: var(--muted); margin: 3px 0 6px; }
+  .person-email { font-size: 12px; color: var(--primary); word-break: break-all; }
+
+  /* ── Gallery ── */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .gallery-item {
+    aspect-ratio: 1; border-radius: 10px; overflow: hidden;
+    background: #e8eaed; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid var(--border);
+  }
+  .gallery-item:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .gallery-item span { font-size: 13px; color: var(--muted); padding: 8px; text-align: center; }
+
+  /* ── Config panel ── */
+  .config-box {
+    background: #fffbea; border: 1px solid #ffe082; border-radius: var(--radius);
+    padding: 20px; margin-bottom: 24px;
+  }
+  .config-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: #5a3e00; }
+
+  /* ── Loading spinner ── */
+  .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #e0e0e0; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-row { color: var(--muted); font-size: 14px; padding: 20px 0; display: flex; align-items: center; }
+
+  /* ── Empty state ── */
+  .empty { color: var(--muted); font-size: 14px; padding: 32px; text-align: center; }
+  .empty-icon { font-size: 36px; margin-bottom: 10px; }
+
+  /* ── Broadcast banner ── */
+  .broadcast-banner {
+    background: linear-gradient(135deg,#e8f0fe 0%,#f3e8fd 100%);
+    border: 1px solid #c6d7f8; border-radius: var(--radius); padding: 20px; margin-bottom: 22px;
+  }
+
+  /* ── Registration ── */
+  .reg-card { max-width: 520px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); }
+    main { margin-left: 0; padding: 18px 16px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     CONFIGURATION — Edit this block before deploying
+     ════════════════════════════════════════════════════════
+  HOW TO GET YOUR SHEET JSON URL:
+  1. Open your Google Sheet
+  2. File → Share → Publish to web → choose "Entire Document" + "JSON"
+     (or publish each sheet individually)
+  3. The URL looks like:
+     https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:json&sheet=SHEET_NAME
+  Replace SHEET_ID with your actual spreadsheet ID.
+  ════════════════════════════════════════════════════════ -->
+<script>
+const SITE_CONFIG = {
+  // ── REQUIRED: Replace with your Google Spreadsheet ID ──────────────────
+  // Found in the URL: docs.google.com/spreadsheets/d/THIS_PART/edit
+  SHEET_ID: "YOUR_SPREADSHEET_ID_HERE",
+
+  // ── Sheet tab names (must match exactly in your Google Sheet) ──────────
+  SHEETS: {
+    UPDATES:   "Admin Updates",   // Your broadcast/content tab
+    TIMETABLE: "Timetable",       // New tab you'll create
+    EXAMS:     "Exams",           // New tab you'll create
+    PERSONNEL: "Personnel",       // New tab you'll create
+    MEMBERS:   "third",           // Your form responses tab
+  },
+
+  // ── Admin password (same as in your Apps Script CONFIG) ───────────────
+  ADMIN_PASSWORD: "YourAdminPassword123",
+
+  // ── Class display name ─────────────────────────────────────────────────
+  CLASS_NAME: "Class of 2025",
+
+  // ── Your Google Form URL (for the Registration page) ──────────────────
+  REG_FORM_URL: "",
+
+  // ── Auto-refresh interval in seconds (0 = disabled) ───────────────────
+  REFRESH_INTERVAL: 120,
+};
+</script>
+
+<div id="app" style="display:flex; min-height:100vh;">
+
+<!-- ── SIDEBAR ─────────────────────────────────────────── -->
+<nav>
+  <div class="nav-header">
+    <div class="nav-logo" id="nav-logo">🎓 Class Portal</div>
+    <div class="nav-tag">Student Information System</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Main</div>
+    <a class="nav-item active" onclick="go('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      Home
+    </a>
+    <a class="nav-item" onclick="go('announcements')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 000 6h20"/><path d="M6 17V3a1 1 0 011-1h14a1 1 0 011 1v14"/></svg>
+      Announcements <span class="badge-count" id="cnt-announcements" style="display:none"></span>
+    </a>
+    <a class="nav-item" onclick="go('timetable')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Timetable
+    </a>
+    <a class="nav-item" onclick="go('assignments')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Assignments <span class="badge-count" id="cnt-assignments" style="display:none"></span>
+    </a>
+    <a class="nav-item" onclick="go('exams')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Exam Timetable
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Resources</div>
+    <a class="nav-item" onclick="go('documents')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+      Study Documents
+    </a>
+    <a class="nav-item" onclick="go('academic')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      Academic Support
+    </a>
+    <a class="nav-item" onclick="go('registration')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Registration
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Life</div>
+    <a class="nav-item" onclick="go('sports')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4-4-4 4-4z"/></svg>
+      Sports
+    </a>
+    <a class="nav-item" onclick="go('gallery')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+      Gallery
+    </a>
+    <a class="nav-item" onclick="go('personnel')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      Personnel
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Admin</div>
+    <a class="nav-item" onclick="go('admin')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+      Admin Panel
+    </a>
+  </div>
+
+  <div style="padding: 12px 14px; margin-top: auto; border-top: 1px solid var(--border);">
+    <button class="btn btn-outline" style="width:100%; font-size:12px; justify-content:center;" onclick="loadAllData(true)">
+      🔄 Refresh Data
+    </button>
+    <div id="last-refresh" style="font-size:11px; color:var(--muted); text-align:center; margin-top:6px;"></div>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+<main>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="page-title" id="home-title">Welcome 🎓</div>
+    <div class="page-sub">Stay updated with everything happening in class</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-val" id="stat-members">–</div><div class="stat-lbl">Registered Members</div></div>
+      <div class="stat"><div class="stat-val" id="stat-announcements">–</div><div class="stat-lbl">Announcements</div></div>
+      <div class="stat"><div class="stat-val" id="stat-assignments">–</div><div class="stat-lbl">Assignments</div></div>
+      <div class="stat"><div class="stat-val" id="stat-docs">–</div><div class="stat-lbl">Documents Shared</div></div>
+    </div>
+    <div style="font-size:16px; font-weight:700; margin-bottom:14px; color:var(--text);">Recent Updates</div>
+    <div id="home-recent"><div class="loading-row"><span class="spinner"></span> Loading updates…</div></div>
+  </div>
+
+  <!-- ANNOUNCEMENTS -->
+  <div id="page-announcements" class="page">
+    <div class="page-title">📢 Announcements</div>
+    <div class="page-sub">Important notices from your admin</div>
+    <div id="list-announcements"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- TIMETABLE -->
+  <div id="page-timetable" class="page">
+    <div class="page-title">📅 Class Timetable</div>
+    <div class="page-sub">Weekly schedule — updated live from the class sheet</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Day</th><th>Time</th><th>Subject</th><th>Lecturer</th><th>Room/Venue</th><th>Notes</th></tr></thead>
+        <tbody id="timetable-body"><tr><td colspan="6"><div class="loading-row"><span class="spinner"></span> Loading…</div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASSIGNMENTS -->
+  <div id="page-assignments" class="page">
+    <div class="page-title">📝 Assignments</div>
+    <div class="page-sub">Tasks, deadlines, and submissions</div>
+    <div id="list-assignments"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- EXAM TIMETABLE -->
+  <div id="page-exams" class="page">
+    <div class="page-title">📋 Exam Timetable</div>
+    <div class="page-sub">Upcoming examinations — check regularly</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Subject</th><th>Time</th><th>Venue</th><th>Duration</th><th>Notes</th></tr></thead>
+        <tbody id="exam-body"><tr><td colspan="6"><div class="loading-row"><span class="spinner"></span> Loading…</div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DOCUMENTS -->
+  <div id="page-documents" class="page">
+    <div class="page-title">📁 Study Documents</div>
+    <div class="page-sub">Course materials, notes, and resources</div>
+    <div id="list-documents"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- ACADEMIC SUPPORT -->
+  <div id="page-academic" class="page">
+    <div class="page-title">📚 Academic Support</div>
+    <div class="page-sub">Help resources, tutoring, and guidance</div>
+    <div id="list-academic"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- REGISTRATION -->
+  <div id="page-registration" class="page">
+    <div class="page-title">📋 Registration</div>
+    <div class="page-sub">Join the class — subscribe to all updates via email</div>
+    <div class="card reg-card">
+      <div class="alert alert-info">Submitting the form below registers you to receive all class notifications by email.</div>
+      <div id="reg-area" style="margin-top:16px; text-align:center;">
+        <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">Click the button to open the registration form:</p>
+        <a id="reg-link" href="#" target="_blank" class="btn btn-primary" style="font-size:15px; padding:12px 28px;">
+          📝 Open Registration Form
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPORTS -->
+  <div id="page-sports" class="page">
+    <div class="page-title">⚽ Sports</div>
+    <div class="page-sub">Teams, fixtures, results, and sports news</div>
+    <div id="list-sports"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- GALLERY -->
+  <div id="page-gallery" class="page">
+    <div class="page-title">🖼️ Gallery</div>
+    <div class="page-sub">Photos and event memories</div>
+    <div id="list-gallery"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- PERSONNEL -->
+  <div id="page-personnel" class="page">
+    <div class="page-title">👥 Personnel</div>
+    <div class="page-sub">Lecturers, tutors, and class officials</div>
+    <div id="list-personnel"><div class="loading-row"><span class="spinner"></span> Loading…</div></div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="page-admin" class="page">
+    <!-- Login gate -->
+    <div id="admin-gate" style="max-width:420px;">
+      <div class="page-title">🔐 Admin Login</div>
+      <div class="page-sub">Access the admin panel to manage sheet configuration</div>
+      <div class="card">
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="admin-pass" placeholder="Enter password…" onkeydown="if(event.key==='Enter')checkAdmin()"/>
+        </div>
+        <button class="btn btn-primary" onclick="checkAdmin()">Login →</button>
+        <div id="admin-login-msg" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div id="admin-dashboard" style="display:none;">
+      <div class="page-title">🛠️ Admin Dashboard</div>
+      <div class="page-sub">All content is managed from your Google Sheet — guide below</div>
+
+      <!-- Sheet setup guide -->
+      <div class="config-box">
+        <h3>⚙️ Google Sheet Setup Guide</h3>
+        <p style="font-size:13.5px; line-height:1.7; color:#5a3e00;">
+          The website reads directly from your Google Sheet. Follow these steps to connect:
+        </p>
+        <ol style="font-size:13.5px; line-height:2; color:#5a3e00; padding-left:20px; margin-top:8px;">
+          <li>Open your Google Sheet → <strong>File → Share → Publish to web</strong></li>
+          <li>Select <strong>"Entire Document"</strong> and <strong>"Web page"</strong>, then click <strong>Publish</strong></li>
+          <li>Copy your Sheet ID from the URL bar (the long string between <code>/d/</code> and <code>/edit</code>)</li>
+          <li>Edit the <code>SITE_CONFIG</code> block at the top of this HTML file and paste your Sheet ID</li>
+          <li>Make sure your sheet tabs are named exactly: <code>Admin Updates</code>, <code>Timetable</code>, <code>Exams</code>, <code>Personnel</code></li>
+        </ol>
+        <div style="margin-top:14px;">
+          <div class="form-group">
+            <label>Your Sheet ID (paste here to test)</label>
+            <input type="text" id="cfg-sheetid" placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"/>
+          </div>
+          <button class="btn btn-primary" onclick="applySheetId()">Apply & Refresh</button>
+        </div>
+      </div>
+
+      <!-- How to add content guide -->
+      <div class="card">
+        <div class="card-title">📋 How to Add Content (Sheet Column Guide)</div>
+        <div class="card-body" style="margin-top:10px;">
+          <p style="margin-bottom:14px; font-size:13.5px;">Add rows to your Google Sheet tabs — the website refreshes automatically.</p>
+
+          <strong style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Admin Updates tab</strong>
+          <div class="table-wrap" style="margin:8px 0 18px;">
+            <table>
+              <thead><tr><th>A: Category</th><th>B: Title</th><th>C: Message</th><th>D: Link (optional)</th><th>E: Send Status</th></tr></thead>
+              <tbody>
+                <tr><td>Announcement</td><td>CAT 2 Results Out</td><td>Results are now available…</td><td>https://drive.google.com/…</td><td><em>auto-filled by script</em></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <strong style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Timetable tab</strong>
+          <div class="table-wrap" style="margin:8px 0 18px;">
+            <table>
+              <thead><tr><th>A: Day</th><th>B: Time</th><th>C: Subject</th><th>D: Lecturer</th><th>E: Room</th><th>F: Notes</th></tr></thead>
+              <tbody><tr><td>Monday</td><td>8:00 AM</td><td>Mathematics</td><td>Dr. Smith</td><td>LT 1</td><td>Bring calculator</td></tr></tbody>
+            </table>
+          </div>
+
+          <strong style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Exams tab</strong>
+          <div class="table-wrap" style="margin:8px 0 18px;">
+            <table>
+              <thead><tr><th>A: Date</th><th>B: Subject</th><th>C: Time</th><th>D: Venue</th><th>E: Duration</th><th>F: Notes</th></tr></thead>
+              <tbody><tr><td>12 Dec 2025</td><td>Mathematics</td><td>9:00 AM</td><td>Hall A</td><td>2 hrs</td><td>Open book</td></tr></tbody>
+            </table>
+          </div>
+
+          <strong style="font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Personnel tab</strong>
+          <div class="table-wrap" style="margin:8px 0 18px;">
+            <table>
+              <thead><tr><th>A: Name</th><th>B: Role</th><th>C: Email</th><th>D: Phone (optional)</th></tr></thead>
+              <tbody><tr><td>Prof. Jane Doe</td><td>Lecturer - Physics</td><td>j.doe@uni.ac.ke</td><td>+254 700 000 000</td></tr></tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info" style="margin-top:4px;">
+            <strong>Tip:</strong> The website auto-detects the <em>Category</em> column in Admin Updates and routes items to the correct page (Announcements, Documents, Sports, Gallery, etc.)
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="card">
+        <div class="card-title">⚙️ Site Settings (saved locally)</div>
+        <div class="grid2" style="margin-top:12px;">
+          <div class="form-group">
+            <label>Class Name</label>
+            <input type="text" id="set-classname" placeholder="Class of 2025"/>
+          </div>
+          <div class="form-group">
+            <label>Registration Form URL</label>
+            <input type="url" id="set-regurl" placeholder="https://forms.gle/…"/>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-success" onclick="saveSettings()">💾 Save Settings</button>
+          <button class="btn btn-outline" onclick="loadAllData(true)">🔄 Force Refresh</button>
+          <button class="btn btn-danger" onclick="adminLogout()">Logout</button>
+        </div>
+        <div id="settings-msg" style="margin-top:12px;"></div>
+      </div>
+
+      <div id="admin-data-status" style="margin-top:14px;"></div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DATA LAYER — reads from Google Sheets published JSON
+// ═══════════════════════════════════════════════════════════
+
+// Runtime config (merged from SITE_CONFIG + localStorage overrides)
+let CFG = Object.assign({}, SITE_CONFIG);
+
+// In-memory data cache
+let DATA = {
+  updates: [],
+  timetable: [],
+  exams: [],
+  personnel: [],
+  members: 0,
+};
+
+// ── Persist overrides in localStorage ───────────────────
+function persistLoad() {
+  const s = localStorage.getItem("classPortalSettings");
+  if (s) {
+    const p = JSON.parse(s);
+    if (p.CLASS_NAME)    CFG.CLASS_NAME    = p.CLASS_NAME;
+    if (p.REG_FORM_URL)  CFG.REG_FORM_URL  = p.REG_FORM_URL;
+    if (p.SHEET_ID)      CFG.SHEET_ID      = p.SHEET_ID;
+  }
+}
+function persistSave() {
+  localStorage.setItem("classPortalSettings", JSON.stringify({
+    CLASS_NAME:   CFG.CLASS_NAME,
+    REG_FORM_URL: CFG.REG_FORM_URL,
+    SHEET_ID:     CFG.SHEET_ID,
+  }));
+}
+
+// ── Build Google Sheets JSON URL ─────────────────────────
+function sheetUrl(sheetName) {
+  return `https://docs.google.com/spreadsheets/d/${CFG.SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+}
+
+// ── Parse the gviz JSON response ────────────────────────
+function parseGviz(text) {
+  // Strip the google.visualization.Query.setResponse( ... ) wrapper
+  const json = text.replace(/^[^(]+\(/, "").replace(/\);?\s*$/, "");
+  const obj  = JSON.parse(json);
+  if (!obj.table || !obj.table.rows) return [];
+
+  const headers = obj.table.cols.map(c => (c.label || "").trim());
+  return obj.table.rows.map(row => {
+    const r = {};
+    row.c.forEach((cell, i) => {
+      r[headers[i]] = cell && cell.v != null ? String(cell.v).trim() : "";
+    });
+    return r;
+  }).filter(r => Object.values(r).some(v => v)); // skip blank rows
+}
+
+// ── Fetch one sheet ──────────────────────────────────────
+async function fetchSheet(sheetName) {
+  const url = sheetUrl(sheetName);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} for sheet "${sheetName}"`);
+  const text = await res.text();
+  return parseGviz(text);
+}
+
+// ── Load all sheets ──────────────────────────────────────
+async function loadAllData(showFeedback = false) {
+  if (CFG.SHEET_ID === "YOUR_SPREADSHEET_ID_HERE" || !CFG.SHEET_ID) {
+    renderNotConnected();
+    return;
+  }
+
+  const st = document.getElementById("last-refresh");
+  st.textContent = "Refreshing…";
+
+  try {
+    const [updates, timetable, exams, personnel] = await Promise.all([
+      fetchSheet(CFG.SHEETS.UPDATES).catch(() => []),
+      fetchSheet(CFG.SHEETS.TIMETABLE).catch(() => []),
+      fetchSheet(CFG.SHEETS.EXAMS).catch(() => []),
+      fetchSheet(CFG.SHEETS.PERSONNEL).catch(() => []),
+    ]);
+
+    DATA.updates   = updates;
+    DATA.timetable = timetable;
+    DATA.exams     = exams;
+    DATA.personnel = personnel;
+
+    // Count members from updates sheet (or could fetch members sheet separately)
+    const memberRows = await fetchSheet(CFG.SHEETS.MEMBERS).catch(() => []);
+    DATA.members = memberRows.length;
+
+    renderCurrentPage();
+    updateBadges();
+    st.textContent = "Last updated: " + new Date().toLocaleTimeString();
+    if (showFeedback) showDataStatus("✅ Data refreshed from Google Sheets.", "success");
+  } catch (err) {
+    st.textContent = "Refresh failed";
+    if (showFeedback) showDataStatus("❌ Could not load data: " + err.message + ". Make sure your Sheet ID is correct and the sheet is published to web.", "error");
+    console.error(err);
+  }
+}
+
+function showDataStatus(msg, type) {
+  const el = document.getElementById("admin-data-status");
+  if (el) el.innerHTML = `<div class="alert alert-${type === "success" ? "success" : "error"}">${msg}</div>`;
+}
+
+function renderNotConnected() {
+  const msg = `
+    <div class="card" style="text-align:center; padding:40px;">
+      <div style="font-size:40px; margin-bottom:12px;">🔗</div>
+      <div class="card-title" style="font-size:18px; margin-bottom:8px;">Connect your Google Sheet</div>
+      <div class="card-body">Go to <strong>Admin Panel</strong>, log in, and paste your Google Sheet ID to start displaying live data.</div>
+    </div>`;
+  ["home-recent","list-announcements","list-assignments","list-documents","list-sports","list-academic","list-gallery","list-personnel"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = msg;
+  });
+  ["timetable-body","exam-body"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--muted); padding:32px;">Connect your Google Sheet to see data here.</td></tr>`;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════
+
+let currentPage = "home";
+
+function go(page) {
+  currentPage = page;
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById("page-" + page).classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(n => {
+    if (n.getAttribute("onclick") === `go('${page}')`) n.classList.add("active");
+  });
+  renderCurrentPage();
+}
+
+function renderCurrentPage() {
+  const p = currentPage;
+  if (p === "home")          renderHome();
+  if (p === "announcements") renderUpdatesFiltered("list-announcements", ["Announcement","Other","Timetable","Exam Timetable"]);
+  if (p === "assignments")   renderUpdatesFiltered("list-assignments", ["Assignment"]);
+  if (p === "documents")     renderUpdatesFiltered("list-documents", ["Document"]);
+  if (p === "sports")        renderUpdatesFiltered("list-sports", ["Sports"]);
+  if (p === "academic")      renderUpdatesFiltered("list-academic", ["Academic Support"]);
+  if (p === "gallery")       renderGallery();
+  if (p === "personnel")     renderPersonnel();
+  if (p === "timetable")     renderTimetable();
+  if (p === "exams")         renderExams();
+  if (p === "registration")  renderReg();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════════
+
+const BADGE_MAP = {
+  "Announcement": "badge-blue",
+  "Assignment":   "badge-amber",
+  "Timetable":    "badge-green",
+  "Exam Timetable": "badge-red",
+  "Document":     "badge-gray",
+  "Sports":       "badge-purple",
+  "Personnel":    "badge-teal",
+  "Academic Support": "badge-green",
+  "Gallery":      "badge-gray",
+  "Other":        "badge-blue",
+};
+
+function cardHTML(row) {
+  const category = row["Category"] || row["category"] || "Update";
+  const title    = row["Title"]    || row["title"]    || "(no title)";
+  const body     = row["Message"]  || row["message"]  || row["Body"] || "";
+  const link     = row["Link (optional)"] || row["Link"] || row["link"] || "";
+  const badge    = BADGE_MAP[category] || "badge-gray";
+  return `
+    <div class="card">
+      <span class="badge ${badge}">${category}</span>
+      <div class="card-title">${escHtml(title)}</div>
+      <div class="card-body">${escHtml(body)}</div>
+      ${link ? `<a href="${escHtml(link)}" target="_blank" class="btn btn-outline" style="margin-top:12px; font-size:13px;">🔗 Open Link</a>` : ""}
+    </div>`;
+}
+
+function renderHome() {
+  document.getElementById("home-title").textContent = "Welcome to " + CFG.CLASS_NAME + " 🎓";
+  document.getElementById("nav-logo").textContent   = "🎓 " + CFG.CLASS_NAME;
+
+  const ann = DATA.updates.filter(r => r["Category"] === "Announcement" || r["Category"] === "Other");
+  const asg = DATA.updates.filter(r => r["Category"] === "Assignment");
+  const doc = DATA.updates.filter(r => r["Category"] === "Document");
+
+  document.getElementById("stat-members").textContent       = DATA.members || "–";
+  document.getElementById("stat-announcements").textContent  = ann.length;
+  document.getElementById("stat-assignments").textContent    = asg.length;
+  document.getElementById("stat-docs").textContent          = doc.length;
+
+  const recent = DATA.updates.slice(0, 6);
+  const el = document.getElementById("home-recent");
+  el.innerHTML = recent.length
+    ? recent.map(r => cardHTML(r)).join("")
+    : emptyState("📭", "No updates yet", "Your admin hasn't posted anything yet. Check back soon.");
+}
+
+function renderUpdatesFiltered(elId, categories) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const items = DATA.updates.filter(r => categories.includes(r["Category"]));
+  el.innerHTML = items.length
+    ? items.map(r => cardHTML(r)).join("")
+    : emptyState("📭", "Nothing here yet", "Your admin hasn't posted anything in this category.");
+}
+
+function renderTimetable() {
+  const tbody = document.getElementById("timetable-body");
+  if (!tbody) return;
+  if (!DATA.timetable.length) {
+    tbody.innerHTML = `<tr><td colspan="6">${emptyState("📅","No timetable yet","The admin hasn't added any timetable rows. Create a 'Timetable' sheet tab with the columns shown in the Admin guide.")}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = DATA.timetable.map(r => `
+    <tr>
+      <td><strong>${escHtml(r["Day"]||r["A"]||"")}</strong></td>
+      <td>${escHtml(r["Time"]||r["B"]||"")}</td>
+      <td>${escHtml(r["Subject"]||r["C"]||"")}</td>
+      <td>${escHtml(r["Lecturer"]||r["D"]||"")}</td>
+      <td>${escHtml(r["Room"]||r["Room/Venue"]||r["E"]||"")}</td>
+      <td style="color:var(--muted); font-size:12px;">${escHtml(r["Notes"]||r["F"]||"")}</td>
+    </tr>`).join("");
+}
+
+function renderExams() {
+  const tbody = document.getElementById("exam-body");
+  if (!tbody) return;
+  if (!DATA.exams.length) {
+    tbody.innerHTML = `<tr><td colspan="6">${emptyState("📋","No exams scheduled","The admin hasn't added exam entries. Create an 'Exams' sheet tab with the columns shown in the Admin guide.")}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = DATA.exams.map(r => `
+    <tr>
+      <td><strong>${escHtml(r["Date"]||r["A"]||"")}</strong></td>
+      <td>${escHtml(r["Subject"]||r["B"]||"")}</td>
+      <td>${escHtml(r["Time"]||r["C"]||"")}</td>
+      <td>${escHtml(r["Venue"]||r["D"]||"")}</td>
+      <td>${escHtml(r["Duration"]||r["E"]||"")}</td>
+      <td style="color:var(--muted); font-size:12px;">${escHtml(r["Notes"]||r["F"]||"")}</td>
+    </tr>`).join("");
+}
+
+function renderPersonnel() {
+  const el = document.getElementById("list-personnel");
+  if (!el) return;
+  if (!DATA.personnel.length) {
+    el.innerHTML = emptyState("👥","No personnel yet","The admin hasn't added anyone. Create a 'Personnel' sheet tab.");
+    return;
+  }
+  el.innerHTML = `<div class="grid3">${DATA.personnel.map(p => {
+    const name  = p["Name"]  || p["A"] || "?";
+    const role  = p["Role"]  || p["B"] || "";
+    const email = p["Email"] || p["C"] || "";
+    const phone = p["Phone"] || p["D"] || "";
+    const initials = name.split(" ").map(n=>n[0]||"").join("").slice(0,2).toUpperCase();
+    return `
+      <div class="person-card">
+        <div class="person-avatar">${initials}</div>
+        <div class="person-name">${escHtml(name)}</div>
+        <div class="person-role">${escHtml(role)}</div>
+        ${email ? `<div class="person-email"><a href="mailto:${escHtml(email)}" style="color:var(--primary);">${escHtml(email)}</a></div>` : ""}
+        ${phone ? `<div style="font-size:12px; color:var(--muted); margin-top:3px;">${escHtml(phone)}</div>` : ""}
+      </div>`;
+  }).join("")}</div>`;
+}
+
+function renderGallery() {
+  const el = document.getElementById("list-gallery");
+  if (!el) return;
+  const items = DATA.updates.filter(r => r["Category"] === "Gallery");
+  if (!items.length) {
+    el.innerHTML = emptyState("🖼️","No photos yet","The admin can add Gallery entries via the Admin Updates sheet.");
+    return;
+  }
+  el.innerHTML = `<div class="gallery-grid">${items.map(r => {
+    const link  = r["Link (optional)"] || r["Link"] || "";
+    const title = r["Title"] || "Photo";
+    return link
+      ? `<a class="gallery-item" href="${escHtml(link)}" target="_blank" title="${escHtml(title)}">🖼️</a>`
+      : `<div class="gallery-item" title="${escHtml(title)}"><span>${escHtml(title)}</span></div>`;
+  }).join("")}</div>`;
+}
+
+function renderReg() {
+  const link = document.getElementById("reg-link");
+  if (!link) return;
+  if (CFG.REG_FORM_URL) {
+    link.href = CFG.REG_FORM_URL;
+    link.textContent = "📝 Open Registration Form";
+  } else {
+    link.href = "#";
+    link.textContent = "Registration link not set yet";
+    link.style.opacity = "0.5";
+  }
+}
+
+function updateBadges() {
+  const ann = DATA.updates.filter(r => ["Announcement","Other"].includes(r["Category"]));
+  const asg = DATA.updates.filter(r => r["Category"] === "Assignment");
+
+  const setBadge = (id, count) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (count > 0) { el.textContent = count; el.style.display = "inline-block"; }
+    else el.style.display = "none";
+  };
+  setBadge("cnt-announcements", ann.length);
+  setBadge("cnt-assignments", asg.length);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ADMIN
+// ═══════════════════════════════════════════════════════════
+
+let adminLoggedIn = false;
+
+function checkAdmin() {
+  const pwd = document.getElementById("admin-pass").value;
+  const msg = document.getElementById("admin-login-msg");
+  if (pwd === CFG.ADMIN_PASSWORD) {
+    adminLoggedIn = true;
+    document.getElementById("admin-gate").style.display = "none";
+    document.getElementById("admin-dashboard").style.display = "block";
+    document.getElementById("set-classname").value = CFG.CLASS_NAME;
+    document.getElementById("set-regurl").value    = CFG.REG_FORM_URL;
+    document.getElementById("cfg-sheetid").value   = CFG.SHEET_ID !== "YOUR_SPREADSHEET_ID_HERE" ? CFG.SHEET_ID : "";
+  } else {
+    msg.innerHTML = `<div class="alert alert-error">❌ Wrong password.</div>`;
+  }
+}
+
+function adminLogout() {
+  adminLoggedIn = false;
+  document.getElementById("admin-pass").value = "";
+  document.getElementById("admin-login-msg").innerHTML = "";
+  document.getElementById("admin-gate").style.display      = "block";
+  document.getElementById("admin-dashboard").style.display = "none";
+}
+
+function applySheetId() {
+  const id = document.getElementById("cfg-sheetid").value.trim();
+  if (!id) { showDataStatus("Please paste a Sheet ID first.", "error"); return; }
+  CFG.SHEET_ID = id;
+  persistSave();
+  loadAllData(true);
+}
+
+function saveSettings() {
+  const cn = document.getElementById("set-classname").value.trim();
+  const ru = document.getElementById("set-regurl").value.trim();
+  if (cn) CFG.CLASS_NAME   = cn;
+  if (ru !== undefined) CFG.REG_FORM_URL = ru;
+  persistSave();
+  document.getElementById("nav-logo").textContent = "🎓 " + CFG.CLASS_NAME;
+  document.getElementById("home-title").textContent = "Welcome to " + CFG.CLASS_NAME + " 🎓";
+  document.getElementById("settings-msg").innerHTML = `<div class="alert alert-success">✅ Settings saved!</div>`;
+  setTimeout(() => { document.getElementById("settings-msg").innerHTML = ""; }, 3000);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════════════════════
+
+function escHtml(str) {
+  return String(str || "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function emptyState(icon, title, msg) {
+  return `<div class="empty"><div class="empty-icon">${icon}</div><strong>${title}</strong><br><span style="font-size:13px;">${msg}</span></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+
+persistLoad();
+document.getElementById("nav-logo").textContent = "🎓 " + CFG.CLASS_NAME;
+if (CFG.REG_FORM_URL) document.getElementById("reg-link").href = CFG.REG_FORM_URL;
+
+loadAllData();
+
+// Auto-refresh
+if (CFG.REFRESH_INTERVAL > 0) {
+  setInterval(() => loadAllData(), CFG.REFRESH_INTERVAL * 1000);
+}
+</script>
+</body>
+</html>
